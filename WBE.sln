@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WBE", "WBE\WBE.vbproj", "{7A3DF758-2A73-4430-9213-7899BD0C6331}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E6DB948B-97A4-4110-BF54-EB8645CDA347}"
+	ProjectSection(SolutionItems) = preProject
+		WBE\bin\Debug\WBE.mdf = WBE\bin\Debug\WBE.mdf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
