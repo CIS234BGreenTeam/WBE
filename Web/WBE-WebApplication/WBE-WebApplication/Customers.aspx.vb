@@ -10,7 +10,7 @@
         Dim i As Integer
         Dim iNoLines As Integer = 2 'This will be dynamic
 
-        phInventory.Controls.Clear()
+        pnlInventory.Controls.Clear()
 
         ReDim txtDesired(iNoLines)
         ReDim txtActual(iNoLines)
@@ -21,24 +21,37 @@
         For i = 1 To iNoLines
             cboItem(i) = New DropDownList
             FillBakedItemList(cboItem(i))
-            phInventory.Controls.Add(cboItem(i))
+            pnlInventory.Controls.Add(cboItem(i))
+            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
+            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
+            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
             'call function to fill in items in dropdownlist 
 
             lblDesired(i) = New Label
             lblDesired(i).Text = "Desired"
-            phInventory.Controls.Add(lblDesired(i))
+            lblDesired(i).Width = 50
+            pnlInventory.Controls.Add(lblDesired(i))
 
             txtDesired(i) = New TextBox
-            phInventory.Controls.Add(txtDesired(i))
+            txtDesired(i).Width = 25
+            pnlInventory.Controls.Add(txtDesired(i))
+            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
+            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
+            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
+
 
             lblActual(i) = New Label
             lblActual(i).Text = "Actual"
-            phInventory.Controls.Add(lblActual(i))
+            lblActual(i).Width = 40
+            pnlInventory.Controls.Add(lblActual(i))
 
             txtActual(i) = New TextBox
-            phInventory.Controls.Add(txtActual(i))
+            txtActual(i).Width = 25
+            pnlInventory.Controls.Add(txtActual(i))
 
-            phInventory.Controls.Add(New LiteralControl("<br />"))
+            pnlInventory.Controls.Add(New LiteralControl("<br />"))
+
+            FillOrders()
 
         Next
     End Sub
@@ -49,4 +62,10 @@
         cboItem.Items.Add("Baked Good 2")
     End Sub
 
+    Private Sub FillOrders()
+        'This function will add existing client orders
+        lstOrders.Items.Clear()
+        lstOrders.Items.Add("Order: 1234, Date: 1/1/2013")
+        lstOrders.Items.Add("Order: 1235, Date: 1/2/2013")
+    End Sub
 End Class

@@ -8,6 +8,9 @@
         About
     </h2>
     <p>
-        Put content here.
-    </p>
+        This site was created by:</p>
+    <p>
+        Kristina Frye &amp; Kenneth Baker</p>
+    <p>
+        CIS 234B Green Team - Spring 2013</p>
 </asp:Content>
