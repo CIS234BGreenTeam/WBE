@@ -128,11 +128,6 @@
     {
         width: 17px;
     }
-    .style29
-    {
-        width: 8px;
-        height: 26px;
-    }
     .style30
     {
         height: 26px;
@@ -145,14 +140,19 @@
         font-size: medium;
         font-family: "Segoe UI";
     }
-</style>
+        .style32
+        {
+            width: 87px;
+            height: 26px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <table class="style1">
     <tr>
         <td class="style3">
         </td>
-        <td class="style5" colspan="6">
+        <td class="style5" colspan="7">
             <p class="style6">
                 Customer Information</p>
         </td>
@@ -167,7 +167,7 @@
         </td>
         <td class="style13">
             &nbsp;</td>
-        <td class="style10">
+        <td class="style9" colspan="2">
             Phone</td>
         <td class="style9">
             <asp:TextBox ID="txtPhone" runat="server"></asp:TextBox>
@@ -182,7 +182,7 @@
         </td>
         <td class="style16">
         </td>
-        <td class="style17">
+        <td class="style17" colspan="2">
         </td>
         <td class="style17">
         </td>
@@ -197,7 +197,7 @@
         </td>
         <td class="style13">
             &nbsp;</td>
-        <td class="style10">
+        <td class="style9" colspan="2">
             Fax</td>
         <td class="style9">
             <asp:TextBox ID="txtFax" runat="server"></asp:TextBox>
@@ -212,7 +212,7 @@
         </td>
         <td class="style20">
         </td>
-        <td class="style21">
+        <td class="style21" colspan="2">
         </td>
         <td class="style21">
         </td>
@@ -227,7 +227,7 @@
         </td>
         <td class="style13">
             &nbsp;</td>
-        <td class="style10">
+        <td class="style9" colspan="2">
             Email</td>
         <td class="style9">
             <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
@@ -242,7 +242,7 @@
         </td>
         <td class="style24">
         </td>
-        <td class="style25">
+        <td class="style25" colspan="2">
         </td>
         <td class="style25">
         </td>
@@ -257,7 +257,7 @@
         </td>
         <td class="style13">
         </td>
-        <td class="style9">
+        <td class="style9" colspan="2">
         </td>
         <td class="style9">
         </td>
@@ -271,7 +271,7 @@
         </td>
         <td class="style28">
         </td>
-        <td>
+        <td colspan="2">
         </td>
         <td>
         </td>
@@ -286,12 +286,12 @@
         </td>
         <td class="style12">
             Zip</td>
-        <td class="style29">
+        <td class="style32">
             <asp:TextBox ID="txtZip" runat="server" Width="59px"></asp:TextBox>
         </td>
         <td class="style13">
             &nbsp;</td>
-        <td class="style10" colspan="2">
+        <td class="style10" colspan="3">
             <asp:CheckBox ID="chkInactive" runat="server" Text="Inactive" />
         </td>
         <td class="style9">
@@ -304,11 +304,11 @@
             &nbsp;</td>
         <td class="style12">
             &nbsp;</td>
-        <td class="style29">
+        <td class="style32">
             &nbsp;</td>
         <td class="style13">
             &nbsp;</td>
-        <td class="style10" colspan="2">
+        <td class="style10" colspan="3">
             &nbsp;</td>
         <td class="style9">
             &nbsp;</td>
@@ -316,7 +316,7 @@
     <tr>
         <td class="style2">
             &nbsp;</td>
-        <td class="style11" colspan="6">
+        <td class="style11" colspan="7">
             <p class="style31">
                 Current Inventory</p>
         </td>
@@ -326,8 +326,8 @@
     <tr>
         <td class="style2">
             &nbsp;</td>
-        <td class="style11" colspan="6">
-            <asp:ListBox ID="lstInventory" runat="server" Width="368px"></asp:ListBox>
+        <td class="style11" colspan="7">
+            <asp:PlaceHolder ID="phInventory" runat="server"></asp:PlaceHolder>
         </td>
         <td class="style9">
             &nbsp;</td>
@@ -335,7 +335,7 @@
     <tr>
         <td class="style2">
             &nbsp;</td>
-        <td class="style11" colspan="6">
+        <td class="style11" colspan="7">
             &nbsp;</td>
         <td class="style9">
             &nbsp;</td>
@@ -343,7 +343,29 @@
     <tr>
         <td class="style2">
             &nbsp;</td>
-        <td class="style11" colspan="6">
+        <td class="style11" colspan="3">
+            <asp:Button ID="btnAddItem" runat="server" Text="Add Item" />
+        </td>
+        <td class="style11" colspan="2">
+            <asp:Button ID="btnDelete" runat="server" Text="Delete Item" />
+        </td>
+        <td class="style11" colspan="2">
+            &nbsp;</td>
+        <td class="style9">
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td class="style2">
+            &nbsp;</td>
+        <td class="style11" colspan="7">
+            &nbsp;</td>
+        <td class="style9">
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td class="style2">
+            &nbsp;</td>
+        <td class="style11" colspan="7">
             <p class="style6">
                 Orders</p>
         </td>
@@ -353,8 +375,8 @@
     <tr>
         <td class="style2">
             &nbsp;</td>
-        <td class="style11" colspan="6">
-            <asp:ListBox ID="lstOrders" runat="server" Width="358px"></asp:ListBox>
+        <td class="style11" colspan="7">
+            <asp:ListBox ID="lstOrders" runat="server" Width="501px"></asp:ListBox>
         </td>
         <td class="style9">
             &nbsp;</td>

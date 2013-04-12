@@ -104,13 +104,31 @@ Partial Public Class WebForm1
     Protected WithEvents chkInactive As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''lstInventory control.
+    '''phInventory control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lstInventory As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents phInventory As Global.System.Web.UI.WebControls.PlaceHolder
+
+    '''<summary>
+    '''btnAddItem control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnAddItem As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnDelete control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''lstOrders control.
