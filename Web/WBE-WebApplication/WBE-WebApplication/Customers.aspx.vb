@@ -64,8 +64,8 @@
 
     Private Sub FillOrders()
         'This function will add existing client orders
-        lstOrders.Items.Clear()
-        lstOrders.Items.Add("Order: 1234, Date: 1/1/2013")
-        lstOrders.Items.Add("Order: 1235, Date: 1/2/2013")
+        lstCustomerOrders.Items.Clear()
+        lstCustomerOrders.Items.Add("Order: 1234, Date: 1/1/2013")
+        lstCustomerOrders.Items.Add("Order: 1235, Date: 1/2/2013")
     End Sub
 End Class

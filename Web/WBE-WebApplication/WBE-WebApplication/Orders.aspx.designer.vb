@@ -14,137 +14,128 @@ Option Explicit On
 Partial Public Class WebForm1
 
     '''<summary>
-    '''txtName control.
+    '''lstCustOrders control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtName As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents lstCustOrders As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''txtPhone control.
+    '''txtOrderID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtPhone As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtOrderID As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtAddress1 control.
+    '''txtO_Date control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtAddress1 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtO_Date As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtFax control.
+    '''chkO_TransactionComplete control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtFax As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents chkO_TransactionComplete As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''txtAddress2 control.
+    '''txtO_TotalCharge control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtAddress2 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtO_TotalCharge As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtEmail control.
+    '''lstOrderItems control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtEmail As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents lstOrderItems As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''txtCity control.
+    '''txtOI_ID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtCity As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtOI_ID As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtState control.
+    '''txtOI_Name control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtState As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtOI_Name As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtZip control.
+    '''txtOI_Quantity control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtZip As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtOI_Quantity As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''chkInactive control.
+    '''txtOI_UnitPrice control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkInactive As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents txtOI_UnitPrice As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''pnlInventory control.
+    '''txtOI_ExtendPrice control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents pnlInventory As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents txtOI_ExtendPrice As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''btnSaveItem control.
+    '''btnAddOI control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnSaveItem As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnAddOI As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnAdd control.
+    '''btnUpdateOI control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnAdd As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnUpdateOI As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnDeleteItem control.
+    '''btnCreateInvoice control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnDeleteItem As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''lstOrders control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lstCustomerOrders As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents btnCreateInvoice As Global.System.Web.UI.WebControls.Button
 End Class
