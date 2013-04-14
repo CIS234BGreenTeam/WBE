@@ -24,23 +24,17 @@ Inherits="WBE_WebApplication.WebForm1" %>
             <td class="style8">
                 </td>
             <td class="style9">
-                <asp:ListBox ID="lstBakedGoods" runat="server" Height="162px" Width="280px">
+                <asp:ListBox ID="lstBakedGoods" runat="server" Height="132px" Width="259px">
                 </asp:ListBox>
             </td>
             <td class="style20">
-                <table class="style1">
+                <table class="style46">
                     <tr>
                         <td class="style44">
                             Product ID&nbsp;&nbsp;&nbsp;</td>
                         <td class="style45">
                 <asp:TextBox ID="txtBG_ID" runat="server"></asp:TextBox>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="style15">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td class="style15">
@@ -52,23 +46,11 @@ Inherits="WBE_WebApplication.WebForm1" %>
                     </tr>
                     <tr>
                         <td class="style15">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="style15">
                             Price
                         </td>
                         <td>
                             <asp:TextBox ID="txtBGPrice" runat="server"></asp:TextBox>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="style42">
-                            </td>
-                        <td class="style43">
-                            </td>
                     </tr>
                     <tr>
                         <td class="style15">
@@ -80,42 +62,23 @@ Inherits="WBE_WebApplication.WebForm1" %>
                 </table>
             </td>
         </tr>
+        </table>
+    <table class="style1">
         <tr>
-            <td class="style39">
-                </td>
-            <td class="style40">
-                &nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <table class="style32">
-                    <tr>
-                        <td class="style34">
+            <td class="style47">
+                &nbsp;</td>
+            <td class="style48">
                 <asp:Button ID="btnAddBG_Item" runat="server" Text="Add Item" />
                         </td>
-                        <td>
-                            &nbsp;</td>
-                        <td class="style31">
+            <td class="style49">
                 <asp:Button ID="btnUpdateBG_Item" runat="server" Text="Update Item" />
                         </td>
-                    </tr>
-                </table>
-            </td>
-            <td class="style41">
-                </td>
+            <td>
+                &nbsp;</td>
         </tr>
-        <tr>
-            <td class="style26">
-                </td>
-            <td class="style27">
-                &nbsp;&nbsp;&nbsp;
-                </td>
-            <td class="style28">
-                </td>
-        </tr>
-        </table>
+    </table>
     <br />
-    <p>
-    </p>
-</asp:Content>
+    </asp:Content>
 <asp:Content ID="Content2" runat="server" contentplaceholderid="HeadContent">
     <style type="text/css">
         .style1
@@ -133,24 +96,24 @@ Inherits="WBE_WebApplication.WebForm1" %>
         {
             font-family: Verdana;
             font-size: x-large;
-            width: 254px;
+            width: 242px;
             height: 33px;
         }
         .style8
         {
             width: 34px;
-            height: 150px;
+            height: 149px;
         }
         .style9
         {
-            width: 254px;
-            height: 150px;
+            width: 242px;
+            height: 149px;
         }
         .style11
         {
             font-family: Verdana;
             font-size: small;
-            width: 254px;
+            width: 242px;
             height: 6px;
         }
         .style15
@@ -160,7 +123,7 @@ Inherits="WBE_WebApplication.WebForm1" %>
         .style20
         {
             width: 506px;
-            height: 150px;
+            height: 149px;
         }
         .style22
         {
@@ -179,54 +142,6 @@ Inherits="WBE_WebApplication.WebForm1" %>
             width: 506px;
             height: 6px;
         }
-        .style26
-        {
-            width: 34px;
-            height: 2px;
-        }
-        .style27
-        {
-            width: 254px;
-            height: 2px;
-        }
-        .style28
-        {
-            width: 506px;
-            height: 2px;
-        }
-        .style31
-        {
-            width: 63px;
-        }
-        .style32
-        {
-            width: 109%;
-        }
-        .style34
-        {
-            width: 97px;
-        }
-        .style39
-        {
-            width: 34px;
-        }
-        .style40
-        {
-            width: 254px;
-        }
-        .style41
-        {
-            width: 506px;
-        }
-        .style42
-        {
-            width: 88px;
-            height: 21px;
-        }
-        .style43
-        {
-            height: 21px;
-        }
         .style44
         {
             width: 88px;
@@ -235,6 +150,24 @@ Inherits="WBE_WebApplication.WebForm1" %>
         .style45
         {
             height: 20px;
+        }
+        .style46
+        {
+            width: 100%;
+            height: 129px;
+        }
+        .style47
+        {
+            width: 36px;
+        }
+        .style48
+        {
+            width: 127px;
+        }
+        .style49
+        {
+            width: 124px;
+            text-align: right;
         }
     </style>
 </asp:Content>

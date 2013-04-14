@@ -14,13 +14,13 @@ Option Explicit On
 Partial Public Class WebForm1
 
     '''<summary>
-    '''lstCustOrders control.
+    '''lstCustomerOrders control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lstCustOrders As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents lstCustomerOrders As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
     '''txtOrderID control.

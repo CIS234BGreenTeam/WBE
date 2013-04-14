@@ -16,16 +16,6 @@ Inherits="WBE_WebApplication.WebForm1" %>
             <td class="style2">
             </td>
             <td class="style3">
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td class="style2">
-            </td>
-            <td class="style3">
                 Orders</td>
             <td>
             </td>
@@ -36,7 +26,7 @@ Inherits="WBE_WebApplication.WebForm1" %>
             <td class="style2">
                 &nbsp;</td>
             <td class="style3">
-                <asp:ListBox ID="lstCustomerOrders" runat="server" Height="178px" Width="273px">
+                <asp:ListBox ID="lstCustomerOrders" runat="server" Height="127px" Width="273px">
                 </asp:ListBox>
             </td>
             <td>
@@ -50,22 +40,10 @@ Inherits="WBE_WebApplication.WebForm1" %>
                     </tr>
                     <tr>
                         <td class="style5">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="style5">
                             Order Date</td>
                         <td>
                             <asp:TextBox ID="txtO_Date" runat="server"></asp:TextBox>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="style5">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td class="style5">
@@ -78,12 +56,6 @@ Inherits="WBE_WebApplication.WebForm1" %>
                     <tr>
                         <td class="style5">
                             Complete</td>
-                    </tr>
-                    <tr>
-                        <td class="style5">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td class="style5">
@@ -101,16 +73,6 @@ Inherits="WBE_WebApplication.WebForm1" %>
             <td class="style2">
                 &nbsp;</td>
             <td class="style3">
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="style2">
-                &nbsp;</td>
-            <td class="style3">
                 Ordered Items</td>
             <td>
                 &nbsp;</td>
@@ -121,7 +83,7 @@ Inherits="WBE_WebApplication.WebForm1" %>
             <td class="style2">
                 &nbsp;</td>
             <td class="style3">
-                <asp:ListBox ID="lstOrderItems" runat="server" Height="210px" Width="277px">
+                <asp:ListBox ID="lstOrderItems" runat="server" Height="135px" Width="277px">
                 </asp:ListBox>
             </td>
             <td>
@@ -134,23 +96,11 @@ Inherits="WBE_WebApplication.WebForm1" %>
                         </td>
                     </tr>
                     <tr>
-                        <td class="style5" height="3">
-                        </td>
-                        <td class="style6" height="3">
-                        </td>
-                    </tr>
-                    <tr>
                         <td class="style5" valign="middle">
                             Item Name</td>
                         <td class="style6" valign="middle">
                             <asp:TextBox ID="txtOI_Name" runat="server"></asp:TextBox>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="style5" height="3">
-                            &nbsp;</td>
-                        <td class="style6" height="3">
-                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td class="style5" valign="middle">
@@ -160,23 +110,11 @@ Inherits="WBE_WebApplication.WebForm1" %>
                         </td>
                     </tr>
                     <tr>
-                        <td class="style5" height="3">
-                            &nbsp;</td>
-                        <td class="style6" height="3">
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
                         <td class="style5" valign="middle">
                             Unit Price</td>
                         <td class="style6" valign="middle">
                             <asp:TextBox ID="txtOI_UnitPrice" runat="server"></asp:TextBox>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="style5" height="3">
-                            &nbsp;</td>
-                        <td class="style6" height="3">
-                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td class="style5" valign="middle">
@@ -193,32 +131,22 @@ Inherits="WBE_WebApplication.WebForm1" %>
         <tr>
             <td class="style2">
                 &nbsp;</td>
-            <td class="style3">
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="style2">
-                &nbsp;</td>
             <td colspan="2">
                 <table class="style1">
                     <tr>
-                        <td class="style15">
+                        <td class="style17">
                             <asp:Button ID="btnAddOI" runat="server" Text="Add Item" />
                         </td>
-                        <td class="style15">
+                        <td class="style18">
                             <asp:Button ID="btnUpdateOI" runat="server" Text="Update Item" />
                         </td>
                         <td class="style9">
                             <asp:Button ID="btnCreateInvoice" runat="server" Text="Create Invoice" />
                         </td>
                         <td class="style10">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
+                            </td>
+                        <td class="style16">
+                            </td>
                     </tr>
                 </table>
             </td>
@@ -262,10 +190,12 @@ Inherits="WBE_WebApplication.WebForm1" %>
         .style9
         {
             width: 153px;
+            height: 47px;
         }
         .style10
         {
             width: 106px;
+            height: 47px;
         }
         .style11
         {
@@ -273,9 +203,19 @@ Inherits="WBE_WebApplication.WebForm1" %>
             font-family: Verdana;
             font-size: x-large;
         }
-        .style15
+        .style16
         {
-            width: 197px;
+            height: 47px;
+        }
+        .style17
+        {
+            width: 93px;
+            height: 47px;
+        }
+        .style18
+        {
+            width: 124px;
+            height: 47px;
         }
     </style>
 </asp:Content>
