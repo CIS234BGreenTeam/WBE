@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Customers.aspx.vb" Inherits="WBE_WebApplication.WebForm1" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Customers.aspx.vb" Inherits="WBE_WebApplication.Customer" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style type="text/css">
     .style1
@@ -45,10 +45,6 @@
     .style23
     {
         width: 74px;
-        height: 2px;
-    }
-    .style25
-    {
         height: 2px;
     }
     .style26
@@ -132,12 +128,27 @@
         .panelcontrols
         {  
             font-size:small;
-            
+            margin-right:10em;
         }
  
         .style75
         {
             font-size: large;
+        }
+ 
+        .style76
+        {
+            height: 26px;
+            width: 40px;
+        }
+        .style77
+        {
+            width: 40px;
+        }
+        .style78
+        {
+            height: 2px;
+            width: 40px;
         }
  
     </style>
@@ -163,7 +174,7 @@
             &nbsp;</td>
         <td class="style58">
             Phone</td>
-        <td class="style2">
+        <td class="style76">
             <asp:TextBox ID="txtPhone" runat="server"></asp:TextBox>
         </td>
         <td class="style54" colspan="2">
@@ -178,7 +189,7 @@
         </td>
         <td class="style59">
         </td>
-        <td>
+        <td class="style77">
         </td>
         <td class="style55" colspan="2">
         </td>
@@ -193,7 +204,7 @@
             &nbsp;</td>
         <td class="style58">
             Fax</td>
-        <td class="style2">
+        <td class="style76">
             <asp:TextBox ID="txtFax" runat="server"></asp:TextBox>
         </td>
         <td class="style54" colspan="2">
@@ -208,7 +219,7 @@
         </td>
         <td class="style59">
         </td>
-        <td>
+        <td class="style77">
         </td>
         <td class="style55" colspan="2">
         </td>
@@ -223,7 +234,7 @@
             &nbsp;</td>
         <td class="style58">
             Email</td>
-        <td class="style2">
+        <td class="style76">
             <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
         </td>
         <td class="style54" colspan="2">
@@ -238,7 +249,7 @@
         </td>
         <td class="style60">
         </td>
-        <td class="style25">
+        <td class="style78">
         </td>
         <td class="style56" colspan="2">
         </td>
@@ -253,7 +264,7 @@
         </td>
         <td class="style58">
         </td>
-        <td class="style2">
+        <td class="style76">
         </td>
         <td class="style54" colspan="2">
         </td>
@@ -267,7 +278,7 @@
         </td>
         <td class="style59">
         </td>
-        <td>
+        <td class="style77">
         </td>
         <td class="style55" colspan="2">
         </td>

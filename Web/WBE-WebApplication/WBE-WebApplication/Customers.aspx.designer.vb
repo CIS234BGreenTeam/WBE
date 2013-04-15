@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class WebForm1
+Partial Public Class Customer
 
     '''<summary>
     '''txtName control.
@@ -139,12 +139,12 @@ Partial Public Class WebForm1
     '''</remarks>
     Protected WithEvents btnDeleteItem As Global.System.Web.UI.WebControls.Button
 
-    ' '''<summary>
-    ' '''lstOrders control.
-    ' '''</summary>
-    ' '''<remarks>
-    ' '''Auto-generated field.
-    ' '''To modify move field declaration from designer file to code-behind file.
-    ' '''</remarks>
-    'Protected WithEvents lstCustomerOrders As Global.System.Web.UI.WebControls.ListBox
+    '''<summary>
+    '''lstOrders control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lstOrders As Global.System.Web.UI.WebControls.ListBox
 End Class

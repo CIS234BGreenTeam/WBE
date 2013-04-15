@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Orders.aspx.vb"
-Inherits="WBE_WebApplication.WebForm1" %>
+Inherits="WBE_WebApplication.Orders" %>
 <asp:Content ID="Content1" runat="server" contentplaceholderid="MainContent">
     <table class="style1">
         <tr>
