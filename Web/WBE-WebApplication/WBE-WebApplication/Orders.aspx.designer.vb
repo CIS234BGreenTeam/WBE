@@ -23,31 +23,31 @@ Partial Public Class Orders
     Protected WithEvents lstCustomerOrders As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''txtOrderID control.
+    '''txtO_OrderID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtOrderID As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtO_OrderID As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtO_Date control.
+    '''txtO_OrderDate control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtO_Date As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtO_OrderDate As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''chkO_TransactionComplete control.
+    '''chkO_OrderShipped control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkO_TransactionComplete As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents chkO_OrderShipped As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
     '''txtO_TotalCharge control.
@@ -59,6 +59,24 @@ Partial Public Class Orders
     Protected WithEvents txtO_TotalCharge As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''btnRecalcTotal control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnRecalcTotal As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnO_DeleteOrder control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnO_DeleteOrder As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''lstOrderItems control.
     '''</summary>
     '''<remarks>
@@ -68,31 +86,31 @@ Partial Public Class Orders
     Protected WithEvents lstOrderItems As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''txtOI_ID control.
+    '''txtOI_ItemID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtOI_ID As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtOI_ItemID As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtOI_Name control.
+    '''txtOI_ItemName control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtOI_Name As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtOI_ItemName As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtOI_Quantity control.
+    '''txtOI_QuantityOrdered control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtOI_Quantity As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtOI_QuantityOrdered As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''txtOI_UnitPrice control.
@@ -113,22 +131,40 @@ Partial Public Class Orders
     Protected WithEvents txtOI_ExtendPrice As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''btnAddOI control.
+    '''btnOI_UpdateItem control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnAddOI As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnOI_UpdateItem As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnUpdateOI control.
+    '''btnIO_DeleteItem control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnUpdateOI As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnIO_DeleteItem As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnOI_AddItem control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnOI_AddItem As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnOI_SaveAsNew control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnOI_SaveAsNew As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''btnCreateInvoice control.

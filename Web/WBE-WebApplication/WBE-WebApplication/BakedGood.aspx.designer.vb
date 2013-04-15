@@ -59,20 +59,29 @@ Partial Public Class BakedGood
     Protected WithEvents chkBG_Discontinued As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''btnAddBG_Item control.
+    '''btnBG_AddItem control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnAddBG_Item As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnBG_AddItem As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnUpdateBG_Item control.
+    '''btnBG_UpdateItem control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnUpdateBG_Item As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnBG_UpdateItem As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnBG_SaveAsNew control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnBG_SaveAsNew As Global.System.Web.UI.WebControls.Button
 End Class
