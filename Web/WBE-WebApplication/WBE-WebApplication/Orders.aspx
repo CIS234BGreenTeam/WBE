@@ -14,13 +14,14 @@ Inherits="WBE_WebApplication.Orders" %>
                 <br />
                 <strong>Create a new order (two methods): </strong>
                 <br />
-&nbsp;&nbsp;&nbsp;&nbsp; <span class="style23">1) &quot;Save As New&quot; button: Click<strong> </strong>
+&nbsp;&nbsp;&nbsp;&nbsp; <span class="style23">1) <strong>&quot;Save As New&quot; button: Click
+                </strong>
                 </span>
                 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Allows the user to select and existing 
                 order, make changes, and save it as a new order object (generates a new 
                 OrderID).<br />
-&nbsp;&nbsp;&nbsp;&nbsp; <span class="style23">2)&nbsp; Click &quot;Add Item&quot; button: Click.</span>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp; <span class="style23">2)&nbsp; <strong>&quot;Add Item&quot; button: Click.</strong></span>&nbsp;
                 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This will open a baked goods menu form 
                 that contains a list of all Items currently produced by WBE.&nbsp;

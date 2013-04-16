@@ -30,7 +30,10 @@ Inherits="WBE_WebApplication.BakedGood" %>
                 menu.<br />
 &nbsp;<strong><br />
                 &quot;Update Item&quot; button: Click</strong><br />
-&nbsp;1) Updates the baked good object shown in the listbox to reflect current textbox values.<br />
+                Updates the baked good object shown in the listbox to reflect current textbox values.<br />
+                <br />
+                <strong>&quot;Close&quot; button: Click<br />
+                </strong>Redirects Owner to Default.aspx<br />
                 <br />
                 <strong>&quot;Available Baked Goods&quot; listbox:<br />
                 </strong>The owner may select an object from the list.&nbsp; The values are 
@@ -116,8 +119,11 @@ Inherits="WBE_WebApplication.BakedGood" %>
                 <asp:Button ID="btnBG_UpdateItem" runat="server" Text="Update Item" 
                     Width="119px" />
                         </td>
-            <td>
+            <td class="style51">
                 <asp:Button ID="btnBG_SaveAsNew" runat="server" Text="Save As New" />
+            </td>
+            <td>
+                <asp:Button ID="btnBG_Close" runat="server" Text="Close" Width="93px" />
             </td>
         </tr>
     </table>
@@ -194,7 +200,7 @@ Inherits="WBE_WebApplication.BakedGood" %>
         }
         .style48
         {
-            width: 138px;
+            width: 110px;
         }
         .style49
         {
@@ -210,6 +216,10 @@ Inherits="WBE_WebApplication.BakedGood" %>
         .style23
         {
             text-decoration: underline;
+        }
+        .style51
+        {
+            width: 155px;
         }
     </style>
 </asp:Content>

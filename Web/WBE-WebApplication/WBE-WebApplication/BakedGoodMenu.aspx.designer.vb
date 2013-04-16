@@ -11,86 +11,77 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class BakedGood
+Partial Public Class BakedGoodMenu
 
     '''<summary>
-    '''lstBakedGoods control.
+    '''lstMenu_Items control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lstBakedGoods As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents lstMenu_Items As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''txtBG_ID control.
+    '''txtMenu_ProductID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtBG_ID As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtMenu_ProductID As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtBGName control.
+    '''txtMenu_ItemName control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtBGName As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtMenu_ItemName As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtBGPrice control.
+    '''txtMenu_Price control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtBGPrice As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtMenu_Price As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''chkBG_Discontinued control.
+    '''chkMenu_ItemSelect control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkBG_Discontinued As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents chkMenu_ItemSelect As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''btnBG_AddItem control.
+    '''txtMenu_Quantity control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnBG_AddItem As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents txtMenu_Quantity As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''btnBG_UpdateItem control.
+    '''btnMenu_AddItem control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnBG_UpdateItem As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnMenu_AddItem As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnBG_SaveAsNew control.
+    '''btnMenu_Cancel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnBG_SaveAsNew As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''btnBG_Close control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnBG_Close As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnMenu_Cancel As Global.System.Web.UI.WebControls.Button
 End Class

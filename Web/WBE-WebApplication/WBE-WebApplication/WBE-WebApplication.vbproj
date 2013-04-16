@@ -97,6 +97,7 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="BakedGood.aspx" />
+    <Content Include="BakedGoodMenu.aspx" />
     <Content Include="Customers.aspx" />
     <Content Include="Orders.aspx" />
     <Content Include="Styles\Site.css" />
@@ -154,6 +155,13 @@
     </Compile>
     <Compile Include="BakedGood.aspx.vb">
       <DependentUpon>BakedGood.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="BakedGoodMenu.aspx.designer.vb">
+      <DependentUpon>BakedGoodMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BakedGoodMenu.aspx.vb">
+      <DependentUpon>BakedGoodMenu.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Customers.aspx.designer.vb">
