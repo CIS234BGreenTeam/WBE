@@ -147,4 +147,31 @@ Partial Public Class Customer
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lstOrders As Global.System.Web.UI.WebControls.ListBox
+
+    '''<summary>
+    '''btnSaveCustomer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSaveCustomer As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnOpenOrder control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnOpenOrder As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnNewCustomer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnNewCustomer As Global.System.Web.UI.WebControls.Button
 End Class
