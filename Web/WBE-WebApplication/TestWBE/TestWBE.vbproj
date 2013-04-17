@@ -79,13 +79,8 @@
     <Compile Include="CustomerTest.vb" />
     <Compile Include="DriverTest.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="MyProjectTest.vb" />
-    <Compile Include="MySettingsPropertyTest.vb" />
     <Compile Include="OrderItemTest.vb" />
     <Compile Include="OrderTest.vb" />
-    <Compile Include="ResourcesTest.vb" />
-    <Compile Include="TestCustomer.vb" />
-    <Compile Include="WBETest.vb" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libWBEBR\libWBEBR.vbproj">
