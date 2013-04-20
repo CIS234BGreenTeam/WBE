@@ -53,41 +53,38 @@ Public Class DriverTest
     '
 #End Region
 
-
     '''<summary>
-    '''A test for Driver Constructor
+    '''A test for good Name
     '''</summary>
     <TestMethod()> _
-    Public Sub DriverConstructorTest()
+    Public Sub NamePassTest()
         Dim target As Driver = New Driver()
-        Assert.Inconclusive("TODO: Implement code to verify target")
-    End Sub
-
-    '''<summary>
-    '''A test for DriverID
-    '''</summary>
-    <TestMethod()> _
-    Public Sub DriverIDTest()
-        Dim target As Driver = New Driver() ' TODO: Initialize to an appropriate value
-        Dim expected As Integer = 0 ' TODO: Initialize to an appropriate value
-        Dim actual As Integer
-        target.DriverID = expected
-        actual = target.DriverID
-        Assert.AreEqual(expected, actual)
-        Assert.Inconclusive("Verify the correctness of this test method.")
-    End Sub
-
-    '''<summary>
-    '''A test for Name
-    '''</summary>
-    <TestMethod()> _
-    Public Sub NameTest()
-        Dim target As Driver = New Driver() ' TODO: Initialize to an appropriate value
-        Dim expected As String = String.Empty ' TODO: Initialize to an appropriate value
+        Dim expected As String = "Good Name"
         Dim actual As String
         target.Name = expected
         actual = target.Name
         Assert.AreEqual(expected, actual)
-        Assert.Inconclusive("Verify the correctness of this test method.")
+    End Sub
+
+    '''<summary>
+    '''A test for Name that is too short
+    '''</summary>
+    <TestMethod()> _
+    <ExpectedException(GetType(System.Exception), "Driver should fail because name is too short")>
+    Public Sub NameFailTooShortTest()
+        Dim target As Driver = New Driver()
+        Dim expected As String = "12"
+        target.Name = expected
+    End Sub
+
+    '''<summary>
+    '''A test for Name that is too long
+    '''</summary>
+    <TestMethod()> _
+    <ExpectedException(GetType(System.Exception), "Driver should fail because name is too long")>
+    Public Sub NameFailTooLongTest()
+        Dim target As Driver = New Driver()
+        Dim expected As String = "1234567890123456789012345678901"
+        target.Name = expected
     End Sub
 End Class
