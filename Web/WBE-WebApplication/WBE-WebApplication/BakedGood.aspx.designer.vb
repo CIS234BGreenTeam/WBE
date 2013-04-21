@@ -77,15 +77,6 @@ Partial Public Class BakedGood
     Protected WithEvents btnBG_UpdateItem As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnBG_SaveAsNew control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnBG_SaveAsNew As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
     '''btnBG_Close control.
     '''</summary>
     '''<remarks>
