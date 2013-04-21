@@ -78,6 +78,17 @@ Public Class DriverTest
     End Sub
 
     '''<summary>
+    '''Name test using an empty string
+    '''</summary>
+    <TestMethod()> _
+    <ExpectedException(GetType(System.Exception), "Driver should fail because name is empty")>
+    Public Sub NameFailEmptyFailTest()
+        Dim target As Driver = New Driver()
+        Dim expected As String = ""
+        target.Name = expected
+    End Sub
+
+    '''<summary>
     '''A test for Name that is too long
     '''</summary>
     <TestMethod()> _

@@ -21,7 +21,7 @@ Public Class Customer
             End If
         End Set
     End Property
-    Private _NameError As String = String.Format("Name must be between {0} and {1} characters in length.",
+    Private _NameError As String = String.Format("Name is a required field between {0} and {1} characters in length.",
                                                  c_MinLength, c_MaxLength)
     Public ReadOnly Property NameError() As String
         Get
@@ -35,7 +35,7 @@ Public Class Customer
             Return _Address1
         End Get
         Set(ByVal value As String)
-            If value.Length < c_MinLength Or value.Length > c_MaxLength Then
+            If (value.Length < c_MinLength Or value.Length > c_MaxLength) And value <> "" Then
                 Throw New Exception(AddressError)
             Else
                 _Address1 = value
@@ -50,7 +50,7 @@ Public Class Customer
             Return _Address2
         End Get
         Set(ByVal value As String)
-            If value.Length < c_MinLength Or value.Length > c_MaxLength Then
+            If (value.Length < c_MinLength Or value.Length > c_MaxLength) And value <> "" Then
                 Throw New Exception(AddressError)
             Else
                 _Address2 = value
@@ -71,7 +71,7 @@ Public Class Customer
             Return _City
         End Get
         Set(ByVal value As String)
-            If value.Length < c_MinLength Or value.Length > c_MaxLength Then
+            If (value.Length < c_MinLength Or value.Length > c_MaxLength) And value <> "" Then
                 Throw New Exception(CityError)
             Else
                 _City = value
@@ -92,7 +92,7 @@ Public Class Customer
             Return _State
         End Get
         Set(ByVal value As String)
-            If value = "OR" Or value = "WA" Then
+            If value = "OR" Or value = "WA" Or value = "" Then
                 _State = value
             Else
                 Throw New Exception(StateError)
@@ -120,7 +120,7 @@ Public Class Customer
                 ZipMatch = Regex.Match(value, "^[0-9]{5}-[0-9]{4}")
             End If
 
-            If ZipMatch.Success Then
+            If ZipMatch.Success Or value = "" Then
                 _Zip = value
             Else
                 Throw New Exception(ZipError)
@@ -141,7 +141,7 @@ Public Class Customer
             Return _Phone
         End Get
         Set(ByVal value As String)
-            If CheckPhoneFormat(value) Then
+            If CheckPhoneFormat(value) Or value = "" Then
                 _Phone = value
             Else
                 Throw New Exception(PhoneError)
@@ -161,7 +161,7 @@ Public Class Customer
             Return _Fax
         End Get
         Set(ByVal value As String)
-            If CheckPhoneFormat(value) Then
+            If CheckPhoneFormat(value) Or value = "" Then
                 _Fax = value
             Else
                 Throw New Exception(FaxError)
@@ -183,7 +183,7 @@ Public Class Customer
         Set(ByVal value As String)
             Dim EmailMatch As Match
             EmailMatch = Regex.Match(value.ToUpper, "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$")
-            If EmailMatch.Success Then
+            If EmailMatch.Success Or value = "" Then
                 _Email = value
             Else
                 Throw New Exception(EmailError)
@@ -203,7 +203,7 @@ Public Class Customer
             Return _Contact
         End Get
         Set(ByVal value As String)
-            If value.Length < c_MinLength Or value.Length > c_MaxLength Then
+            If (value.Length < c_MinLength Or value.Length > c_MaxLength) And value <> "" Then
                 Throw New Exception(ContactError)
             Else
                 _Contact = value

@@ -17,7 +17,7 @@
         End Set
     End Property
 
-    Private _NameError As String = String.Format("Name should be between {0} and {1} characters in length.",
+    Private _NameError As String = String.Format("Name is a required field between {0} and {1} characters in length.",
                                                  c_MinLength, c_MaxLength)
 
     Public ReadOnly Property NameError() As String

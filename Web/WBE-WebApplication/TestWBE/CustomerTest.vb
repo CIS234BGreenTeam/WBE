@@ -64,6 +64,20 @@ Public Class CustomerTest
         actual = target.Address1
         Assert.AreEqual(expected, actual)
     End Sub
+
+    '''<summary>
+    '''A test for Address1 with empty address length
+    '''</summary>
+    <TestMethod()> _
+    Public Sub Address1EmptyPassTest()
+        Dim target As Customer = New Customer()
+        Dim expected As String = ""
+        Dim actual As String
+        target.Address1 = expected
+        actual = target.Address1
+        Assert.AreEqual(expected, actual)
+    End Sub
+
     '''<summary>
     '''A test for Address1 with a incorrect address length (max + 1)
     '''</summary>
@@ -99,6 +113,19 @@ Public Class CustomerTest
     End Sub
 
     '''<summary>
+    '''A test for Address2 with empty length
+    '''</summary>
+    <TestMethod()> _
+    Public Sub Address2EmptyPassTest()
+        Dim target As Customer = New Customer()
+        Dim expected As String = ""
+        Dim actual As String
+        target.Address2 = expected
+        actual = target.Address2
+        Assert.AreEqual(expected, actual)
+    End Sub
+
+    '''<summary>
     '''A test for Address2 with a incorrect address length (max + 1)
     '''</summary>
     <TestMethod()> _
@@ -126,6 +153,19 @@ Public Class CustomerTest
     Public Sub CityCorrectTest()
         Dim target As Customer = New Customer()
         Dim expected As String = "Portland"
+        Dim actual As String
+        target.City = expected
+        actual = target.City
+        Assert.AreEqual(expected, actual)
+    End Sub
+
+    '''<summary>
+    '''A test for City using empty length
+    '''</summary>
+    <TestMethod()> _
+    Public Sub CityEmptyPassTest()
+        Dim target As Customer = New Customer()
+        Dim expected As String = ""
         Dim actual As String
         target.City = expected
         actual = target.City
@@ -168,6 +208,19 @@ Public Class CustomerTest
     End Sub
 
     '''<summary>
+    '''A test for Contact using empty string
+    '''</summary>
+    <TestMethod()> _
+    Public Sub ContactEmptyPassTest()
+        Dim target As Customer = New Customer()
+        Dim expected As String = ""
+        Dim actual As String
+        target.Contact = expected
+        actual = target.Contact
+        Assert.AreEqual(expected, actual)
+    End Sub
+
+    '''<summary>
     '''A test for Contact using incorrect length (max + 1)
     '''</summary>
     <TestMethod()> _
@@ -195,6 +248,19 @@ Public Class CustomerTest
     Public Sub EmailCorrectTest()
         Dim target As Customer = New Customer()
         Dim expected As String = "test@test.com"
+        Dim actual As String
+        target.Email = expected
+        actual = target.Email
+        Assert.AreEqual(expected, actual)
+    End Sub
+
+    '''<summary>
+    '''A test for Email with empty string
+    '''</summary>
+    <TestMethod()> _
+    Public Sub EmailEmptyPassTest()
+        Dim target As Customer = New Customer()
+        Dim expected As String = ""
         Dim actual As String
         target.Email = expected
         actual = target.Email
@@ -258,6 +324,18 @@ Public Class CustomerTest
         Assert.AreEqual(expected, actual)
     End Sub
 
+    '''<summary>
+    '''A test for Fax using an empty string
+    '''</summary>
+    <TestMethod()> _
+    Public Sub FaxEmptyPassTest()
+        Dim target As Customer = New Customer()
+        Dim expected As String = ""
+        Dim actual As String
+        target.Fax = expected
+        actual = target.Fax
+        Assert.AreEqual(expected, actual)
+    End Sub
     '''<summary>
     '''A test for Fax using an incorrect number of numbers
     '''</summary>
@@ -406,6 +484,16 @@ Public Class CustomerTest
         actual = target.Name
         Assert.AreEqual(expected, actual)
     End Sub
+    '''<summary>
+    '''A test for Name using the empty string
+    '''</summary>
+    <TestMethod()> _
+    <ExpectedException(GetType(System.Exception), "Name should fail because it is empty.")>
+    Public Sub NameEmptyPassTest()
+        Dim target As Customer = New Customer()
+        Dim expected As String = ""
+        target.Name = expected
+    End Sub
 
     '''<summary>
     '''A test for Name using 31 characters (max length+1)
@@ -456,6 +544,19 @@ Public Class CustomerTest
     End Sub
 
     '''<summary>
+    '''A test for Phone using an empty string
+    '''</summary>
+    <TestMethod()> _
+    Public Sub PhoneEmptyPassTest()
+        Dim target As Customer = New Customer()
+        Dim expected As String = ""
+        Dim actual As String
+        target.Phone = expected
+        actual = target.Phone
+        Assert.AreEqual(expected, actual)
+    End Sub
+
+    '''<summary>
     '''A test for Phone using an incorrect number of numbers
     '''</summary>
     <TestMethod()> _
@@ -484,6 +585,19 @@ Public Class CustomerTest
     Public Sub StateCorrectTest()
         Dim target As Customer = New Customer()
         Dim expected As String = "OR"
+        Dim actual As String
+        target.State = expected
+        actual = target.State
+        Assert.AreEqual(expected, actual)
+    End Sub
+
+    '''<summary>
+    '''A test for State using empty string
+    '''</summary>
+    <TestMethod()> _
+    Public Sub StateEmptyPassTest()
+        Dim target As Customer = New Customer()
+        Dim expected As String = ""
         Dim actual As String
         target.State = expected
         actual = target.State
@@ -527,6 +641,18 @@ Public Class CustomerTest
         Assert.AreEqual(expected, actual)
     End Sub
 
+    '''<summary>
+    '''A test for Zip using empty string
+    '''</summary>
+    <TestMethod()> _
+    Public Sub ZipTestEmptyPassTest()
+        Dim target As Customer = New Customer()
+        Dim expected As String = ""
+        Dim actual As String
+        target.Zip = expected
+        actual = target.Zip
+        Assert.AreEqual(expected, actual)
+    End Sub
     '''<summary>
     '''A test for Zip using incorrect 9 digit format
     '''</summary>
