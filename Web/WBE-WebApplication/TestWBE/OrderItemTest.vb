@@ -4,7 +4,9 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 Imports libWBEBR
 
-
+'* Class Name: OrderItemTest. 
+'* Designer: Ken Baker 4/20/2013. 
+'* Purpose:  Test class properties and constructors
 
 '''<summary>
 '''This is a test class for OrderItemTest and is intended

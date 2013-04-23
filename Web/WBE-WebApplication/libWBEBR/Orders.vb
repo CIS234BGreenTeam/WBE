@@ -1,4 +1,9 @@
 ﻿Public Class Orders
+
+    '* Class Name: Orders.vb. 
+    '* Designer: Ken Baker 4/20/2013. 
+    '* Purpose:  Contains properties and validations
+
     Public Property CustomerID As Integer
     Public Property Driver As Driver
     Public Property Item As List(Of OrderItem)

@@ -1,7 +1,11 @@
 ﻿Public Class OrderItem
+
+
+    '* Class Name: OrderItem.vb. 
+    '* Designer: Ken Baker 4/20/2013. 
+    '* Purpose:  Contains properties and validations
+
     Public Property Item As BakedGood
-
-
     Private m_dUnitPrice As Decimal
     Private m_iQuantity As Integer
 

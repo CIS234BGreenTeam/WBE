@@ -4,6 +4,9 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 Imports libWBEBR
 
+'* Class Name: BakedGoodTest. 
+'* Designer: Ken Baker 4/20/2013. 
+'* Purpose:  Test class properties and constructors
 
 
 '''<summary>

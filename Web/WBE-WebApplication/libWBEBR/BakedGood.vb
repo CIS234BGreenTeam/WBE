@@ -1,4 +1,9 @@
 ﻿Public Class BakedGood
+
+    '* Class Name: BakedGood.vb. 
+    '* Designer: Ken Baker 4/20/2013. 
+    '* Purpose:  Contains properties and validations
+
     Public Property Type() As String
     Public Property DesiredQty() As Integer
     Public Property ActualQty() As Integer
