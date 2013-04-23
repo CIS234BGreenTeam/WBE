@@ -1,8 +1,12 @@
-﻿Imports Microsoft.VisualStudio.TestTools.UnitTesting
+﻿Imports System.Collections.Generic
+
+Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 Imports libWBEBR
 
-
+'* Class Name: OrderItemTest. 
+'* Designer: Ken Baker 4/20/2013. 
+'* Purpose:  Test class properties and constructors
 
 '''<summary>
 '''This is a test class for OrderItemTest and is intended
@@ -60,7 +64,7 @@ Public Class OrderItemTest
     <TestMethod()> _
     Public Sub OrderItemConstructorTest()
         Dim target As OrderItem = New OrderItem()
-        Assert.Inconclusive("TODO: Implement code to verify target")
+        'Assert.Inconclusive("TODO: Implement code to verify target")
     End Sub
 
     '''<summary>
@@ -74,6 +78,124 @@ Public Class OrderItemTest
         target.Item = expected
         actual = target.Item
         Assert.AreEqual(expected, actual)
-        Assert.Inconclusive("Verify the correctness of this test method.")
+        'Assert.Inconclusive("Verify the correctness of this test method.")
     End Sub
+
+    '''<summary>
+    '''A test for UnitPrice at the minimum good value of 0.00
+    '''</summary>
+    <TestMethod()>
+    Public Sub UnitPrice_PriceMin_Test()
+        Dim target As OrderItem = New OrderItem()
+        Dim expected As [Decimal] = New [Decimal](0D)
+        Dim actual As [Decimal]
+        target.UnitPrice = expected
+        actual = target.UnitPrice
+        Assert.AreEqual(expected, actual)
+        'Assert.Inconclusive("Verify the correctness of this test method.")
+    End Sub
+    '''<summary>
+    '''A test for UnitPrice at the maximum good value of 250.00
+    '''</summary>
+    <TestMethod()>
+    Public Sub UnitPrice_PriceMax_Test()
+        Dim target As OrderItem = New OrderItem()
+        Dim expected As [Decimal] = New [Decimal](250D)
+        Dim actual As [Decimal]
+        target.UnitPrice = expected
+        actual = target.UnitPrice
+        Assert.AreEqual(expected, actual)
+        'Assert.Inconclusive("Verify the correctness of this test method.")
+    End Sub
+
+    '''<summary>
+    '''A test for UnitPrice below the minimum good value of 0.00
+    '''</summary>
+    <TestMethod()> _
+        <ExpectedException(GetType(System.Exception), "This UnitPrice should be invalid at 0.01 below the minimum allowed value of 0.00.")>
+    Public Sub UnitPrice_PriceUnderMin_Test()
+        Dim target As OrderItem = New OrderItem()
+        Dim expected As [Decimal] = New [Decimal](-0.01D)
+        Dim actual As [Decimal]
+        target.UnitPrice = expected
+        actual = target.UnitPrice
+        Assert.AreEqual(expected, actual)
+        'Assert.Inconclusive("Verify the correctness of this test method.")
+    End Sub
+    '''<summary>
+    '''A test for UnitPrice above the maximum good value of 250.00
+    '''</summary>
+    <TestMethod()> _
+        <ExpectedException(GetType(System.Exception), "This UnitPrice should be invalid at 0.01 above the maximum allowed value of 250.00.")>
+    Public Sub UnitPrice_PriceOverMax_Test()
+        Dim target As OrderItem = New OrderItem()
+        Dim expected As [Decimal] = New [Decimal](250.01D)
+        Dim actual As [Decimal]
+        target.UnitPrice = expected
+        actual = target.UnitPrice
+        Assert.AreEqual(expected, actual)
+        'Assert.Inconclusive("Verify the correctness of this test method.")
+    End Sub
+
+    '''<summary>
+    '''A test for Quantity at the minimum good value of 1
+    '''</summary>
+    <TestMethod()>
+    Public Sub Quantity_Min_Test()
+        Dim target As OrderItem = New OrderItem()
+        Dim expected As Integer = 1
+        Dim actual As Integer
+        target.Quantity = expected
+        actual = target.Quantity
+        Assert.AreEqual(expected, actual)
+        'Assert.Inconclusive("Verify the correctness of this test method.")
+    End Sub
+
+
+    '''<summary>
+    '''A test for Quantity at the maximum good value of 500
+    '''</summary>
+    <TestMethod()>
+    Public Sub Quantity_Max_Test()
+        Dim target As OrderItem = New OrderItem()
+        Dim expected As Integer = 500
+        Dim actual As Integer
+        target.Quantity = expected
+        actual = target.Quantity
+        Assert.AreEqual(expected, actual)
+        'Assert.Inconclusive("Verify the correctness of this test method.")
+    End Sub
+
+    '''<summary>
+    '''A test for Quantity under the minimum good value of 1
+    '''</summary>
+    <TestMethod()> _
+    <ExpectedException(GetType(System.Exception), "This Quantity should be invalid at 1 below the minimum allowed value of 1.")>
+    Public Sub Quantity_UnderMin_Test()
+        Dim target As OrderItem = New OrderItem()
+        Dim expected As Integer = 0
+        Dim actual As Integer
+        target.Quantity = expected
+        actual = target.Quantity
+        Assert.AreEqual(expected, actual)
+        'Assert.Inconclusive("Verify the correctness of this test method.")
+    End Sub
+
+
+    '''<summary>
+    '''A test for Quantity over the maximum good value of 500
+    '''</summary>
+    <TestMethod()> _
+    <ExpectedException(GetType(System.Exception), "This Quantity should be invalid at 1 above the maximum allowed value of 500.")>
+    Public Sub Quantity_OverMax_Test()
+        Dim target As OrderItem = New OrderItem()
+        Dim expected As Integer = 501
+        Dim actual As Integer
+        target.Quantity = expected
+        actual = target.Quantity
+        Assert.AreEqual(expected, actual)
+        'Assert.Inconclusive("Verify the correctness of this test method.")
+    End Sub
+
 End Class
+

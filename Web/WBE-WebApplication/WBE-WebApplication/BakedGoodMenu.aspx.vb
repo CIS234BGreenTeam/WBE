@@ -8,7 +8,7 @@
 '* Set to modal on load
 '* 
 '* "AddItems" button: Click
-'* If customer input is valid, creates an OrderItem object and associates it with the Order object that issued the call.
+'* If customer input is valid, creates an OrderItem object and associates it with the Orders object that issued the call.
 '* Closes the form.
 '* 
 '* "Select an Item to order" listbox:
