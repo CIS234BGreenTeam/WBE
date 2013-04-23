@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class Customer
 
     '''<summary>
+    '''ddlCustomer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCustomer As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''txtName control.
     '''</summary>
     '''<remarks>
@@ -77,6 +86,15 @@ Partial Public Class Customer
     Protected WithEvents txtCity As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''ddlDriver control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlDriver As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''txtState control.
     '''</summary>
     '''<remarks>
@@ -138,40 +156,4 @@ Partial Public Class Customer
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnDeleteItem As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''lstOrders control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lstOrders As Global.System.Web.UI.WebControls.ListBox
-
-    '''<summary>
-    '''btnSaveCustomer control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnSaveCustomer As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''btnOpenOrder control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnOpenOrder As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''btnNewCustomer control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnNewCustomer As Global.System.Web.UI.WebControls.Button
 End Class

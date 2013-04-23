@@ -1,6 +1,5 @@
 ﻿Public Class BakedGood
     Public Property Name() As String
-    Public Property Type() As String
     Public Property DesiredQty() As Integer
     Public Property ActualQty() As Integer
     Public Property Price() As Decimal

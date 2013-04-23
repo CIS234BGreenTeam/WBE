@@ -4,6 +4,8 @@ Public Class Customer
     Public Property Stock As List(Of BakedGood)
     Public Property Order As List(Of Order)
     Public Property IsActive As Boolean
+    Public Property DriverID As Integer
+    Public Property CustomerID As Integer
 
     Const c_MinLength = 5
     Const c_MaxLength = 30

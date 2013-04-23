@@ -146,18 +146,4 @@ Public Class BakedGoodTest
         Assert.AreEqual(expected, actual)
         Assert.Inconclusive("Verify the correctness of this test method.")
     End Sub
-
-    '''<summary>
-    '''A test for Type
-    '''</summary>
-    <TestMethod()> _
-    Public Sub TypeTest()
-        Dim target As BakedGood = New BakedGood() ' TODO: Initialize to an appropriate value
-        Dim expected As String = String.Empty ' TODO: Initialize to an appropriate value
-        Dim actual As String
-        target.Type = expected
-        actual = target.Type
-        Assert.AreEqual(expected, actual)
-        Assert.Inconclusive("Verify the correctness of this test method.")
-    End Sub
 End Class

@@ -5,10 +5,6 @@
     {
         width: 100%;
     }
-    .style3
-    {
-        height: 58px;
-    }
     .style4
     {
         height: 58px;
@@ -138,14 +134,6 @@
             width: 65px;
         }
  
-        .style79
-        {
-            width: 108px;
-        }
-        .style81
-        {
-            width: 114px;
-        }
         .style82
         {
             height: 26px;
@@ -212,93 +200,11 @@
         {
             width: 4px;
         }
-        .style98
-        {
-            width: 108px;
-            height: 30px;
-        }
-        .style99
-        {
-            width: 114px;
-            height: 30px;
-        }
-        .style100
-        {
-            height: 30px;
-        }
- 
+         
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <table class="style1">
-    <tr>
-        <td class="style3" colspan="9">
-            <strong>Screen Name</strong>: Customers<br />
-            <br />
-            <strong>Designer</strong>: Kristina Frye<br />
-            <br />
-            <strong>Purpose</strong>: Allow Customer/WBE personnel to view profile and 
-            update
-            <br />
-            customer contact information.<br />
-            <br />
-            Also allow customer to maintain stock of goods including desired and<br />
-            actual inventory levels.
-            <br />
-            <br />
-            Also displays order history for the customer. The
-            <br />
-            customer will be selected from a list of customers in the default screen.<br />
-            <br />
-            <strong>Inactive</strong>: When a customer record is set to &quot;inactive&quot;, orders 
-            will not be<br />
-            generated for that customer.<br />
-            <br />
-            <strong>Baked Good item</strong>: The customer can maintain an inventory of 
-            baked goods.<br />
-            Use the Baked Good drop-down menu to modify the item selection.<br />
-            Use the &quot;Desired&quot; and &quot;Actual&quot; inventory textboxes to input the desired<br />
-            and current inventory of the item listed. When an order is generated,<br />
-            a quantity equal to desired minus actual will be created as a line item<br />
-            on the order.<br />
-            <br />
-            <strong>Add Item</strong>: This will add another line to the inventory area. The 
-            customer can<br />
-            selected from any active baked good offered by WBE (available in the
-            <br />
-            drop-down menu)<br />
-            <br />
-            <strong>Delete Item</strong>: This will delete the selected inventory line item. 
-            The selected line<br />
-            item is indicated with a &quot;*&quot; to the right of the &quot;Actual&quot; inventory textbox. 
-            When<br />
-            the user changes the screen focus to one of the line item text boxes or
-            <br />
-            drop-down list, the list will be selected. (The &quot;*&quot; will become visible to 
-            denote<br />
-            the selection)<br />
-            <br />
-            <strong>Save Inventory</strong>: This saves all changes made to the inventory 
-            line items to the<br />
-            database.<br />
-            <br />
-            <strong>Orders</strong>: This displays all existing orders (current and past) of 
-            the customer.<br />
-            By selecting a row in the listbox, the customer can open an order<br />
-            to view the details.<br />
-            <br />
-            <strong>Save Customer</strong>: Save any changes to the customer contact 
-            information<br />
-            to the database.<br />
-            <br />
-            <strong>Open Order</strong>: Open the order selected in the textbox.<br />
-            <br />
-            <strong>New Customer</strong>: Create a new customer record (clear form)<br />
-            <br />
-            Note: Customers cannot be deleted from the WBE database. They<br />
-            can only be made inactive.<br />
-        </td>
-    </tr>
     <tr>
         <td class="style91">
         </td>
@@ -307,6 +213,40 @@
         </td>
         <td class="style4">
         </td>
+    </tr>
+    <tr>
+        <td class="style92">
+            Selection</td>
+        <td class="style86" colspan="3">
+            <asp:DropDownList ID="ddlCustomer" runat="server" Width="165px">
+            </asp:DropDownList>
+        </td>
+        <td class="style87">
+            &nbsp;</td>
+        <td class="style88">
+            &nbsp;</td>
+        <td class="style89">
+            &nbsp;</td>
+        <td class="style90">
+            &nbsp;</td>
+        <td class="style85">
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td class="style92">
+            &nbsp;</td>
+        <td class="style86" colspan="3">
+            &nbsp;</td>
+        <td class="style87">
+            &nbsp;</td>
+        <td class="style88">
+            &nbsp;</td>
+        <td class="style89">
+            &nbsp;</td>
+        <td class="style90">
+            &nbsp;</td>
+        <td class="style85">
+            &nbsp;</td>
     </tr>
     <tr>
         <td class="style92">
@@ -419,8 +359,10 @@
         <td class="style34">
         </td>
         <td class="style58">
-        </td>
+            Driver</td>
         <td class="style76">
+            <asp:DropDownList ID="ddlDriver" runat="server" Height="22px" Width="113px">
+            </asp:DropDownList>
         </td>
         <td class="style82">
         </td>
@@ -489,36 +431,7 @@
         </tr>
         </table>
         <hr />
-        <span class="style75">Orders<br />
-    <asp:ListBox ID="lstOrders" runat="server" Width="431px"></asp:ListBox>
+        <span class="style75">
     <br />
     </span>
-    <table class="style1">
-        <tr>
-            <td class="style98">
-                <asp:Button ID="btnSaveCustomer" runat="server" Height="26px" 
-                    Text="Save Customer" Width="103px" />
-            </td>
-            <td class="style99">
-                <asp:Button ID="btnOpenOrder" runat="server" height="26px" Text="Open Order" 
-                    width="103px" />
-            </td>
-            <td class="style99">
-                <asp:Button ID="btnNewCustomer" runat="server" height="26px" 
-                    Text="New Customer" width="103px" />
-            </td>
-            <td class="style100">
-            </td>
-        </tr>
-        <tr>
-            <td class="style79">
-                &nbsp;</td>
-            <td class="style81">
-                &nbsp;</td>
-            <td class="style81">
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-    </table>
-</asp:Content>
+    </asp:Content>

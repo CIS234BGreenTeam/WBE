@@ -99,6 +99,7 @@
     <Content Include="BakedGood.aspx" />
     <Content Include="BakedGoodMenu.aspx" />
     <Content Include="Customers.aspx" />
+    <Content Include="Inventory.aspx" />
     <Content Include="Orders.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
@@ -180,6 +181,13 @@
     </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory.aspx.designer.vb">
+      <DependentUpon>Inventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory.aspx.vb">
+      <DependentUpon>Inventory.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
