@@ -80,7 +80,7 @@
     <Compile Include="DriverTest.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="OrderItemTest.vb" />
-    <Compile Include="OrderTest.vb" />
+    <Compile Include="OrdersTest.vb" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libWBEBR\libWBEBR.vbproj">

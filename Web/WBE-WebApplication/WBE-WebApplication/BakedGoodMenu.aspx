@@ -145,7 +145,7 @@ Inherits="WBE_WebApplication.BakedGoodMenu" %>
         }
         .style48
         {
-            width: 130px;
+            width: 126px;
         }
         .style49
         {
