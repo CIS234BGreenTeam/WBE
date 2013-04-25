@@ -9,7 +9,7 @@ for CIS 234B Advanced Visual Basic
 ********************************************************************************
 */
 
-Create database WBE; -- comment out to reset tables without re-creating the entire database
+--Create database WBE; -- comment out to reset tables without re-creating the entire database
 GO
 Use WBE;
 GO
@@ -55,46 +55,47 @@ IF EXISTS (SELECT name
 GO
 
 
-CREATE TABLE WBE 
-(CompanyID SMALLINT NOT NULL
-,CompanyName  VARCHAR (25) NOT NULL 
-,Street VARCHAR (1) NOT NULL 
-,City VARCHAR (25) NOT NULL 
-,State VARCHAR (25) NOT NULL 
-,Country VARCHAR (25) NOT NULL 
-,Zip SMALLINT  NOT NULL 
-,Phone VARCHAR (25) NOT NULL 
-,Fax VARCHAR (25) NOT NULL 
-);
+--CREATE TABLE WBE 
+--(CompanyID SMALLINT NOT NULL
+--,CompanyName  VARCHAR (25) NOT NULL 
+--,Street VARCHAR (1) NOT NULL 
+--,City VARCHAR (25) NOT NULL 
+--,State VARCHAR (25) NOT NULL 
+--,Country VARCHAR (25) NOT NULL 
+--,Zip SMALLINT  NOT NULL 
+--,Phone VARCHAR (25) NOT NULL 
+--,Fax VARCHAR (25) NOT NULL 
+--);
 GO
 CREATE TABLE CUSTOMER
 (CustomerID SMALLINT NOT NULL
-,DriverID VARCHAR (25) NOT NULL
-,Name VARCHAR (25) NOT NULL 
-,Address1 VARCHAR (25) NOT NULL 
-,Address2 VARCHAR (25) NOT NULL 
-,City VARCHAR (25) NOT NULL 
-,State VARCHAR (25) NOT NULL 
-,Zip VARCHAR (25) NOT NULL 
-,Phone VARCHAR (25) NOT NULL 
-,Fax VARCHAR (25) NOT NULL
-,Email VARCHAR (25) NOT NULL
-,IsActive SMALLINT NOT NULL);
+,DriverID SMALLINT NOT NULL
+,Name VARCHAR (30) NOT NULL 
+,Address1 VARCHAR (30) NULL 
+,Address2 VARCHAR (30) NULL 
+,City VARCHAR (30) NULL 
+,State VARCHAR (2) NULL 
+,Zip VARCHAR (10) NULL 
+,Phone VARCHAR (12) NULL 
+,Fax VARCHAR (12) NULL
+,Email VARCHAR (30) NULL
+,IsActive TINYINT NOT NULL
+,PRIMARY KEY(CustomerID));
 GO
 CREATE TABLE CUSTSTOCK
-(StockID VARCHAR (25) NOT NULL 
+(StockID SMALLINT NOT NULL 
 ,BakedGoodID SMALLINT NOT NULL
-,StockQuantity VARCHAR (25) NOT NULL 
-,DesiredQuantity VARCHAR (25) NOT NULL 
-,CustomerID VARCHAR (25) NOT NULL);
+,StockQty SMALLINT NOT NULL 
+,DesiredQty SMALLINT NOT NULL 
+,CustomerID SMALLINT NOT NULL
+PRIMARY KEY(StockID));
 GO
 CREATE TABLE BAKEDGOOD
 (BakedGoodID SMALLINT NOT NULL
-,Type VARCHAR (25) NOT NULL 
-,Name VARCHAR (25) NOT NULL 
-,Price VARCHAR (25) NOT NULL 
-,StockQuantity VARCHAR (25) NOT NULL 
-,CompanyID VARCHAR (25) NOT NULL);
+--,Type VARCHAR (25) NOT NULL 
+,Name VARCHAR (30) NOT NULL 
+,Price SMALLMONEY NOT NULL
+,PRIMARY KEY(BakedGoodID));
 GO
 CREATE TABLE ORDERS
 (OrderID VARCHAR (25) NOT NULL 
@@ -108,17 +109,17 @@ CREATE TABLE ORDERITEMS
 ,OrderID VARCHAR (25) NOT NULL);
 GO
 CREATE TABLE DRIVER
-(DriverID VARCHAR (25) NOT NULL 
-,DriverName VARCHAR (25) NOT NULL
-,CompanyID VARCHAR (25) NOT NULL
-,DeliverID VARCHAR (25) NOT NULL);
+(DriverID SMALLINT NOT NULL 
+,Name VARCHAR (30) NOT NULL
+,PRIMARY KEY (DriverID));
 GO
-CREATE TABLE DELIVERY
-(DeliveryID VARCHAR (25) NOT NULL
-,DeliveryDT VARCHAR (25) NOT NULL
-,DriverID VARCHAR (25) NOT NULL
-,OrderID VARCHAR (25) NOT NULL);
-GO
+
+--CREATE TABLE DELIVERY
+--(DeliveryID VARCHAR (25) NOT NULL
+--,DeliveryDT VARCHAR (25) NOT NULL
+--,DriverID VARCHAR (25) NOT NULL
+--,OrderID VARCHAR (25) NOT NULL);
+--GO
 
 ------------------------------------
 -- Make it so and advise

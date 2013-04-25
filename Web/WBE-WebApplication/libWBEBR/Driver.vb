@@ -1,4 +1,9 @@
-﻿Public Class Driver
+﻿'Driver class
+'Created by: Kristina Frye
+'April 22, 2013
+'CIS 234B
+
+Public Class Driver
     Public Property DriverID As Integer
 
     Private Const c_MinLength As Integer = 3

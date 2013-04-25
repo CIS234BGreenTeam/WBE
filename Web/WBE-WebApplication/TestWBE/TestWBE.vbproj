@@ -75,18 +75,40 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BakedGoodDBTest.vb" />
     <Compile Include="BakedGoodTest.vb" />
+    <Compile Include="colBakedGoodsTest.vb" />
+    <Compile Include="colCustomersTest.vb" />
+    <Compile Include="colCustStockTest.vb" />
+    <Compile Include="colDriversTest.vb" />
+    <Compile Include="CustomerDBTest.vb" />
     <Compile Include="CustomerTest.vb" />
+    <Compile Include="CustStockDBTest.vb" />
+    <Compile Include="DriverDBTest.vb" />
     <Compile Include="DriverTest.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="MyProjectTest.vb" />
+    <Compile Include="MySettingsPropertyTest.vb" />
     <Compile Include="OrderItemTest.vb" />
     <Compile Include="OrdersTest.vb" />
+    <Compile Include="ResourcesTest.vb" />
+    <Compile Include="WBEDataTest.vb" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libWBEBR\libWBEBR.vbproj">
       <Project>{056CC86C-B001-45FB-8EAD-580D6B6FFD44}</Project>
       <Name>libWBEBR</Name>
     </ProjectReference>
+    <ProjectReference Include="..\libWBEData\libWBEData.vbproj">
+      <Project>{DC152EDF-55A9-4349-9C1E-D0B15D2AD841}</Project>
+      <Name>libWBEData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Shadow Include="Test References\libWBEData.accessor" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

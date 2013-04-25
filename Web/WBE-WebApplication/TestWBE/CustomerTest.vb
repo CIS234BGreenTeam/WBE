@@ -3,6 +3,10 @@
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 Imports libWBEBR
+'CustomerTest class
+'Created by: Kristina Frye
+'April 22, 2013
+'CIS 234B
 
 '''<summary>
 '''This is a test class for CustomerTest and is intended

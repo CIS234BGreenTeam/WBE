@@ -5,12 +5,13 @@
     '* Purpose:  Contains properties and validations
 
     Public Property Type() As String
+    Public Property BakedGoodID As Integer
     Public Property DesiredQty() As Integer
-    Public Property ActualQty() As Integer
+    Public Property StockQty() As Integer
     Public Property Price() As Decimal
 
     Public Function GetOrderQty() As Integer
-        Return DesiredQty - ActualQty
+        Return DesiredQty - StockQty
     End Function
 
     Public Function GetExtendedPrice() As Decimal

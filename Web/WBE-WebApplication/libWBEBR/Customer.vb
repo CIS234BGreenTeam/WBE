@@ -1,13 +1,16 @@
 ﻿Imports System.Text.RegularExpressions
+'Customer class
+'Created by: Kristina Frye
+'April 22, 2013
+'CIS 234B
 
 Public Class Customer
     Public Property Stock As List(Of BakedGood)
-    Public Property Orders As List(Of Orders)
     Public Property IsActive As Boolean
     Public Property DriverID As Integer
     Public Property CustomerID As Integer
-
-    Const c_MinLength = 5
+    'todo: change minlength back to 5
+    Const c_MinLength = 1
     Const c_MaxLength = 30
 
     Private _Name As String

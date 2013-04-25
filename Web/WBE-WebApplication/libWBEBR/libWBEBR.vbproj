@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="BakedGood.vb" />
     <Compile Include="Customer.vb" />
+    <Compile Include="CustStock.vb" />
     <Compile Include="Driver.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

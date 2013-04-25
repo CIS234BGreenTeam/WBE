@@ -1,6 +1,10 @@
 ﻿Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 Imports libWBEBR
+'DriverTest class
+'Created by: Kristina Frye
+'April 22, 2013
+'CIS 234B
 
 '''<summary>
 '''This is a test class for DriverTest and is intended
