@@ -44,6 +44,9 @@ Public Class CustomerDB
                     .Phone = dr("Phone").ToString
                     .Fax = dr("Fax").ToString
                     .Email = dr("Email").ToString
+                    .Contact = dr("Contact").ToString
+                    .LastCountDate = Convert.ToDateTime(dr("LastCountDate"))
+                    .LastOrderDate = Convert.ToDateTime(dr("LastOrderDate"))
                     .IsActive = Convert.ToBoolean(dr("IsActive"))
                     If _iTempLastID < .CustomerID Then
                         _iTempLastID = .CustomerID
@@ -173,6 +176,9 @@ Public Class CustomerDB
             drCustomer("Phone") = .Phone
             drCustomer("Fax") = .Fax
             drCustomer("Email") = .Email
+            drCustomer("Contact") = .Contact
+            drCustomer("LastCountDate") = .LastCountDate
+            drCustomer("LastOrderDate") = .LastOrderDate
             drCustomer("IsActive") = .IsActive
         End With
     End Sub
@@ -198,16 +204,17 @@ Public Class CustomerDB
             .DeleteCommand = connWBE.CreateCommand
 
             .SelectCommand.CommandText = "Select CustomerID, DriverID, Name, Address1, Address2, " +
-                "City, State, Zip, Phone, Fax, Email, IsActive from Customer"
+                "City, State, Zip, Phone, Fax, Email, Contact, LastOrderDate, LastCountDate, " +
+                "IsActive from Customer"
 
             With .InsertCommand
                 .CommandText = "Insert Into Customer(DriverID, Name, Address1, Address2, " +
-                    "City, State, Zip, Phone, Fax, Email, IsActive) Values(" +
-                    "@DriverID, @Name, @Address1, @Address2, @City, @State, @Zip, " +
-                    "@Phone, @Fax, @Email, @IsActive"
+                    "City, State, Zip, Phone, Fax, Email, Contact, LastOrderDate, LastCountDate, " +
+                    "IsActive) Values(@DriverID, @Name, @Address1, @Address2, @City, @State, @Zip, " +
+                    "@Phone, @Fax, @Email, @Contact, @LastOrderDate, @LastCountDate, @IsActive)"
 
                 With .Parameters
-                    .AddWithValue("@DriverID", SqlDbType.Int).SourceColumn = "DriveID"
+                    .AddWithValue("@DriverID", SqlDbType.Int).SourceColumn = "DriverID"
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
                     .AddWithValue("@Address1", SqlDbType.VarChar).SourceColumn = "Address1"
                     .AddWithValue("@Address2", SqlDbType.VarChar).SourceColumn = "Address2"
@@ -217,6 +224,9 @@ Public Class CustomerDB
                     .AddWithValue("@Phone", SqlDbType.VarChar).SourceColumn = "Phone"
                     .AddWithValue("@Fax", SqlDbType.VarChar).SourceColumn = "Fax"
                     .AddWithValue("@Email", SqlDbType.VarChar).SourceColumn = "Email"
+                    .AddWithValue("@Contact", SqlDbType.VarChar).SourceColumn = "Contact"
+                    .AddWithValue("@LastOrderDate", SqlDbType.Date).SourceColumn = "LastOrderDate"
+                    .AddWithValue("@LastCountDate", SqlDbType.Date).SourceColumn = "LastCountDate"
                     .AddWithValue("@IsActive", SqlDbType.Int).SourceColumn = "IsActive"
                 End With
             End With
@@ -224,10 +234,11 @@ Public Class CustomerDB
             With .UpdateCommand
                 .CommandText = "Update Customer Set DriverID = @DriverID, Name = @Name, Address1 = @Address1, " &
                                 "Address2 = @Address2, City = @City, State = @State, Zip = @Zip, " &
-                                "Phone = @Phone, Fax = @Fax, Email = @Email, IsActive = @IsActive " &
-                                "Where CustomerID = @CustomerID"
+                                "Phone = @Phone, Fax = @Fax, Email = @Email, Contact = @Contact, " &
+                                "LastOrderDate = @LastOrderDate, LastCountDate = @LastCountDate, " &
+                                "IsActive = @IsActive Where CustomerID = @CustomerID"
                 With .Parameters
-                    .AddWithValue("@DriverID", SqlDbType.Int).SourceColumn = "DriveID"
+                    .AddWithValue("@DriverID", SqlDbType.Int).SourceColumn = "DriverID"
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
                     .AddWithValue("@Address1", SqlDbType.VarChar).SourceColumn = "Address1"
                     .AddWithValue("@Address2", SqlDbType.VarChar).SourceColumn = "Address2"
@@ -237,6 +248,9 @@ Public Class CustomerDB
                     .AddWithValue("@Phone", SqlDbType.VarChar).SourceColumn = "Phone"
                     .AddWithValue("@Fax", SqlDbType.VarChar).SourceColumn = "Fax"
                     .AddWithValue("@Email", SqlDbType.VarChar).SourceColumn = "Email"
+                    .AddWithValue("@Contact", SqlDbType.VarChar).SourceColumn = "Contact"
+                    .AddWithValue("@LastOrderDate", SqlDbType.Date).SourceColumn = "LastOrderDate"
+                    .AddWithValue("@LastCountDate", SqlDbType.Date).SourceColumn = "LastCountDate"
                     .AddWithValue("@IsActive", SqlDbType.Int).SourceColumn = "IsActive"
                     .AddWithValue("@CustomerID", SqlDbType.Int).SourceColumn = "CustomerID"
                 End With

@@ -21,7 +21,9 @@ Public Class colCustStock
     ''' </summary>
     ''' <remarks></remarks>
     Public Function Fill(ByVal sError As String) As Boolean
-
+        If Me.Count > 0 Then
+            Clear()
+        End If
         Return CustStockDB.Fill(Me, sError)
 
     End Function

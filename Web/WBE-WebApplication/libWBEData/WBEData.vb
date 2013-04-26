@@ -17,11 +17,7 @@
     ''' sets up the DataAdapter for each table (derived class)</remarks>
     Shared Sub New()
         connWBE.ConnectionString =
-            "Data Source=.\SQLEXPRESS;AttachDbFilename='" _
-      & System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly.Location) & "\wbe.mdf';Integrated Security=True;User Instance=TRUE"
-        'CustomerDB.SetupAdapter()
-        'DriverDB.SetupAdapter()
-        'CustStockDB.SetupAdapter()
+            "Data Source=.\SQLEXPRESS;database='WBE';Integrated Security=True"
         
     End Sub
 End Class

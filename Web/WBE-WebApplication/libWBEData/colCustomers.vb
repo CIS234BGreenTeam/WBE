@@ -22,6 +22,9 @@ Public Class colCustomers
     ''' <remarks></remarks>
     Public Function Fill(ByVal sError As String) As Boolean
 
+        If Count < 1 Then
+            Clear()
+        End If
         Return CustomerDB.Fill(Me, sError)
 
     End Function

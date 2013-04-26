@@ -72,7 +72,7 @@ Public Class CustStockDB
 
         If args.StatementType = StatementType.Insert Then
             newID = CInt(idCMD.ExecuteScalar())
-            args.Row("CustStockID") = newID
+            args.Row("StockID") = newID
             If _iTempLastID < newID Then
                 _iTempLastID = newID
             End If
@@ -196,7 +196,7 @@ Public Class CustStockDB
 
             With .InsertCommand
                 .CommandText = "Insert Into CustStock(BakedGoodID, StockQty, CustomerID) " +
-                    "Values(@BakedGoodID, @StockQty, @CustomerID"
+                    "Values(@BakedGoodID, @StockQty, @CustomerID)"
 
                 With .Parameters
                     .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"

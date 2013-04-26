@@ -21,7 +21,9 @@ Public Class colDrivers
     ''' </summary>
     ''' <remarks></remarks>
     Public Function Fill(ByVal sError As String) As Boolean
-
+        If Count < 1 Then
+            Clear()
+        End If
         Return DriverDB.Fill(Me, sError)
 
     End Function

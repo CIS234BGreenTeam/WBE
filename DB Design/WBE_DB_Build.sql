@@ -9,7 +9,7 @@ for CIS 234B Advanced Visual Basic
 ********************************************************************************
 */
 
---Create database WBE; -- comment out to reset tables without re-creating the entire database
+Create database WBE; -- comment out to reset tables without re-creating the entire database
 GO
 Use WBE;
 GO
@@ -68,34 +68,34 @@ GO
 --);
 GO
 CREATE TABLE CUSTOMER
-(CustomerID SMALLINT NOT NULL
+(CustomerID SMALLINT PRIMARY KEY IDENTITY 
 ,DriverID SMALLINT NOT NULL
 ,Name VARCHAR (30) NOT NULL 
-,Address1 VARCHAR (30) NULL 
-,Address2 VARCHAR (30) NULL 
-,City VARCHAR (30) NULL 
-,State VARCHAR (2) NULL 
-,Zip VARCHAR (10) NULL 
-,Phone VARCHAR (12) NULL 
-,Fax VARCHAR (12) NULL
-,Email VARCHAR (30) NULL
-,IsActive TINYINT NOT NULL
-,PRIMARY KEY(CustomerID));
+,Address1 VARCHAR (30)
+,Address2 VARCHAR (30) 
+,City VARCHAR (30) 
+,State VARCHAR (2) 
+,Zip VARCHAR (10) 
+,Phone VARCHAR (12) 
+,Fax VARCHAR (12)
+,Email VARCHAR (30)
+,Contact VARCHAR (30)
+,LastCountDate DATE
+,LastOrderDate DATE
+,IsActive TINYINT NOT NULL);
 GO
 CREATE TABLE CUSTSTOCK
-(StockID SMALLINT NOT NULL 
+(StockID SMALLINT PRIMARY KEY IDENTITY
 ,BakedGoodID SMALLINT NOT NULL
 ,StockQty SMALLINT NOT NULL 
-,DesiredQty SMALLINT NOT NULL 
-,CustomerID SMALLINT NOT NULL
-PRIMARY KEY(StockID));
+,DesiredQty SMALLINT
+,CustomerID SMALLINT NOT NULL);
 GO
 CREATE TABLE BAKEDGOOD
-(BakedGoodID SMALLINT NOT NULL
+(BakedGoodID SMALLINT PRIMARY KEY IDENTITY
 --,Type VARCHAR (25) NOT NULL 
 ,Name VARCHAR (30) NOT NULL 
-,Price SMALLMONEY NOT NULL
-,PRIMARY KEY(BakedGoodID));
+,Price SMALLMONEY NOT NULL);
 GO
 CREATE TABLE ORDERS
 (OrderID VARCHAR (25) NOT NULL 
@@ -109,9 +109,8 @@ CREATE TABLE ORDERITEMS
 ,OrderID VARCHAR (25) NOT NULL);
 GO
 CREATE TABLE DRIVER
-(DriverID SMALLINT NOT NULL 
-,Name VARCHAR (30) NOT NULL
-,PRIMARY KEY (DriverID));
+(DriverID SMALLINT PRIMARY KEY IDENTITY 
+,Name VARCHAR (30) NOT NULL);
 GO
 
 --CREATE TABLE DELIVERY

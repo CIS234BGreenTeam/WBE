@@ -17,7 +17,7 @@ Public Class DriverTest
     '''A test for good Name
     '''</summary>
     <TestMethod()> _
-    Public Sub NamePassTest()
+    Public Sub Driver_NamePass_Test()
         Dim target As Driver = New Driver()
         Dim expected As String = "Good Name"
         Dim actual As String
@@ -31,7 +31,7 @@ Public Class DriverTest
     '''</summary>
     <TestMethod()> _
     <ExpectedException(GetType(System.Exception), "Driver should fail because name is too short")>
-    Public Sub NameFailTooShortTest()
+    Public Sub Driver_NameFailTooShort_Test()
         Dim target As Driver = New Driver()
         Dim expected As String = "12"
         target.Name = expected
@@ -42,7 +42,7 @@ Public Class DriverTest
     '''</summary>
     <TestMethod()> _
     <ExpectedException(GetType(System.Exception), "Driver should fail because name is empty")>
-    Public Sub NameFailEmptyFailTest()
+    Public Sub Driver_NameFailEmptyFail_Test()
         Dim target As Driver = New Driver()
         Dim expected As String = ""
         target.Name = expected
@@ -53,7 +53,7 @@ Public Class DriverTest
     '''</summary>
     <TestMethod()> _
     <ExpectedException(GetType(System.Exception), "Driver should fail because name is too long")>
-    Public Sub NameFailTooLongTest()
+    Public Sub Driver_NameFailTooLong_Test()
         Dim target As Driver = New Driver()
         Dim expected As String = "1234567890123456789012345678901"
         target.Name = expected

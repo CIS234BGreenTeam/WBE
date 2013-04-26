@@ -4,11 +4,41 @@
 'CIS 234B
 
 Public Class Driver
+    ''' <summary>
+    ''' Unique identifier of Driver object
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Property DriverID As Integer
 
     Private Const c_MinLength As Integer = 3
     Private Const c_MaxLength As Integer = 30
+
+    ''' <summary>
+    ''' Constructor with data
+    ''' </summary>
+    ''' <param name="objName">Name to be copied into new Driver object</param>
+    ''' <remarks></remarks>
+    Public Sub New(ByVal objName As String)
+        Name = objName
+    End Sub
+
+    ''' <summary>
+    ''' default constructor without data
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub New()
+
+    End Sub
+
     Private _Name As String
+    ''' <summary>
+    ''' Name of driver
+    ''' </summary>
+    ''' <value>Driver name</value>
+    ''' <returns>Driver name</returns>
+    ''' <remarks></remarks>
     Public Property Name() As String
         Get
             Return _Name
@@ -24,7 +54,11 @@ Public Class Driver
 
     Private _NameError As String = String.Format("Name is a required field between {0} and {1} characters in length.",
                                                  c_MinLength, c_MaxLength)
-
+    ''' <summary>
+    ''' Error returned when SetName fails
+    ''' </summary>
+    ''' <returns>Error message for SetName</returns>
+    ''' <remarks></remarks>
     Public ReadOnly Property NameError() As String
         Get
             Return _NameError

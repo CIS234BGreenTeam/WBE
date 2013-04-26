@@ -183,7 +183,7 @@ Public Class DriverDB
                 .CommandText = "Insert Into Driver(Name) Values(@Name)"
 
                 With .Parameters
-                    .AddWithValue("@DriverID", SqlDbType.Int).SourceColumn = "DriveID"
+                    .AddWithValue("@DriverID", SqlDbType.SmallInt).SourceColumn = "DriverID"
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
                 End With
             End With
@@ -192,14 +192,14 @@ Public Class DriverDB
                 .CommandText = "Update Driver Set Name = @Name Where DriverID = @DriverID"
                 With .Parameters
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
-                    .AddWithValue("@DriverID", SqlDbType.Int).SourceColumn = "DriverID"
+                    .AddWithValue("@DriverID", SqlDbType.SmallInt).SourceColumn = "DriverID"
                 End With
             End With
 
             With .DeleteCommand
                 .CommandText = "Delete from Driver Where DriverID = @DriverID"
                 With .Parameters
-                    .AddWithValue("@DriverID", SqlDbType.Int).SourceColumn = "DriverID"
+                    .AddWithValue("@DriverID", SqlDbType.SmallInt).SourceColumn = "DriverID"
                 End With
             End With
         End With
