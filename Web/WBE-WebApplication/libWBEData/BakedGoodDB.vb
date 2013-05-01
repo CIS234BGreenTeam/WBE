@@ -35,7 +35,7 @@ Public Class BakedGoodDB
                 With objBakedGood
                     .BakedGoodID = Convert.ToInt32(dr("BakedGoodID"))
                     .Name = dr("Name").ToString
-                    .Price = Convert.ToDecimal(dr("Price"))
+                    .UnitPrice = Convert.ToDecimal(dr("Price"))
                     If _iTempLastID < .BakedGoodID Then
                         _iTempLastID = .BakedGoodID
                     End If
@@ -156,7 +156,7 @@ Public Class BakedGoodDB
         With objBakedGood
             drBakedGood("BakedGoodID") = .BakedGoodID
             drBakedGood("Name") = .Name
-            drBakedGood("Price") = .Price
+            drBakedGood("Price") = .UnitPrice
         End With
     End Sub
 

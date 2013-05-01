@@ -3,22 +3,29 @@
     '* Class Name: BakedGood.vb. 
     '* Designer: Ken Baker 4/20/2013. 
     '* Purpose:  Contains properties and validations
+    Private m_BakedGoodID As Integer
 
-    Public Property Type() As String
-    Public Property BakedGoodID As Integer
-    Public Property DesiredQty() As Integer
-    Public Property StockQty() As Integer
-    Public Property Price() As Decimal
+
+    Public Property DesiredQty() As Integer 'todo: move to CustStock?
+    Public Property StockQty() As Integer   'todo: move to CustStock?
+
 
     Public Function GetOrderQty() As Integer
         Return DesiredQty - StockQty
     End Function
 
-    Public Function GetExtendedPrice() As Decimal
-        Return Price * GetOrderQty()
-    End Function
-
     Private sName As String
+
+
+    Public Property BakedGoodID() As Integer
+        Get
+            Return m_BakedGoodID
+        End Get
+        Set(ByVal value As Integer)
+            m_BakedGoodID = value
+        End Set
+    End Property
+
 
     Public Property Name() As String
         Get
@@ -40,7 +47,7 @@
     '''Cost of single baked good
     '''</summary>
     ''' <remarks>If invald, throws UnitPriceError()</remarks>
-    Public Property UnitPrice() As Decimal
+    Public Overridable Property UnitPrice() As Decimal
         Get
             Return m_dUnitPrice
         End Get
@@ -59,7 +66,7 @@
     '''</summary>
     Public ReadOnly Property UnitPriceError() As String
         Get
-            Return "UnitPrice Price must be between $0.00 and $250.00. "
+            Return "UnitPrice Price must be between $0.50 and $250.00. "
         End Get
 
     End Property
