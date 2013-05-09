@@ -9,7 +9,10 @@
     Protected Shared daCustStock As New SqlClient.SqlDataAdapter
     Protected Shared dtBakedGoods As DataTable
     Protected Shared daBakedGoods As New SqlClient.SqlDataAdapter
-
+    Protected Shared dtOrderItem As DataTable
+    Protected Shared daOrderItem As New SqlClient.SqlDataAdapter
+    Protected Shared dtOrders As DataTable
+    Protected Shared daOrders As New SqlClient.SqlDataAdapter
     ''' <summary>
     ''' Constructor for RegistationDB
     ''' </summary>

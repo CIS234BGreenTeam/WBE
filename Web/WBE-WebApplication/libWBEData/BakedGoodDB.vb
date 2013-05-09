@@ -180,10 +180,10 @@ Public Class BakedGoodDB
             .UpdateCommand = connWBE.CreateCommand
             .DeleteCommand = connWBE.CreateCommand
 
-            .SelectCommand.CommandText = "Select BakedGoodID, Name, Price"
+            .SelectCommand.CommandText = "SELECT BakedGoodID, Name, Price FROM BAKEDGOOD"
 
             With .InsertCommand
-                .CommandText = "Insert Into BakedGood(Name, Price) Values(@Name, @Price)"
+                .CommandText = "INSERT INTO BakedGood(Name, Price) VALUES(@Name, @Price)"
 
                 With .Parameters
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
@@ -192,7 +192,7 @@ Public Class BakedGoodDB
             End With
 
             With .UpdateCommand
-                .CommandText = "Update BakedGood Set Name = @Name, Price = @Price Where BakedGoodID = @BakedGoodID"
+                .CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price WHERE BakedGoodID = @BakedGoodID"
 
                 With .Parameters
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"

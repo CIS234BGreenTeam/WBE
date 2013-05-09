@@ -4,22 +4,21 @@
     '* Designer: Ken Baker 4/20/2013. 
     '* Purpose:  Contains properties and validations
 
+    Private m_iID As Integer
+    Private m_dtOrderDate As DateTime
+    Private m_eStatus As eStatus
+    Private dtMaxDate As DateTime = Today.AddDays(3)
+    Private dtMinDate As DateTime = Today.AddDays(-7)
+    Private sDateErrorMsg As String = "Order date must be between " _
+                                         & dtMinDate.ToShortDateString _
+                                         & " and " & dtMaxDate.ToShortDateString
+
+
     Public Property CustomerID As Integer
     Public Property Driver As Driver
     Public Property Item As List(Of OrderItem)
 
 
-    Private dtMaxDate As DateTime = Today.AddDays(3)
-    Private dtMinDate As DateTime = Today.AddDays(-7)
-
-
-    Private sDateErrorMsg As String = "Order date must be between " _
-                                         & dtMinDate.ToShortDateString _
-                                         & " and " & dtMaxDate.ToShortDateString
-
-    Private m_iID As Integer
-    Private m_dtOrderDate As DateTime
-    Private m_eStatus As eStatus
 
     Public Enum eStatus
         NewOrder

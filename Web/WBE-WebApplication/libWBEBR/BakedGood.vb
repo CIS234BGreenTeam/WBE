@@ -3,29 +3,12 @@
     '* Class Name: BakedGood.vb. 
     '* Designer: Ken Baker 4/20/2013. 
     '* Purpose:  Contains properties and validations
-    Private m_BakedGoodID As Integer
-
-
-    Public Property DesiredQty() As Integer 'todo: move to CustStock?
-    Public Property StockQty() As Integer   'todo: move to CustStock?
-
-
-    Public Function GetOrderQty() As Integer
-        Return DesiredQty - StockQty
-    End Function
 
     Private sName As String
 
-
+    Public Property DesiredQty() As Integer
+    Public Property StockQty() As Integer
     Public Property BakedGoodID() As Integer
-        Get
-            Return m_BakedGoodID
-        End Get
-        Set(ByVal value As Integer)
-            m_BakedGoodID = value
-        End Set
-    End Property
-
 
     Public Property Name() As String
         Get
@@ -37,7 +20,6 @@
             Else
                 Throw New Exception("Name must contain between 2 and 30 characters")
             End If
-
         End Set
     End Property
 
@@ -71,6 +53,8 @@
 
     End Property
 
-
+    Public Function GetOrderQty() As Integer
+        Return DesiredQty - StockQty
+    End Function
 
 End Class

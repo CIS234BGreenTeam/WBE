@@ -1,13 +1,16 @@
-﻿Public Class OrderItem
+﻿
+'''<summary>
+''' Class Name: OrderItem.vb. -
+''' -  Designer: Ken Baker 4/20/2013.
+'''</summary>
+''' <remarks>Purpose:  Contains properties and validations</remarks>
+Public Class OrderItem
     Inherits BakedGood
 
-    '* Class Name: OrderItem.vb. 
-    '* Designer: Ken Baker 4/20/2013. 
-    '* Purpose:  Contains properties and validations
-
-    Private m_OrderItemID As Integer
     Private m_dUnitPrice As Decimal
     Private m_iQuantity As Integer
+
+
 
     '''<summary>
     '''ID number that uniquely identifies 
@@ -15,13 +18,13 @@
     '''</summary>
     ''' <remarks></remarks>
     Public Property OrderItemID() As Integer
-        Get
-            Return m_OrderItemID
-        End Get
-        Set(ByVal value As Integer)
-            m_OrderItemID = value
-        End Set
-    End Property
+
+    '''<summary>
+    '''ID number that identifies the Orders Object
+    ''' that this OrderItem Object belongs to
+    '''</summary>
+    ''' <remarks></remarks>
+    Public Property OrderID As Integer
 
     '''<summary>
     '''Cost of single baked good
@@ -79,11 +82,14 @@
         End Get
     End Property
 
+
+
     '''<summary>
     '''Returns the calculated product of UnitPrice and Quantity
     '''</summary>
     Public Function GetExtendedPrice() As Decimal
         Return UnitPrice * GetOrderQty()
     End Function
+
 
 End Class

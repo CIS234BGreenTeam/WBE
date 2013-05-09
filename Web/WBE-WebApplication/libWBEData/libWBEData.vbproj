@@ -69,6 +69,8 @@
     <Compile Include="colCustomers.vb" />
     <Compile Include="colCustStock.vb" />
     <Compile Include="colDrivers.vb" />
+    <Compile Include="colOrders.vb" />
+    <Compile Include="colOrderItems.vb" />
     <Compile Include="CustomerDB.vb" />
     <Compile Include="CustStockDB.vb" />
     <Compile Include="DriverDB.vb" />
@@ -87,6 +89,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="OrdersDB.vb" />
+    <Compile Include="OrderItemDB.vb" />
     <Compile Include="TestFriends.vb" />
     <Compile Include="WBEData.vb" />
   </ItemGroup>

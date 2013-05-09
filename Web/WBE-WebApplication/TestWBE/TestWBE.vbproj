@@ -76,9 +76,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BakedGoodTest.vb" />
+    <Compile Include="colBakedGoodsTest.vb" />
     <Compile Include="colCustomersTest.vb" />
     <Compile Include="colCustStockTest.vb" />
     <Compile Include="colDriversTest.vb" />
+    <Compile Include="colOrderItemsTest.vb" />
+    <Compile Include="colOrdersTest.vb" />
     <Compile Include="CustomerTest.vb" />
     <Compile Include="DriverTest.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
