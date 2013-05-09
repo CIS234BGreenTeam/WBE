@@ -91,5 +91,30 @@ Public Class OrderItem
         Return UnitPrice * GetOrderQty()
     End Function
 
+    ''' <summary>
+    ''' Constructor with data
+    ''' </summary>
+    ''' <param name="objBakedGoodID">Identifier of baked good (needed to obtain Name)</param>
+    ''' <param name="objOrderID">Identifier of attached order</param>
+    ''' <param name="objUnitPrice">UnitPrice of item in ordered</param>
+    ''' ''' <param name="objQuantity">Quantity of item ordered</param>
+    ''' <remarks></remarks>
+    Public Sub New(ByVal objBakedGoodID As Integer,
+                   ByVal objOrderID As Integer,
+                   ByVal objUnitPrice As Decimal,
+                   ByVal objQuantity As Decimal)
 
+        BakedGoodID = objBakedGoodID
+        OrderID = objOrderID
+        UnitPrice = objUnitPrice
+        Quantity = objQuantity
+    End Sub
+
+    ''' <summary>
+    ''' default constructor (no data)
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub New()
+
+    End Sub
 End Class

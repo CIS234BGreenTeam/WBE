@@ -28,67 +28,37 @@ Public Class colOrdersTest
     End Property
 
 #Region "Additional test attributes"
-    '
-    'You can use the following additional attributes as you write your tests:
-    '
+
     'Use ClassInitialize to run code before running the first test in the class
-    '<ClassInitialize()>  _
-    'Public Shared Sub MyClassInitialize(ByVal testContext As TestContext)
-    'End Sub
-    '
-    'Use ClassCleanup to run code after all tests in a class have run
-    '<ClassCleanup()>  _
-    'Public Shared Sub MyClassCleanup()
-    'End Sub
-    '
-    'Use TestInitialize to run code before running each test
-    '<TestInitialize()>  _
-    'Public Sub MyTestInitialize()
-    'End Sub
-    '
-    'Use TestCleanup to run code after each test has run
-    '<TestCleanup()>  _
-    'Public Sub MyTestCleanup()
-    'End Sub
-    '
+    <ClassInitialize()> _
+    Public Shared Sub MyClassInitialize(ByVal testContext As TestContext)
+        CustomerDB.SetupAdapter()
+    End Sub
+
 #End Region
 
 
-    ' '''<summary>
-    ' '''A test for colOrders Constructor
-    ' '''</summary>
-    '<TestMethod()> _
-    'Public Sub colOrdersConstructorTest()
-    '    Dim target As colOrders = New colOrders()
-    '    Assert.Inconclusive("TODO: Implement code to verify target")
-    'End Sub
 
     '''<summary>
-    '''A test for Add
+    '''A test for Adding order to database
     '''</summary>
     <TestMethod()> _
-    Public Sub colOrder_AddTest()
+    Public Sub colOrders_Add_Test()
+        Dim target As colOrders = New colOrders()
         Dim sError As String = ""
-        Dim target As colOrders = New colOrders() ' TODO: Initialize to an appropriate value
-        Dim objOrders As Orders = Nothing ' TODO: Initialize to an appropriate value
-        target.Add(objOrders)
-        'Assert.Inconclusive("A method that does not return a value cannot be verified.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        target.Fill(sError) 'Fill the collection
+        'Create new Orders object
+        Dim expected As New Orders(1, Today, 0)
+        target.Add(expected) 'Add object to collection
+        OrdersDB.Update() 'Update database
+        Dim actual As Orders
+        actual = target(target.Count - 1) 'Get last record (most recently added)
+        'Need to do the following instead of a normal "=" because "expected" does not have a real CustomerID
+        Dim bAreEqual As Boolean =
+            (actual.OrderID = expected.OrderID) And
+            (actual.OrderDate = expected.OrderDate) And
+            (actual.Status = expected.Status)
+        Assert.IsTrue(bAreEqual)
     End Sub
 
     '''<summary>

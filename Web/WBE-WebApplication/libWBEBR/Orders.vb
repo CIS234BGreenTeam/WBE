@@ -18,14 +18,42 @@
     Public Property Driver As Driver
     Public Property Item As List(Of OrderItem)
 
-
-
     Public Enum eStatus
         NewOrder
         Baking
         Invoiced
     End Enum
 
+    '===========================================================================
+
+    ''' <summary>
+    ''' Constructor with data
+    ''' </summary>
+    ''' <param  name="objOrderID">DriverID</param>
+    ''' <param name="objOrderDate">Name of customer</param>
+    ''' <param name="objStatus">Address of customer</param>
+    ''' <remarks></remarks>
+    Public Sub New(ByVal objOrderID As Integer,
+                   ByVal objOrderDate As Date,
+                   ByVal objStatus As String)
+        OrderID = objOrderID
+        OrderDate = objOrderDate
+        Status = objStatus
+    End Sub
+
+    ''' <summary>
+    ''' Default constructor
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub New()
+
+    End Sub
+
+
+
+
+
+    '==============================================================================
     Public Property Status() As eStatus
         Get
             Return m_eStatus

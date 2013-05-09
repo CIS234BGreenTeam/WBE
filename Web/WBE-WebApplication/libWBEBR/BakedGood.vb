@@ -57,4 +57,26 @@
         Return DesiredQty - StockQty
     End Function
 
+    ''' <summary>
+    ''' Constructor with data
+    ''' </summary>
+    ''' <param name="objBakedGoodID">Identifier of baked good (needed to obtain Name)</param>
+    ''' <param name="objName">The name of the baked good</param>
+    ''' <param name="objUnitPrice">UnitPrice of the baked good</param>
+    ''' <remarks></remarks>
+    Public Sub New(ByVal objBakedGoodID As Integer,
+                   ByVal objName As String,
+                   ByVal objUnitPrice As Decimal)
+        BakedGoodID = objBakedGoodID
+        Name = objName
+        UnitPrice = objUnitPrice
+    End Sub
+
+    ''' <summary>
+    ''' default constructor (no data)
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub New()
+
+    End Sub
 End Class

@@ -17,11 +17,11 @@ Public Class colOrders
     Inherits List(Of Orders)
 
     ''' <summary>
-    ''' Fill Datatable with database table for a particular customer
+    ''' Fill Datatable with database table for a particular order
     ''' </summary>
     ''' <remarks></remarks>
     Public Function Fill(ByVal sError As String) As Boolean
-        If Me.Count > 0 Then
+        If Me.Count < 1 Then
             Clear()
         End If
         Return OrdersDB.Fill(Me, sError)

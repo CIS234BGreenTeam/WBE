@@ -188,7 +188,8 @@ Public Class OrdersDB
             .DeleteCommand = connWBE.CreateCommand
 
             .SelectCommand.CommandText = "SELECT OrderID, OrderDate, Status, CustomerID " +
-                                         "FROM Orders WHERE CustomerID = @CustomerID"
+                                         "FROM Customer,Orders" +
+                                         "WHERE CustomerID = @CustomerID"
 
             With .SelectCommand.Parameters
                 .AddWithValue("@CustomerID", SqlDbType.SmallInt).Value = CustomerID
@@ -208,8 +209,8 @@ Public Class OrdersDB
 
             With .UpdateCommand
                 .CommandText = "UPDATE Orders" +
-                               "Set OrderDate = @OrderDate, Status = @Status, CustomerID = @CustomerID" +
-                               "Where OrderID = @OrderID"
+                               "SET OrderDate = @OrderDate, Status = @Status, CustomerID = @CustomerID" +
+                               "WHERE OrderID = @OrderID"
 
                 With .Parameters
                     .AddWithValue("@OrderID", SqlDbType.SmallInt).SourceColumn = "OrderID"
