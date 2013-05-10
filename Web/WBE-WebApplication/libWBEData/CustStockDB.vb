@@ -40,6 +40,7 @@ Public Class CustStockDB
                     .StockQty = Convert.ToInt32(dr("StockQty"))
                     .CustomerID = Convert.ToInt32(dr("CustomerID"))
                     .Name = dr("Name").ToString
+                    .DesiredQty = Convert.ToInt32(dr("DesiredQty"))
 
                     If _iTempLastID < .StockID Then
                         _iTempLastID = .StockID
@@ -163,6 +164,7 @@ Public Class CustStockDB
             drCustStock("BakedGoodID") = .BakedGoodID
             drCustStock("StockQty") = .StockQty
             drCustStock("CustomerID") = .CustomerID
+            drCustStock("DesiredQty") = .DesiredQty
         End With
     End Sub
 
@@ -186,8 +188,8 @@ Public Class CustStockDB
             .UpdateCommand = connWBE.CreateCommand
             .DeleteCommand = connWBE.CreateCommand
 
-            .SelectCommand.CommandText = "Select StockID, CustStock.BakedGoodID, StockQty, CustomerID, Name " +
-                "FROM CustStock, BakedGood WHERE " +
+            .SelectCommand.CommandText = "Select StockID, CustStock.BakedGoodID, StockQty, CustomerID, " +
+                "Name, DesiredQty FROM CustStock, BakedGood WHERE " +
                 "CustStock.BakedGoodID = BakedGood.BakedGoodID AND CustomerID = @CustomerID"
 
             With .SelectCommand.Parameters
@@ -195,25 +197,28 @@ Public Class CustStockDB
             End With
 
             With .InsertCommand
-                .CommandText = "Insert Into CustStock(BakedGoodID, StockQty, CustomerID) " +
-                    "Values(@BakedGoodID, @StockQty, @CustomerID)"
+                .CommandText = "Insert Into CustStock(BakedGoodID, StockQty, CustomerID, DesiredQty) " +
+                    "Values(@BakedGoodID, @StockQty, @CustomerID, @DesiredQty)"
 
                 With .Parameters
                     .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
                     .AddWithValue("@StockQty", SqlDbType.SmallInt).SourceColumn = "StockQty"
                     .AddWithValue("@CustomerID", SqlDbType.SmallInt).SourceColumn = "CustomerID"
+                    .AddWithValue("@DesiredQty", SqlDbType.SmallInt).SourceColumn = "DesiredQty"
                 End With
             End With
 
             With .UpdateCommand
                 .CommandText = "Update CustStock Set BakedGoodID = @BakedGoodID, StockQty = @StockQty, " +
-                                "CustomerID = @CustomerID Where StockID = @StockID"
+                                "CustomerID = @CustomerID, DesiredQty = @DesiredQty " +
+                                "Where StockID = @StockID"
 
                 With .Parameters
                     .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
                     .AddWithValue("@StockQty", SqlDbType.SmallInt).SourceColumn = "StockQty"
                     .AddWithValue("@CustomerID", SqlDbType.SmallInt).SourceColumn = "CustomerID"
                     .AddWithValue("@StockID", SqlDbType.SmallInt).SourceColumn = "StockID"
+                    .AddWithValue("@DesiredQty", SqlDbType.SmallInt).SourceColumn = "DesiredQty"
                 End With
             End With
 

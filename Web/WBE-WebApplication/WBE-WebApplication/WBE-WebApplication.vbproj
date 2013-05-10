@@ -21,6 +21,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -250,6 +254,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libWBEBR\libWBEBR.vbproj">
+      <Project>{056cc86c-b001-45fb-8ead-580d6b6ffd44}</Project>
+      <Name>libWBEBR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\libWBEData\libWBEData.vbproj">
+      <Project>{dc152edf-55a9-4349-9c1e-d0b15d2ad841}</Project>
+      <Name>libWBEData</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="BakedGood.aspx.vb"
-Inherits="WBE_WebApplication.BakedGood" %>
+Inherits="WBE_WebApplication.BakedGoodTab" %>
 
 <asp:Content ID="Content1" runat="server" contentplaceholderid="MainContent">
     <table class="style1">

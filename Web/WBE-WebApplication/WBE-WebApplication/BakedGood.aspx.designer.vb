@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class BakedGood
+Partial Public Class BakedGoodTab
 
     '''<summary>
     '''lstBakedGoods control.
