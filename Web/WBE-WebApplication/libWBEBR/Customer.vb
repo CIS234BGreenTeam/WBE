@@ -422,7 +422,7 @@ Public Class Customer
             Return _LastCountDate
         End Get
         Set(ByVal value As Nullable(Of DateTime))
-            If CheckDateInterval(value) = False Then
+            If Not value Is Nothing And CheckDateInterval(value) = False Then
                 Throw New Exception(DateError)
             Else
                 _LastCountDate = value
@@ -442,7 +442,7 @@ Public Class Customer
             Return _LastOrderDate
         End Get
         Set(ByVal value As Nullable(Of DateTime))
-            If CheckDateInterval(value) = False Then
+            If Not value Is Nothing And CheckDateInterval(value) = False Then
                 Throw New Exception(DateError)
             Else
                 _LastOrderDate = value

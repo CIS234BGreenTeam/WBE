@@ -45,11 +45,18 @@ Public Class CustomerDB
                     .Fax = dr("Fax").ToString
                     .Email = dr("Email").ToString
                     .Contact = dr("Contact").ToString
-                    .LastCountDate = Convert.ToDateTime(dr("LastCountDate"))
-                    .LastOrderDate = Convert.ToDateTime(dr("LastOrderDate"))
                     .IsActive = Convert.ToBoolean(dr("IsActive"))
+
                     If _iTempLastID < .CustomerID Then
                         _iTempLastID = .CustomerID
+                    End If
+
+                    If Not dr("LastCountDate") Is DBNull.Value Then
+                        .LastCountDate = Convert.ToDateTime(dr("LastCountDate"))
+                    End If
+
+                    If Not dr("LastOrderDate") Is DBNull.Value Then
+                        .LastOrderDate = Convert.ToDateTime(dr("LastOrderDate"))
                     End If
                 End With
 

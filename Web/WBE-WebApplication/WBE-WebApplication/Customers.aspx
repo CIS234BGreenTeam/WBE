@@ -339,7 +339,8 @@
         <td class="auto-style1">
             &nbsp;</td>
         <td class="auto-style5">
-            &nbsp;</td>
+            <asp:Label ID="lblError" runat="server" ForeColor="Red" Visible="False" Width="200px"></asp:Label>
+        </td>
         <td class="style85">
             &nbsp;</td>
     </tr>
@@ -518,7 +519,7 @@
         <td class="style34">
             &nbsp;</td>
         <td class="style10" colspan="3">
-            <asp:CheckBox ID="chkInactive" runat="server" Text="Inactive" />
+            <asp:CheckBox ID="chkActive" runat="server" Text="Active" />
         </td>
         <td class="style9">
             &nbsp;</td>

@@ -23,6 +23,15 @@ Partial Public Class CustomerTab
     Protected WithEvents ddlCustomer As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''lblError control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblError As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''txtName control.
     '''</summary>
     '''<remarks>
@@ -176,13 +185,13 @@ Partial Public Class CustomerTab
     Protected WithEvents txtZip As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''chkInactive control.
+    '''chkActive control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkInactive As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents chkActive As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
     '''lblValState control.
