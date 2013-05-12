@@ -410,18 +410,18 @@ Public Class Customer
 
     Const c_MinDate As Long = 7
     Const c_MaxDate As Long = 3
-    Private _LastCountDate As Date
+    Private _LastCountDate As Nullable(Of DateTime)
     ''' <summary>
     ''' Date when customer inventory count was last input
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Property LastCountDate() As Date
+    Public Property LastCountDate() As Nullable(Of DateTime)
         Get
             Return _LastCountDate
         End Get
-        Set(ByVal value As Date)
+        Set(ByVal value As Nullable(Of DateTime))
             If CheckDateInterval(value) = False Then
                 Throw New Exception(DateError)
             Else
@@ -430,18 +430,18 @@ Public Class Customer
         End Set
     End Property
 
-    Private _LastOrderDate As Date
+    Private _LastOrderDate As Nullable(Of DateTime)
     ''' <summary>
     ''' Last time customer placed an order
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Property LastOrderDate() As Date
+    Public Property LastOrderDate() As Nullable(Of DateTime)
         Get
             Return _LastOrderDate
         End Get
-        Set(ByVal value As Date)
+        Set(ByVal value As Nullable(Of DateTime))
             If CheckDateInterval(value) = False Then
                 Throw New Exception(DateError)
             Else

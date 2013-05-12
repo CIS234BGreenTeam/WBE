@@ -177,9 +177,19 @@ Public Class CustomerDB
             drCustomer("Fax") = .Fax
             drCustomer("Email") = .Email
             drCustomer("Contact") = .Contact
-            drCustomer("LastCountDate") = .LastCountDate
-            drCustomer("LastOrderDate") = .LastOrderDate
             drCustomer("IsActive") = .IsActive
+
+            If .LastCountDate.HasValue Then
+                drCustomer("LastCountDate") = .LastCountDate
+            Else
+                drCustomer("LastCountDate") = DBNull.Value
+            End If
+
+            If .LastOrderDate.HasValue Then
+                drCustomer("LastOrderDate") = .LastOrderDate
+            Else
+                drCustomer("LastOrderDate") = DBNull.Value
+            End If
         End With
     End Sub
 

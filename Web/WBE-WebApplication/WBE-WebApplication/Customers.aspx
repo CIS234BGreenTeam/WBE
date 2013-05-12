@@ -329,7 +329,7 @@
         <td class="style92">
             Selection</td>
         <td class="style86" colspan="3">
-            <asp:DropDownList ID="ddlCustomer" runat="server" Width="165px">
+            <asp:DropDownList ID="ddlCustomer" runat="server" Width="165px" AutoPostBack="True">
             </asp:DropDownList>
         </td>
         <td class="style87">

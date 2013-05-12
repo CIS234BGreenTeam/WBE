@@ -64,21 +64,22 @@ Public Class CustomerTab
 
             If _colDrivers.Fill(sError) Then
                 FillDriverSelection()
+                Session("colDrivers") = _colDrivers
             End If
 
             If _colCustomers.Fill(sError) Then
                 FillCustomerSelection()
+                Session("colCustomers") = _colCustomers
             End If
 
-            If _colBakedGoods.Fill(sError) = False Then
-                'todo: Display error message
+            'todo: Display error message
+            If _colBakedGoods.Fill(sError) Then
+                Session("colBakedGoods") = _colBakedGoods
             End If
 
             LoadCustomerData()
 
             lblSelected(0).Visible = True 'Identifies which inventory item is selected
-
-            Session("colCustomers") = _colCustomers
         End If
 
     End Sub
@@ -143,6 +144,7 @@ Public Class CustomerTab
 
     Private Sub FillBakedItemList(ByVal cboItem As DropDownList)
         'This function will add the actual available baked goods
+        _colBakedGoods = DirectCast(Session("colBakedGoods"), colBakedGoods)
         For Each objBakedGood As BakedGood In _colBakedGoods
             Dim objListItem As New ListItem
             objListItem.Text = objBakedGood.Name
@@ -153,8 +155,13 @@ Public Class CustomerTab
 
     Private Sub FillCustomerSelection()
         'fill Course combobox from Customer collection
+        Dim sError As String = ""
 
         ddlCustomer.Items.Clear()
+        If _colCustomers.Count = 0 Then
+            _colCustomers.Clear()
+            _colCustomers.Fill(sError)
+        End If
 
         'todo: Add sorting to colCustomers
         '_colCustomers.Sort() 
@@ -173,25 +180,33 @@ Public Class CustomerTab
     End Sub
 
     Private Sub LoadCustomerData()
-        Dim objCustomer As Customer
+        If ddlCustomer.SelectedItem.Text <> "New Customer" Then
+            Dim sError As String = ""
+            Dim objCustomer As Customer
 
-        objCustomer = _colCustomers.Find(Convert.ToInt32(ddlCustomer.SelectedItem.Value))
+            If _colCustomers.Count = 0 Then
+                _colCustomers.Fill(sError)
+            End If
 
-        With objCustomer
-            txtName.Text = .Name
-            txtAddress1.Text = .Address1
-            txtAddress2.Text = .Address2
-            txtCity.Text = .City
-            txtState.Text = .State
-            txtZip.Text = .Zip
-            txtPhone.Text = .Phone
-            txtFax.Text = .Fax
-            txtEmail.Text = .Email
-            chkInactive.Checked = .IsActive
-            ddlDriver.Items.FindByValue(.DriverID.ToString).Selected = True
-            FillInventoryItems(.CustomerID)
-        End With
+            objCustomer = _colCustomers.Find(Convert.ToInt32(ddlCustomer.SelectedItem.Value))
 
+            With objCustomer
+                txtName.Text = .Name
+                txtAddress1.Text = .Address1
+                txtAddress2.Text = .Address2
+                txtCity.Text = .City
+                txtState.Text = .State
+                txtZip.Text = .Zip
+                txtPhone.Text = .Phone
+                txtFax.Text = .Fax
+                txtEmail.Text = .Email
+                chkInactive.Checked = .IsActive
+                ddlDriver.SelectedIndex = ddlDriver.Items.IndexOf(ddlDriver.Items.FindByValue(.DriverID.ToString))
+                FillInventoryItems(.CustomerID)
+            End With
+
+            Session("objCustomer") = objCustomer
+        End If
     End Sub
 
     Private Sub FillDriverSelection()
@@ -218,20 +233,38 @@ Public Class CustomerTab
 
     Private Sub Save()
         Dim objCustomer As New Customer
+        Dim objCustomerSaved As New Customer
+        Dim sError As String = ""
 
         If IsValidData(objCustomer) Then
             objCustomer.IsActive = chkInactive.Checked
             objCustomer.DriverID = Convert.ToInt32(ddlDriver.SelectedItem.Value)
             objCustomer.CustomerID = Convert.ToInt32(ddlCustomer.SelectedItem.Value)
-            _colCustomers = DirectCast(Session("colCustomers"), colCustomers)
+
+            If IsNothing(_colCustomers) Then
+                _colCustomers.Fill(sError)
+            End If
+
+            If Not Session("objCustomer") Is DBNull.Value Then
+                objCustomerSaved = DirectCast(Session("objCustomer"), Customer)
+                objCustomer.LastCountDate = objCustomerSaved.LastCountDate
+                objCustomer.LastOrderDate = objCustomerSaved.LastOrderDate
+            End If
+
             If objCustomer.CustomerID = 0 Then
                 _colCustomers.Add(objCustomer)
             Else
                 _colCustomers.Change(objCustomer)
             End If
 
-            FillCustomerSelection()
-            ddlCustomer.Items.FindByText(objCustomer.Name).Selected = True
+            FillInventoryItems(objCustomer.CustomerID)
+            CustomerDB.Update()
+
+            'Need to refill colCustomers to account for changes
+            If (_colCustomers.Fill(sError)) Then
+                FillCustomerSelection()
+                ddlCustomer.SelectedIndex = ddlCustomer.Items.IndexOf(ddlCustomer.Items.FindByText(objCustomer.Name))
+            End If
         End If
     End Sub
     Private Function IsValidData(ByVal objCustomer As Customer) As Boolean
@@ -396,14 +429,14 @@ Public Class CustomerTab
         txtZip.Text = ""
         txtEmail.Text = ""
         ddlCustomer.Items.Add("New Customer")
-        ddlCustomer.SelectedItem.Selected = False
-        ddlCustomer.Items.FindByText("New Customer").Selected = True
+        ddlCustomer.SelectedIndex = ddlCustomer.Items.IndexOf(ddlCustomer.Items.FindByValue("New Customer"))
         ddlCustomer.SelectedItem.Value = Convert.ToString(0)
         ddlDriver.Items.Add("Please select")
-        ddlDriver.SelectedItem.Selected = False
-        ddlDriver.Items.FindByText("Please select").Selected = True
+        ddlDriver.SelectedIndex = ddlDriver.Items.IndexOf(ddlDriver.Items.FindByValue("Please select"))
         ddlDriver.SelectedItem.Value = Convert.ToString(0)
         chkInactive.Checked = False
+        Session.Remove("objCustomer")
+        pnlInventory.Controls.Clear()
     End Sub
 
 End Class
