@@ -212,15 +212,6 @@ Partial Public Class CustomerTab
     Protected WithEvents lblValZip As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''pnlInventory control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents pnlInventory As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
     '''btnSaveItem control.
     '''</summary>
     '''<remarks>

@@ -8,15 +8,8 @@ Imports libWBEBR
 'Purpose: Allow Customer/WBE personnel to view profile and update 
 'customer contact information.
 
-'Also allow customer keep track of desired inventory. 
-
-'Save Inventory: This saves all changes made to the inventory line items to the
-'database.
-
 'Save Customer: Save any changes to the customer contact information
 'to the database.
-
-'Open Order: Open the order selected in the textbox.
 
 'New Customer: Create a new customer record (clear form)
 
@@ -26,14 +19,8 @@ Imports libWBEBR
 Public Class CustomerTab
     Inherits System.Web.UI.Page
 
-    'These arrays store the dynamically created inventory items
-    Dim txtDesired() As TextBox
-    Dim lblItem() As Label
-
     Private _colCustomers As New colCustomers
     Private _colDrivers As New colDrivers
-    Private _colCustStock As New colCustStock
-    Private _colBakedGoods As New colBakedGoods
 
     Private Sub CustomerTab_Init(sender As Object, e As EventArgs) Handles Me.Init
 
@@ -41,18 +28,11 @@ Public Class CustomerTab
         lblError.Text = ""
         CustomerDB.SetupAdapter()
         DriverDB.SetupAdapter()
-        BakedGoodDB.SetupAdapter()
 
+        'Fill the data collections
         If _colDrivers.Fill(sError) Then
             FillDriverSelection()
             Session("colDrivers") = _colDrivers
-        Else
-            lblError.Text += sError + " "
-        End If
-
-        If _colBakedGoods.Fill(sError) Then
-            RemoveInactiveBakedGoods()
-            Session("colBakedGoods") = _colBakedGoods
         Else
             lblError.Text += sError + " "
         End If
@@ -63,116 +43,18 @@ Public Class CustomerTab
             lblError.Text += sError + " "
         End If
 
+        'Load the current selected customer data
         LoadCustomerData()
 
         If lblError.Text <> "" Then
             lblError.Visible = True
         End If
     End Sub
-
-    Private Sub RemoveInactiveCustStock()
-        For i As Integer = _colCustStock.Count - 1 To 0 Step -1
-            Dim objBakedGood As BakedGood
-            objBakedGood = _colBakedGoods.Find(_colCustStock(i).BakedGoodID)
-            If objBakedGood Is Nothing Then
-                _colCustStock.RemoveAt(i)
-            End If
-        Next
-    End Sub
-
-    Private Sub RemoveInactiveBakedGoods()
-        For i As Integer = _colBakedGoods.Count - 1 To 0 Step -1
-            If _colBakedGoods(i).Inactive = True Then
-                _colBakedGoods.RemoveAt(i)
-            End If
-        Next
-    End Sub
-
-    Private Sub FillInventoryItems(ByVal ID As Integer)
-        'Dynamically create list of inventory items for the customer
-        Dim sError As String = ""
-        Dim i As Integer = 0
-        Dim iMaxLines As Integer
-
-        CustStockDB.CustomerID = ID
-        CustStockDB.SetupAdapter()
-
-        If _colCustStock.Fill(sError) = False Then
-            lblError.Text += sError + " "
-            lblError.Visible = True
-        End If
-
-        If _colBakedGoods.Count = 0 Then
-            _colBakedGoods = DirectCast(Session("ColBakedGoods"), colBakedGoods)
-        End If
-
-        RemoveInactiveCustStock()
-
-        iMaxLines = _colBakedGoods.Count
-        iMaxLines -= 1
-
-        pnlInventory.Controls.Clear()
-        UpdateCustStockArrays(iMaxLines)
-        pnlInventory.Controls.Add(New LiteralControl("<br />"))
-
-        For Each objBakedGood As BakedGood In _colBakedGoods
-            CreateCustStockRow(objBakedGood, i)
-        Next
-    End Sub
-
-    Private Sub UpdateCustStockArrays(ByVal iNoLines As Integer)
-        ReDim txtDesired(iNoLines)
-        ReDim lblItem(iNoLines)
-
-        For i As Integer = 0 To iNoLines
-            txtDesired(i) = New TextBox
-            lblItem(i) = New Label
-        Next
-    End Sub
-
-    Private Sub CreateCustStockRow(ByVal objBakedGood As BakedGood,
-                                   ByRef i As Integer)
-        Dim objCustStock As CustStock
-
-        'Textbox for desired quantity
-        objCustStock = GetCustStockItem(objBakedGood.BakedGoodID)
-
-        If objCustStock Is Nothing Then
-            objCustStock = New CustStock
-            CreateDummyStock(objCustStock)
-        End If
-
-        txtDesired(i).Width = 25
-        txtDesired(i).Text = objCustStock.DesiredQty.ToString
-        txtDesired(i).Attributes.Add("StockID", objCustStock.StockID.ToString)
-        txtDesired(i).Attributes.Add("StockQty", objCustStock.StockQty.ToString)
-
-        pnlInventory.Controls.Add(txtDesired(i))
-        pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
-        pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
-        pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
-
-        'Label for Baked Good items
-        lblItem(i).Text = objBakedGood.Name
-        lblItem(i).Attributes.Add("BakedGoodID", objBakedGood.BakedGoodID.ToString)
-
-        pnlInventory.Controls.Add(lblItem(i))
-        
-        'Add next item on next line
-        pnlInventory.Controls.Add(New LiteralControl("<br />"))
-        i += 1
-    End Sub
-
-    Private Function GetCustStockItem(ByVal BakedGoodID As Integer) As CustStock
-        For Each CustStock As CustStock In _colCustStock
-            If CustStock.BakedGoodID = BakedGoodID Then
-                Return CustStock
-            End If
-        Next
-    End Function
-
+    ''' <summary>
+    ''' Fills Customer dropdownmenu for selecting the customer
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub FillCustomerSelection()
-        'fill combobox from Customer collection
         Dim sError As String = ""
 
         ddlCustomer.Items.Clear()
@@ -188,23 +70,32 @@ Public Class CustomerTab
         '_colCustomers.Sort() 
 
         For Each objCustomer As Customer In _colCustomers
-            'Add the item to the list this way to store the CustomerID with the item
             Dim objListItem As New ListItem
             objListItem.Text = objCustomer.ToString
             objListItem.Value = objCustomer.CustomerID.ToString
             ddlCustomer.Items.Add(objListItem)
         Next
     End Sub
-
+    ''' <summary>
+    ''' Called when the dropdownlist is changed
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub ddlCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlCustomer.SelectedIndexChanged
         LoadCustomerData()
     End Sub
 
+    ''' <summary>
+    ''' Load the newly selected customer in the dropdownmenu
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub LoadCustomerData()
         If ddlCustomer.Text <> "New Customer" Then
             Dim sError As String = ""
             Dim objCustomer As Customer
 
+            'Put this in case the data did not persist
             If _colCustomers.Count = 0 Then
                 If _colCustomers.Fill(sError) = False Then
                     lblError.Text += sError
@@ -212,6 +103,7 @@ Public Class CustomerTab
                 End If
             End If
 
+            'Get customer object from the ID stored in the ddl
             objCustomer = _colCustomers.Find(Convert.ToInt32(ddlCustomer.SelectedItem.Value))
 
             With objCustomer
@@ -226,19 +118,21 @@ Public Class CustomerTab
                 txtEmail.Text = .Email
                 chkActive.Checked = .IsActive
                 ddlDriver.SelectedIndex = ddlDriver.Items.IndexOf(ddlDriver.Items.FindByValue(.DriverID.ToString))
-                FillInventoryItems(.CustomerID)
             End With
 
+            'Store customer in a cookie
             Session("objCustomer") = objCustomer
         End If
     End Sub
 
+    ''' <summary>
+    ''' Fill driver selection dropdownlist
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub FillDriverSelection()
-        'fill Driver combobox from Driver collection
-
         ddlDriver.Items.Clear()
 
-        'todo: Add sorting to colCustomers
+        'todo: Add sorting to colDrivers
         '_colDrivers.Sort() 
 
         For Each objDriver As Driver In _colDrivers
@@ -251,6 +145,10 @@ Public Class CustomerTab
         Next
     End Sub
 
+    ''' <summary>
+    ''' Save the customer record
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub SaveCustomer()
         Dim objCustomer As New Customer
         Dim objCustomerSaved As New Customer
@@ -280,15 +178,14 @@ Public Class CustomerTab
                     objCustomer.LastOrderDate = objCustomerSaved.LastOrderDate
                 End If
                 _colCustomers.Change(objCustomer)
-                'If CustID = 0, then new customer.
-            Else
+
+            Else  'If CustID = 0, then new customer.
                 _colCustomers.Add(objCustomer)
             End If
 
-            SaveInventory()
             CustomerDB.Update()
 
-            'Need to refill colCustomers to account for changes
+            'Need to refill dropdownlist to account for changes
             _colCustomers.Clear()
             If (_colCustomers.Fill(sError)) Then
                 FillCustomerSelection()
@@ -299,6 +196,12 @@ Public Class CustomerTab
             End If
         End If
     End Sub
+    ''' <summary>
+    ''' Check data is valid
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns>True if valid</returns>
+    ''' <remarks></remarks>
     Private Function IsValidData(ByVal objCustomer As Customer) As Boolean
         Return IsValidName(objCustomer) And
             IsValidAddress1(objCustomer) And
@@ -312,8 +215,13 @@ Public Class CustomerTab
             IsValidDriver(objCustomer)
     End Function
 
+    ''' <summary>
+    ''' Check that name is valid
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns>True if valid</returns>
+    ''' <remarks></remarks>
     Private Function IsValidName(ByVal objCustomer As Customer) As Boolean
-        'Name validation
         Try
             objCustomer.Name = txtName.Text
             lblValName.Visible = False
@@ -326,6 +234,12 @@ Public Class CustomerTab
         End Try
     End Function
 
+    ''' <summary>
+    ''' Check that address1 is valid
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns>True if valid</returns>
+    ''' <remarks></remarks>
     Private Function IsValidAddress1(ByVal objCustomer As Customer) As Boolean
         Try
             objCustomer.Address1 = txtAddress1.Text
@@ -339,6 +253,12 @@ Public Class CustomerTab
         End Try
     End Function
 
+    ''' <summary>
+    ''' Check that address2 is valid
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns>True if valid</returns>
+    ''' <remarks></remarks>
     Private Function IsValidAddress2(ByVal objCustomer As Customer) As Boolean
         Try
             objCustomer.Address2 = txtAddress2.Text
@@ -352,6 +272,12 @@ Public Class CustomerTab
         End Try
     End Function
 
+    ''' <summary>
+    ''' Check that city is valid
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns>True if valid</returns>
+    ''' <remarks></remarks>
     Private Function IsValidCity(ByVal objCustomer As Customer) As Boolean
         Try
             objCustomer.City = txtCity.Text
@@ -365,6 +291,12 @@ Public Class CustomerTab
         End Try
     End Function
 
+    ''' <summary>
+    ''' Check that state is valid
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns>True if valid</returns>
+    ''' <remarks></remarks>
     Private Function IsValidState(ByVal objCustomer As Customer) As Boolean
         Try
             objCustomer.State = txtState.Text
@@ -378,6 +310,12 @@ Public Class CustomerTab
         End Try
     End Function
 
+    ''' <summary>
+    ''' Check that zip is valid
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns>True if valid</returns>
+    ''' <remarks></remarks>
     Private Function IsValidZip(ByVal objCustomer As Customer) As Boolean
         Try
             objCustomer.Zip = txtZip.Text
@@ -391,6 +329,12 @@ Public Class CustomerTab
         End Try
     End Function
 
+    ''' <summary>
+    ''' Check that phone is valid
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns>True if valid</returns>
+    ''' <remarks></remarks>
     Private Function IsValidPhone(ByVal objCustomer As Customer) As Boolean
         Try
             objCustomer.Phone = txtPhone.Text
@@ -404,6 +348,12 @@ Public Class CustomerTab
         End Try
     End Function
 
+    ''' <summary>
+    ''' Check that fax is valid
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns>True if valid</returns>
+    ''' <remarks></remarks>
     Private Function IsValidFax(ByVal objCustomer As Customer) As Boolean
         Try
             objCustomer.Fax = txtFax.Text
@@ -417,6 +367,12 @@ Public Class CustomerTab
         End Try
     End Function
 
+    ''' <summary>
+    ''' Check that email is valid
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns>True if valid</returns>
+    ''' <remarks></remarks>
     Private Function IsValidEmail(ByVal objCustomer As Customer) As Boolean
         Try
             objCustomer.Email = txtEmail.Text
@@ -430,6 +386,12 @@ Public Class CustomerTab
         End Try
     End Function
 
+    ''' <summary>
+    ''' Check that driver is valid
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns>true if valid</returns>
+    ''' <remarks></remarks>
     Private Function IsValidDriver(ByVal objCustomer As Customer) As Boolean
         Try
             If ddlDriver.SelectedItem.Text <> "Please select" Then
@@ -444,11 +406,21 @@ Public Class CustomerTab
         End Try
     End Function
 
+    ''' <summary>
+    ''' Creates new customer, clears form
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub btnNewCustomer_Click(sender As Object, e As EventArgs) Handles btnNewCustomer.Click
         SaveCustomer()
         ClearForm()
     End Sub
 
+    ''' <summary>
+    ''' Clears form
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub ClearForm()
         txtName.Text = ""
         txtAddress1.Text = ""
@@ -468,51 +440,18 @@ Public Class CustomerTab
         ddlDriver.SelectedItem.Value = Convert.ToString(0)
         chkActive.Checked = False
         Session.Remove("objCustomer")
-        pnlInventory.Controls.Clear()
         lblError.Text = ""
         lblError.Visible = False
     End Sub
 
+    ''' <summary>
+    ''' Saves customer record
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub btnSaveItem_Click(sender As Object, e As EventArgs) Handles btnSaveItem.Click
         SaveCustomer()
-    End Sub
-
-    Private Sub SaveInventory()
-        Dim sError As String = ""
-        Dim iLength As Integer
-
-        iLength = txtDesired.Count
-
-        For i As Integer = 0 To iLength - 1
-            Dim CustStock As CustStock
-            CustStock = GetStockItem(i)
-            If CustStock.StockID <> 0 Then
-                _colCustStock.Change(CustStock)
-            Else
-                _colCustStock.Add(CustStock)
-            End If
-        Next
-
-        CustStockDB.Update()
-    End Sub
-
-    Private Function GetStockItem(ByVal i As Integer) As CustStock
-        Dim CustStock As New CustStock
-
-        CustStock.BakedGoodID = Convert.ToInt32(lblItem(i).Attributes.Item("BakedGoodID"))
-        CustStock.DesiredQty = Convert.ToInt32(txtDesired(i).Text)
-        CustStock.StockID = Convert.ToInt32(txtDesired(i).Attributes.Item("StockID"))
-        CustStock.CustomerID = Convert.ToInt32(ddlCustomer.SelectedItem.Value)
-        CustStock.StockQty = Convert.ToInt32(txtDesired(i).Attributes.Item("StockQty"))
-
-        Return CustStock
-    End Function
-
-    Private Sub CreateDummyStock(ByVal CustStock As CustStock)
-        CustStock.BakedGoodID = 0
-        CustStock.DesiredQty = 0
-        CustStock.StockQty = 0
-        CustStock.StockID = 0
     End Sub
 
 End Class

@@ -1,4 +1,22 @@
-﻿Imports libWBEData
+﻿
+'Created by: Kristina Frye
+'May 13, 2013
+'CIS 234B
+'
+'The purpose of this screen is to show the customer's desired inventory levels.
+'Inactive baked good items are excluded
+'
+'I switched away from a more dymamic interface that created rows on the fly because
+'I was having difficulty with Visual Studio not letting me keep track of any controls
+'created after the page_init. So moved to a format where all available baked goods show
+'up with current desired inventory items. I may actually like this user interface better
+'anyway.
+'
+'This screen is still buggy. If you save inventory data, change customers, and then save the
+'new customer's data, the old customer's data will suddenly appear. If you switch back to the 
+'old customer, all that customer's inventory points are now 0. Not sure what is going on.
+
+Imports libWBEData
 Imports libWBEBR
 
 Public Class DesiredInv
@@ -14,6 +32,8 @@ Public Class DesiredInv
         Dim sError As String = ""
         lblError.Text = ""
 
+        'Load data into collections
+
         CustomerDB.SetupAdapter()
         BakedGoodDB.SetupAdapter()
         If _colCustomers.Fill(sError) Then
@@ -28,10 +48,15 @@ Public Class DesiredInv
             lblError.Text += sError + " "
         End If
 
+        'Fill dynamically created controls
         FillInventoryItems(Convert.ToInt32(ddlCustomer.SelectedItem.Value))
 
     End Sub
 
+    ''' <summary>
+    ''' Remove baked good items that are inactive from the collection
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub RemoveInactiveBakedGoods()
         For i As Integer = _colBakedGoods.Count - 1 To 0 Step -1
             If _colBakedGoods(i).Inactive = True Then
@@ -40,6 +65,10 @@ Public Class DesiredInv
         Next
     End Sub
 
+    ''' <summary>
+    ''' Fill the customer selection dropdownlist
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub FillCustomerSelection()
         'fill combobox from Customer collection
         Dim sError As String = ""
@@ -58,18 +87,29 @@ Public Class DesiredInv
         Next
     End Sub
 
+    ''' <summary>
+    ''' Called when customer is changed
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub ddlCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlCustomer.SelectedIndexChanged
         Dim CustomerID As Integer
         CustomerID = Convert.ToInt32(ddlCustomer.SelectedItem.Value)
         FillInventoryItems(CustomerID)
     End Sub
 
+    ''' <summary>
+    ''' Create dynamic list of inventory items for the customer
+    ''' </summary>
+    ''' <param name="CustomerID"></param>
+    ''' <remarks></remarks>
     Private Sub FillInventoryItems(ByVal CustomerID As Integer)
-        'Dynamically create list of inventory items for the customer
         Dim sError As String = ""
         Dim i As Integer = 0
         Dim iMaxLines As Integer
 
+        'Fill the collection of customer items
         CustStockDB.CustomerID = CustomerID
         CustStockDB.SetupAdapter()
 
@@ -78,24 +118,33 @@ Public Class DesiredInv
             lblError.Visible = True
         End If
 
+        'Remove any items that correspond to baked goods that are inactive
         RemoveInactiveCustStock()
 
+        'Get the total number of active items
         iMaxLines = _colBakedGoods.Count
         iMaxLines -= 1
 
         Session("iMaxLines") = iMaxLines
 
+        'Redimension arrays to active items
         ReDim txtDesired(iMaxLines)
         ReDim lblItem(iMaxLines)
 
+        'Clear any existing dynamic controls
         pnlInventory.Controls.Clear()
         pnlInventory.Controls.Add(New LiteralControl("<br />"))
 
+        'For each baked good, add a line
         For Each objBakedGood As BakedGood In _colBakedGoods
             CreateCustStockRow(objBakedGood, i)
         Next
     End Sub
 
+    ''' <summary>
+    ''' Removes customer inventory items that correspond to inactive baked goods
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub RemoveInactiveCustStock()
         For i As Integer = _colCustStock.Count - 1 To 0 Step -1
             Dim objBakedGood As BakedGood
@@ -106,6 +155,7 @@ Public Class DesiredInv
         Next
     End Sub
 
+    'Create a row of inventory items
     Private Sub CreateCustStockRow(ByVal objBakedGood As BakedGood, ByRef i As Integer)
         Dim objCustStock As CustStock
         txtDesired(i) = New TextBox
@@ -114,11 +164,15 @@ Public Class DesiredInv
         'Textbox for desired quantity
         objCustStock = GetCustStockItem(objBakedGood.BakedGoodID)
 
+        'If no CustStock item can be created, this means there is no line in the database
+        'that corresponds to the current baked good for this customer. Create dummy row.
+        'This will create a new line in the database for this baked good item
         If objCustStock Is Nothing Then
             objCustStock = New CustStock
             CreateDummyStock(objCustStock)
         End If
 
+        'Set attributes for textbox. These will be needed for saving later.
         txtDesired(i).Width = 25
         txtDesired(i).Text = objCustStock.DesiredQty.ToString
         txtDesired(i).Attributes.Add("StockID", objCustStock.StockID.ToString)
@@ -140,6 +194,12 @@ Public Class DesiredInv
         i += 1
     End Sub
 
+    ''' <summary>
+    ''' Get the CustStock item corresponding to the bakedgood ID.
+    ''' </summary>
+    ''' <param name="BakedGoodID"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Private Function GetCustStockItem(ByVal BakedGoodID As Integer) As CustStock
         For Each CustStock As CustStock In _colCustStock
             If CustStock.BakedGoodID = BakedGoodID Then
@@ -148,6 +208,11 @@ Public Class DesiredInv
         Next
     End Function
 
+    ''' <summary>
+    ''' Create dummy custstock object if no database row corresponds to the bakedgood ID
+    ''' </summary>
+    ''' <param name="CustStock"></param>
+    ''' <remarks></remarks>
     Private Sub CreateDummyStock(ByVal CustStock As CustStock)
         CustStock.BakedGoodID = 0
         CustStock.DesiredQty = 0
@@ -155,6 +220,12 @@ Public Class DesiredInv
         CustStock.StockID = 0
     End Sub
 
+    ''' <summary>
+    ''' Save the data
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Dim sError As String = ""
         Dim iLength As Integer
@@ -174,6 +245,13 @@ Public Class DesiredInv
         CustStockDB.Update()
     End Sub
 
+    ''' <summary>
+    ''' Get the stock item from the page. I probably need to put a try/catch in here 
+    ''' somewhere to validate user data, but still trying to get bugs worked out.
+    ''' </summary>
+    ''' <param name="i"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Private Function GetStockItem(i As Integer) As CustStock
         Dim CustStock As New CustStock
 

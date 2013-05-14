@@ -239,10 +239,6 @@
             height: 2px;
             width: 268435312px;
         }
-        .auto-style13
-        {
-            width: 124px;
-        }
         .auto-style14
         {
             width: 81px;
@@ -527,10 +523,7 @@
     </table>
     <asp:Label ID="lblValState" runat="server" ForeColor="Red" Visible="False" Width="160px"></asp:Label>
     <asp:Label ID="lblValZip" runat="server" ForeColor="Red" Visible="False" Width="160px"></asp:Label>
-&nbsp;<br />
-    <span class="style75">Inventory<br />
-    <asp:Panel ID="pnlInventory" runat="server" cssclass="panelcontrols">
-    </asp:Panel>
+&nbsp;<span class="style75"><br />
     </span>&nbsp;<table class="style1">
         <tr>
             <td class="style64">
