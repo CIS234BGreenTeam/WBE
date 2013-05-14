@@ -50,7 +50,7 @@
             <td class="style2">
                 Selection</td>
             <td class="style77">
-                <asp:DropDownList ID="ddlCustomer" runat="server" Width="182px">
+                <asp:DropDownList ID="ddlCustomer" runat="server" Width="182px" AutoPostBack="True">
                 </asp:DropDownList>
             </td>
             <td>

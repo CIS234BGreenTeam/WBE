@@ -79,4 +79,5 @@ Public Class colBakedGoods
         'necessary for base class's Find
         Return objBakedGood.BakedGoodID = _iId
     End Function
+
 End Class

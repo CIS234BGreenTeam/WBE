@@ -212,24 +212,6 @@ Partial Public Class CustomerTab
     Protected WithEvents lblValZip As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''btnSaveCustomer control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnSaveCustomer As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''btnNewCustomer control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnNewCustomer As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
     '''pnlInventory control.
     '''</summary>
     '''<remarks>
@@ -248,20 +230,11 @@ Partial Public Class CustomerTab
     Protected WithEvents btnSaveItem As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnAdd control.
+    '''btnNewCustomer control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnAdd As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''btnDeleteItem control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnDeleteItem As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnNewCustomer As Global.System.Web.UI.WebControls.Button
 End Class

@@ -36,6 +36,7 @@ Public Class BakedGoodDB
                     .BakedGoodID = Convert.ToInt32(dr("BakedGoodID"))
                     .Name = dr("Name").ToString
                     .UnitPrice = Convert.ToDecimal(dr("Price"))
+                    .Inactive = Convert.ToBoolean(dr("Inactive"))
                     If _iTempLastID < .BakedGoodID Then
                         _iTempLastID = .BakedGoodID
                     End If
@@ -157,6 +158,7 @@ Public Class BakedGoodDB
             drBakedGood("BakedGoodID") = .BakedGoodID
             drBakedGood("Name") = .Name
             drBakedGood("Price") = .UnitPrice
+            drBakedGood("Inactive") = .Inactive
         End With
     End Sub
 
@@ -180,24 +182,27 @@ Public Class BakedGoodDB
             .UpdateCommand = connWBE.CreateCommand
             .DeleteCommand = connWBE.CreateCommand
 
-            .SelectCommand.CommandText = "SELECT BakedGoodID, Name, Price FROM BAKEDGOOD"
+            .SelectCommand.CommandText = "SELECT BakedGoodID, Name, Price, Inactive FROM BAKEDGOOD"
 
             With .InsertCommand
-                .CommandText = "INSERT INTO BakedGood(Name, Price) VALUES(@Name, @Price)"
+                .CommandText = "INSERT INTO BakedGood(Name, Price) VALUES(@Name, @Price, @Inactive)"
 
                 With .Parameters
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
                     .AddWithValue("@Price", SqlDbType.SmallMoney).SourceColumn = "Price"
+                    .AddWithValue("@Inactive", SqlDbType.TinyInt).SourceColumn = "Inactive"
                 End With
             End With
 
             With .UpdateCommand
-                .CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price WHERE BakedGoodID = @BakedGoodID"
+                .CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price, " +
+                    "Inactive = @Inactive WHERE BakedGoodID = @BakedGoodID"
 
                 With .Parameters
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
                     .AddWithValue("@Price", SqlDbType.SmallMoney).SourceColumn = "Price"
                     .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
+                    .AddWithValue("@Inactive", SqlDbType.TinyInt).SourceColumn = "Inactive"
                 End With
             End With
 

@@ -8,25 +8,7 @@ Imports libWBEBR
 'Purpose: Allow Customer/WBE personnel to view profile and update 
 'customer contact information.
 
-'Also allow customer to maintain stock of goods including desired inventory levels. 
-
-'Inactive: When a customer record is set to "inactive", orders will not be
-'generated for that customer.
-
-'Baked Good item: The customer can maintain an inventory of baked goods.
-'Use the Baked Good drop-down menu to modify the item selection.
-'Use the "Desired" inventory textboxes to input the desired inventory of the item 
-'listed. 
-
-'Add Item: This will add another line to the inventory area. The customer can
-'selected from any active baked good offered by WBE minus items already listed (available in the 
-'drop-down menu)
-
-'Delete Item: This will delete the selected inventory line item. The selected line
-'item is indicated with a "*" to the right of the "Actual" inventory textbox. When
-'the user changes the screen focus to one of the line item text boxes or 
-'drop-down list, the list will be selected. (The "*" will become visible to denote
-'the selection)
+'Also allow customer keep track of desired inventory. 
 
 'Save Inventory: This saves all changes made to the inventory line items to the
 'database.
@@ -46,128 +28,151 @@ Public Class CustomerTab
 
     'These arrays store the dynamically created inventory items
     Dim txtDesired() As TextBox
-    Dim cboItem() As DropDownList
-    Dim lblDesired() As Label
-    Dim lblSelected() As Label
+    Dim lblItem() As Label
 
     Private _colCustomers As New colCustomers
     Private _colDrivers As New colDrivers
     Private _colCustStock As New colCustStock
     Private _colBakedGoods As New colBakedGoods
 
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If Not IsPostBack Then
-            Dim sError As String = ""
-            lblError.Text = ""
-            CustomerDB.SetupAdapter()
-            DriverDB.SetupAdapter()
-            BakedGoodDB.SetupAdapter()
+    Private Sub CustomerTab_Init(sender As Object, e As EventArgs) Handles Me.Init
 
-            If _colDrivers.Fill(sError) Then
-                FillDriverSelection()
-                Session("colDrivers") = _colDrivers
-            Else
-                lblError.Text += sError + " "
-            End If
+        Dim sError As String = ""
+        lblError.Text = ""
+        CustomerDB.SetupAdapter()
+        DriverDB.SetupAdapter()
+        BakedGoodDB.SetupAdapter()
 
-            If _colCustomers.Fill(sError) Then
-                FillCustomerSelection()
-            Else
-                lblError.Text += sError + " "
-            End If
-
-            'todo: Display error message
-            If _colBakedGoods.Fill(sError) Then
-                Session("colBakedGoods") = _colBakedGoods
-            Else
-                lblError.Text += sError + " "
-            End If
-
-            LoadCustomerData()
-
-            lblSelected(0).Visible = True 'Identifies which inventory item is selected
-
-            If lblError.Text <> "" Then
-                lblError.Visible = True
-            End If
+        If _colDrivers.Fill(sError) Then
+            FillDriverSelection()
+            Session("colDrivers") = _colDrivers
+        Else
+            lblError.Text += sError + " "
         End If
 
+        If _colBakedGoods.Fill(sError) Then
+            RemoveInactiveBakedGoods()
+            Session("colBakedGoods") = _colBakedGoods
+        Else
+            lblError.Text += sError + " "
+        End If
+
+        If _colCustomers.Fill(sError) Then
+            FillCustomerSelection()
+        Else
+            lblError.Text += sError + " "
+        End If
+
+        LoadCustomerData()
+
+        If lblError.Text <> "" Then
+            lblError.Visible = True
+        End If
     End Sub
+
+    Private Sub RemoveInactiveCustStock()
+        For i As Integer = _colCustStock.Count - 1 To 0 Step -1
+            Dim objBakedGood As BakedGood
+            objBakedGood = _colBakedGoods.Find(_colCustStock(i).BakedGoodID)
+            If objBakedGood Is Nothing Then
+                _colCustStock.RemoveAt(i)
+            End If
+        Next
+    End Sub
+
+    Private Sub RemoveInactiveBakedGoods()
+        For i As Integer = _colBakedGoods.Count - 1 To 0 Step -1
+            If _colBakedGoods(i).Inactive = True Then
+                _colBakedGoods.RemoveAt(i)
+            End If
+        Next
+    End Sub
+
     Private Sub FillInventoryItems(ByVal ID As Integer)
         'Dynamically create list of inventory items for the customer
         Dim sError As String = ""
-        Dim i As Integer
-        Dim iNoLines As Integer
+        Dim i As Integer = 0
+        Dim iMaxLines As Integer
 
         CustStockDB.CustomerID = ID
         CustStockDB.SetupAdapter()
 
-        'todo: add error message
-        If _colCustStock.Fill(sError) Then
-            iNoLines = _colCustStock.Count
-        Else
-            lblError.Text += sError
+        If _colCustStock.Fill(sError) = False Then
+            lblError.Text += sError + " "
             lblError.Visible = True
         End If
 
+        If _colBakedGoods.Count = 0 Then
+            _colBakedGoods = DirectCast(Session("ColBakedGoods"), colBakedGoods)
+        End If
+
+        RemoveInactiveCustStock()
+
+        iMaxLines = _colBakedGoods.Count
+        iMaxLines -= 1
+
         pnlInventory.Controls.Clear()
-
-        ReDim txtDesired(iNoLines)
-        ReDim cboItem(iNoLines)
-        ReDim lblDesired(iNoLines)
-        ReDim lblSelected(iNoLines)
-
+        UpdateCustStockArrays(iMaxLines)
         pnlInventory.Controls.Add(New LiteralControl("<br />"))
 
-        For Each objCustStock As CustStock In _colCustStock
-            'Dropdownlist for Baked Good items
-            cboItem(i) = New DropDownList
-            FillBakedItemList(cboItem(i)) 'This function will fill the drop-down list of available items
-            cboItem(i).Items.FindByValue(objCustStock.BakedGoodID.ToString).Selected = True
-            pnlInventory.Controls.Add(cboItem(i))
-            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
-            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
-            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
-
-            'Label for "desired" textbox
-            lblDesired(i) = New Label
-            lblDesired(i).Text = "Desired"
-            lblDesired(i).Width = 50
-            pnlInventory.Controls.Add(lblDesired(i))
-
-            'Textbox for desired quantity
-            txtDesired(i) = New TextBox
-            txtDesired(i).Width = 25
-            txtDesired(i).Text = objCustStock.DesiredQty.ToString
-            pnlInventory.Controls.Add(txtDesired(i))
-            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
-            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
-            pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
-
-            'Label to show selected item
-            lblSelected(i) = New Label
-            lblSelected(i).Text = "*"
-            lblSelected(i).Visible = False
-            pnlInventory.Controls.Add(lblSelected(i))
-
-            'Add next item on next line
-            pnlInventory.Controls.Add(New LiteralControl("<br />"))
-        Next
-    End Sub
-
-    Private Sub FillBakedItemList(ByVal cboItem As DropDownList)
-        'This function will add the actual available baked goods
-        _colBakedGoods = DirectCast(Session("colBakedGoods"), colBakedGoods)
         For Each objBakedGood As BakedGood In _colBakedGoods
-            Dim objListItem As New ListItem
-            objListItem.Text = objBakedGood.Name
-            objListItem.Value = objBakedGood.BakedGoodID.ToString
-            cboItem.Items.Add(objListItem)
+            CreateCustStockRow(objBakedGood, i)
         Next
     End Sub
+
+    Private Sub UpdateCustStockArrays(ByVal iNoLines As Integer)
+        ReDim txtDesired(iNoLines)
+        ReDim lblItem(iNoLines)
+
+        For i As Integer = 0 To iNoLines
+            txtDesired(i) = New TextBox
+            lblItem(i) = New Label
+        Next
+    End Sub
+
+    Private Sub CreateCustStockRow(ByVal objBakedGood As BakedGood,
+                                   ByRef i As Integer)
+        Dim objCustStock As CustStock
+
+        'Textbox for desired quantity
+        objCustStock = GetCustStockItem(objBakedGood.BakedGoodID)
+
+        If objCustStock Is Nothing Then
+            objCustStock = New CustStock
+            CreateDummyStock(objCustStock)
+        End If
+
+        txtDesired(i).Width = 25
+        txtDesired(i).Text = objCustStock.DesiredQty.ToString
+        txtDesired(i).Attributes.Add("StockID", objCustStock.StockID.ToString)
+        txtDesired(i).Attributes.Add("StockQty", objCustStock.StockQty.ToString)
+
+        pnlInventory.Controls.Add(txtDesired(i))
+        pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
+        pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
+        pnlInventory.Controls.Add(New LiteralControl("&nbsp;"))
+
+        'Label for Baked Good items
+        lblItem(i).Text = objBakedGood.Name
+        lblItem(i).Attributes.Add("BakedGoodID", objBakedGood.BakedGoodID.ToString)
+
+        pnlInventory.Controls.Add(lblItem(i))
+        
+        'Add next item on next line
+        pnlInventory.Controls.Add(New LiteralControl("<br />"))
+        i += 1
+    End Sub
+
+    Private Function GetCustStockItem(ByVal BakedGoodID As Integer) As CustStock
+        For Each CustStock As CustStock In _colCustStock
+            If CustStock.BakedGoodID = BakedGoodID Then
+                Return CustStock
+            End If
+        Next
+    End Function
 
     Private Sub FillCustomerSelection()
-        'fill Course combobox from Customer collection
+        'fill combobox from Customer collection
         Dim sError As String = ""
 
         ddlCustomer.Items.Clear()
@@ -246,20 +251,18 @@ Public Class CustomerTab
         Next
     End Sub
 
-    Protected Sub btnSaveCustomer_Click(sender As Object, e As EventArgs) Handles btnSaveCustomer.Click
-        Save()
-    End Sub
-
-    Private Sub Save()
+    Private Sub SaveCustomer()
         Dim objCustomer As New Customer
         Dim objCustomerSaved As New Customer
         Dim sError As String = ""
 
+        'Check that the data is valid
         If IsValidData(objCustomer) Then
             objCustomer.IsActive = chkActive.Checked
             objCustomer.DriverID = Convert.ToInt32(ddlDriver.SelectedItem.Value)
             objCustomer.CustomerID = Convert.ToInt32(ddlCustomer.SelectedItem.Value)
 
+            'Reset colCustomers if necessary
             If _colCustomers.Count = 0 Then
                 If _colCustomers.Fill(sError) = False Then
                     lblError.Text += sError + " "
@@ -267,6 +270,7 @@ Public Class CustomerTab
                 End If
             End If
 
+            'If CustID not zero, then existing customer
             If objCustomer.CustomerID <> 0 Then
                 objCustomerSaved = DirectCast(Session("objCustomer"), Customer)
                 If Not objCustomer.LastCountDate Is Nothing Then
@@ -276,11 +280,12 @@ Public Class CustomerTab
                     objCustomer.LastOrderDate = objCustomerSaved.LastOrderDate
                 End If
                 _colCustomers.Change(objCustomer)
+                'If CustID = 0, then new customer.
             Else
                 _colCustomers.Add(objCustomer)
             End If
 
-            FillInventoryItems(objCustomer.CustomerID)
+            SaveInventory()
             CustomerDB.Update()
 
             'Need to refill colCustomers to account for changes
@@ -440,7 +445,7 @@ Public Class CustomerTab
     End Function
 
     Protected Sub btnNewCustomer_Click(sender As Object, e As EventArgs) Handles btnNewCustomer.Click
-        Save()
+        SaveCustomer()
         ClearForm()
     End Sub
 
@@ -466,6 +471,48 @@ Public Class CustomerTab
         pnlInventory.Controls.Clear()
         lblError.Text = ""
         lblError.Visible = False
+    End Sub
+
+    Protected Sub btnSaveItem_Click(sender As Object, e As EventArgs) Handles btnSaveItem.Click
+        SaveCustomer()
+    End Sub
+
+    Private Sub SaveInventory()
+        Dim sError As String = ""
+        Dim iLength As Integer
+
+        iLength = txtDesired.Count
+
+        For i As Integer = 0 To iLength - 1
+            Dim CustStock As CustStock
+            CustStock = GetStockItem(i)
+            If CustStock.StockID <> 0 Then
+                _colCustStock.Change(CustStock)
+            Else
+                _colCustStock.Add(CustStock)
+            End If
+        Next
+
+        CustStockDB.Update()
+    End Sub
+
+    Private Function GetStockItem(ByVal i As Integer) As CustStock
+        Dim CustStock As New CustStock
+
+        CustStock.BakedGoodID = Convert.ToInt32(lblItem(i).Attributes.Item("BakedGoodID"))
+        CustStock.DesiredQty = Convert.ToInt32(txtDesired(i).Text)
+        CustStock.StockID = Convert.ToInt32(txtDesired(i).Attributes.Item("StockID"))
+        CustStock.CustomerID = Convert.ToInt32(ddlCustomer.SelectedItem.Value)
+        CustStock.StockQty = Convert.ToInt32(txtDesired(i).Attributes.Item("StockQty"))
+
+        Return CustStock
+    End Function
+
+    Private Sub CreateDummyStock(ByVal CustStock As CustStock)
+        CustStock.BakedGoodID = 0
+        CustStock.DesiredQty = 0
+        CustStock.StockQty = 0
+        CustStock.StockID = 0
     End Sub
 
 End Class

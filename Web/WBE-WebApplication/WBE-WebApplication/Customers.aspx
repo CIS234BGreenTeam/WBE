@@ -527,38 +527,25 @@
     </table>
     <asp:Label ID="lblValState" runat="server" ForeColor="Red" Visible="False" Width="160px"></asp:Label>
     <asp:Label ID="lblValZip" runat="server" ForeColor="Red" Visible="False" Width="160px"></asp:Label>
-&nbsp;<table class="style1">
-        <tr>
-            <td class="auto-style13">
-                <asp:Button ID="btnSaveCustomer" runat="server" Text="Save Customer" Width="112px" />
-            </td>
-            <td>
-                <asp:Button ID="btnNewCustomer" runat="server" Text="New Customer" Width="112px" />
-            </td>
-        </tr>
-    </table>
-    <br />
+&nbsp;<br />
     <span class="style75">Inventory<br />
     <asp:Panel ID="pnlInventory" runat="server" cssclass="panelcontrols">
     </asp:Panel>
     </span>&nbsp;<table class="style1">
         <tr>
             <td class="style64">
-                <asp:Button ID="btnSaveItem" runat="server" Text="Save Inventory" Height="26px" 
+                <asp:Button ID="btnSaveItem" runat="server" Text="Save Customer" Height="26px" 
                     Width="117px" />
             </td>
             <td class="style97">
                 &nbsp;</td>
             <td class="style67">
-                <asp:Button ID="btnAdd" runat="server" Text="Add Item" height="26px" 
-                    width="109px" />
+                <asp:Button ID="btnNewCustomer" runat="server" Text="New Customer" Width="112px" />
             </td>
             <td class="style68">
                 &nbsp;</td>
             <td>
-                <asp:Button ID="btnDeleteItem" runat="server" Text="Delete Item" height="26px" 
-                    width="102px" />
-            </td>
+                &nbsp;</td>
         </tr>
         </table>
         <hr />
