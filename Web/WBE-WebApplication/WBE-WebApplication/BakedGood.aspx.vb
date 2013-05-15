@@ -1,4 +1,6 @@
-﻿
+﻿Imports libWBEBR
+Imports libWBEData
+
 '* Screen Name: BakedGood. 
 '* Designer: Ken Baker 4/12/2013. 
 '* Purpose:  Allow the Owner to create, view, alter, or discontinue baked product offerings for sale.
@@ -8,7 +10,7 @@
 '*          Allows the user to select an existing item, make changes, and save it as a new bakedGood object (generates a new BakedGoodID).
 '*     2)  Click "Add Item" button: Click.  
 '*          The owner may enter the desired information into the appropriate fields and click "Add Item".  
-'*          The new BakedGood object will appear in the "Available Baked Goods" listbox, and in the customer's baked goods order menu.
+'*          The new BakedGood object will appear in the "Available Baked Goods" listbox, and in the BakedGood's baked goods order menu.
 '*
 '* "Update Item" button: Click
 '* Updates the baked good object shown in the listbox to reflect current textbox values.
@@ -20,7 +22,7 @@
 '* The owner may select an object from the list.  The values are displayed in the associated textbox controls.
 '*
 '* "Discontinued Item" checkbox(selected = true): 
-'* If selected , the the item will no longer be produced.  The Item will also be removed from the customers baked goods order menu.
+'* If selected , the the item will no longer be produced.  The Item will also be removed from the BakedGoods baked goods order menu.
 '* If selected, all textbox controls are disabled.
 '* If selected, The product information can still be used as a template for a new product by clicking the "Save As New" button.
 '*
@@ -31,14 +33,138 @@
 
 Public Class BakedGoodTab
     Inherits System.Web.UI.Page
+    Private _colBakedGoods As New colBakedGoods
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Not IsPostBack Then
+            Dim sError As String = ""
+            lblError.Text = ""
 
-        txtBG_ID.Enabled = False
+            BakedGoodDB.SetupAdapter()
+
+            If lblError.Text <> "" Then
+                lblError.Visible = True
+            End If
+        End If
 
     End Sub
-
+    ''' <summary>
+    ''' Redirects user to Opening Page
+    ''' </summary>
     Protected Sub btnBG_Close_Click(sender As Object, e As EventArgs) Handles btnBG_Close.Click
         Response.Redirect("Default.aspx")
     End Sub
+
+
+    ''' <summary>
+    ''' Add a Baked good
+    ''' </summary>
+    Protected Sub btnBG_AddItem_Click(sender As Object, e As EventArgs) Handles btnBG_AddItem.Click
+        Save()
+        ClearForm()
+    End Sub
+
+    ''' <summary>
+    ''' Create and save a new Baked good
+    ''' </summary>
+
+    Private Sub Save()
+        Dim objBakedGood As New BakedGood
+        Dim objBakedGoodSaved As New BakedGood
+        Dim sError As String = ""
+        objBakedGood = New BakedGood
+        If IsValidData(objBakedGood) Then
+            With lstBakedGoods.Items
+                .Add("Name: " & txtBGName.Text)
+                .Add("Unit Price: " & txtBGPrice.Text)
+                .Add("Product Number: " & txtBG_ID.Text)
+                .Add("Inactive Date" & txtInactiveDate.Text)
+            End With
+
+            objBakedGood.IsActive = chkActive.Checked
+            objBakedGood.UnitPrice = Convert.ToDecimal(txtBGPrice)
+            objBakedGood.Name = txtBGName.Text
+            objBakedGood.BakedGoodID = Convert.ToInt32(txtBG_ID)
+            objBakedGood.InactiveDate = Convert.ToDateTime(txtInactiveDate)
+            If _colBakedGoods.Count = 0 Then
+                If _colBakedGoods.Fill(sError) = False Then
+                    lblError.Text += sError + " "
+                    lblError.Visible = True
+                End If
+            End If
+
+            If objBakedGood.BakedGoodID <> 0 Then
+                objBakedGoodSaved = DirectCast(Session("objBakedGood"), BakedGood)
+                If Not objBakedGood.Name Is Nothing Then
+                    objBakedGood.Name = objBakedGoodSaved.Name
+                End If
+                If objBakedGood.UnitPrice > 0D Then
+                    objBakedGood.UnitPrice = objBakedGoodSaved.UnitPrice
+                End If
+
+                _colBakedGoods.Change(objBakedGood)
+            Else
+                _colBakedGoods.Add(objBakedGood)
+            End If
+
+        End If
+    End Sub
+
+    Private Function IsValidData(ByVal objBakedGood As BakedGood) As Boolean
+        Return IsValidUnitPrice(objBakedGood) And
+               IsValidName(objBakedGood) And
+               IsValidBakedGoodID(objBakedGood)
+    End Function
+
+    Private Function IsValidName(ByVal objBakedGood As BakedGood) As Boolean
+        'Name validation
+        Try
+            objBakedGood.Name = txtBGName.Text
+            lblBG_Name_Error.Visible = False
+            Return True
+        Catch ex As Exception
+            txtBGName.Focus()
+            lblBG_Name_Error.Visible = True
+            lblBG_Name_Error.Text = ex.Message
+            Return False
+        End Try
+    End Function
+    Private Function IsValidUnitPrice(ByVal objBakedGood As BakedGood) As Boolean
+        Try
+            objBakedGood.UnitPrice = Convert.ToDecimal(txtBGPrice.Text)
+            lblBG_Price_Error.Visible = False
+            Return True
+        Catch ex As Exception
+            txtBGPrice.Focus()
+            lblBG_Price_Error.Visible = True
+            lblBG_Price_Error.Text = ex.Message
+            Return False
+        End Try
+    End Function
+
+    Private Function IsValidBakedGoodID(ByVal objBakedGood As BakedGood) As Boolean
+        Try
+            objBakedGood.BakedGoodID = Convert.ToInt32(txtBG_ID.Text)
+            lblBG_ID_Error.Visible = False
+            Return True
+        Catch ex As Exception
+            txtBG_ID.Focus()
+            lblBG_ID_Error.Visible = True
+            lblBG_ID_Error.Text = ex.Message
+            Return False
+        End Try
+    End Function
+
+    Private Sub ClearForm()
+
+        txtBGName.Text = ""
+        txtBGPrice.Text = ""
+        txtBG_ID.Text = ""
+        chkActive.Checked = False
+        txtInactiveDate.Text = ""
+        Session.Remove("objCustomer")
+        lblError.Text = ""
+        lblError.Visible = False
+    End Sub
+
 End Class

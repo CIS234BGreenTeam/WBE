@@ -32,6 +32,15 @@ Partial Public Class BakedGoodTab
     Protected WithEvents txtBG_ID As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''lblBG_ID_Error control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBG_ID_Error As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''txtBGName control.
     '''</summary>
     '''<remarks>
@@ -39,6 +48,15 @@ Partial Public Class BakedGoodTab
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtBGName As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''lblBG_Name_Error control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBG_Name_Error As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''txtBGPrice control.
@@ -50,13 +68,31 @@ Partial Public Class BakedGoodTab
     Protected WithEvents txtBGPrice As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''chkBG_Discontinued control.
+    '''lblBG_Price_Error control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkBG_Discontinued As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents lblBG_Price_Error As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''chkActive control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkActive As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''txtInactiveDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtInactiveDate As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''btnBG_AddItem control.
@@ -84,4 +120,13 @@ Partial Public Class BakedGoodTab
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnBG_Close As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblError control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblError As Global.System.Web.UI.WebControls.Label
 End Class

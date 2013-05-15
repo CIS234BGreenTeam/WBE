@@ -93,7 +93,7 @@ Public Class CustomerTab
     Private Sub LoadCustomerData()
         If ddlCustomer.Text <> "New Customer" Then
             Dim sError As String = ""
-            Dim objCustomer As Customer
+            Dim objCustomer As New Customer
 
             'Put this in case the data did not persist
             If _colCustomers.Count = 0 Then
