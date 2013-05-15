@@ -59,7 +59,7 @@ Public Class DesiredInv
     ''' <remarks></remarks>
     Private Sub RemoveInactiveBakedGoods()
         For i As Integer = _colBakedGoods.Count - 1 To 0 Step -1
-            If _colBakedGoods(i).Inactive = True Then
+            If _colBakedGoods(i).IsActive = False Then
                 _colBakedGoods.RemoveAt(i)
             End If
         Next

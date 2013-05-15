@@ -12,7 +12,6 @@
     Public Property DesiredQty() As Integer
     Public Property StockQty() As Integer
     Public Property BakedGoodID() As Integer
-    Public Property Inactive() As Boolean
 
     Public Property Name() As String
         Get

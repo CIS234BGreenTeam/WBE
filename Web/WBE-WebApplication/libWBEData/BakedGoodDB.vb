@@ -187,38 +187,52 @@ Public Class BakedGoodDB
             .UpdateCommand = connWBE.CreateCommand
             .DeleteCommand = connWBE.CreateCommand
 
-            .SelectCommand.CommandText = "SELECTBakedGoodID, Name, UnitPrice, IsActive, InactiveDate FROM BAKEDGOOD"
+            'Changed UnitPrice here to Price. There is no "UnitPrice" field in the database
+            .SelectCommand.CommandText = "SELECT BakedGoodID, Name, Price, IsActive, InactiveDate FROM BAKEDGOOD"
 
             With .InsertCommand
-                .CommandText = "INSERT INTO BakedGood(Name, UnitPrice, IsActive, InactiveDate)" &
-                                "VALUES(@Name, @Price, @IsActive, @InactiveDate)"
+                'Changed InactiveDate)" to InactiveDate) ". The lack of space will mess stuff up.
+                'Changed UnitPrice here to Price. This is probably why you were having bugs
+                'Removing InactiveDate for now because it's causing bugs... you need a nullable datetime
+                '.CommandText = "INSERT INTO BakedGood(Name, Price, IsActive, InactiveDate) " &
+                '                "VALUES(@Name, @Price, @IsActive, @InactiveDate)"
+                .CommandText = "INSERT INTO BakedGood(Name, Price, IsActive) " &
+                                "VALUES(@Name, @Price, @IsActive)"
 
                 With .Parameters
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
                     .AddWithValue("@Price", SqlDbType.Decimal).SourceColumn = "Price"
                     .AddWithValue("@IsActive", SqlDbType.Bit).SourceColumn = "IsActive"
-                    .AddWithValue("@InactiveDate", SqlDbType.DateTime).SourceColumn = "InactiveDate"
+
+                    'Dates can't be null normally in VB, so this is trying in insert a bad date
+                    'into sql, and sql is getting mad. I resolve this in my table by 
+                    'creating a nullable date. Commenting out for now
+                    '.AddWithValue("@InactiveDate", SqlDbType.DateTime).SourceColumn = "InactiveDate"
                 End With
             End With
 
             With .UpdateCommand
-                .CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price, IsActive = @IsActive," &
-                                       "InactiveDate = @InactiveDate, BakedGoodID = @BakedGoodID " &
+                'When you update data, you don't update the ID. Removing BakedGoodID = @BakedGoodID
+                'from before the WHERE
+                'Commenting out the InactiveDate for now
+                '.CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price, IsActive = @IsActive," &
+                '                       "InactiveDate = @InactiveDate " &
+                '                "WHERE BakedGoodID = @BakedGoodID"
+                .CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price, IsActive = @IsActive, " &
                                 "WHERE BakedGoodID = @BakedGoodID"
-
                 With .Parameters
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
                     .AddWithValue("@Price", SqlDbType.Decimal).SourceColumn = "Price"
                     .AddWithValue("@IsActive", SqlDbType.Bit).SourceColumn = "IsActive"
-                    .AddWithValue("@InactiveDate", SqlDbType.DateTime).SourceColumn = "InactiveDate"
-                    .AddWithValue("", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
+                    '.AddWithValue("@InactiveDate", SqlDbType.DateTime).SourceColumn = "InactiveDate"
+                    .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
                 End With
             End With
 
             With .DeleteCommand
                 .CommandText = "Delete from BakedGood Where BakedGoodID = @BakedGoodID"
                 With .Parameters
-                    .AddWithValue("", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
+                    .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
                 End With
             End With
         End With
