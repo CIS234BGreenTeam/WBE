@@ -4,7 +4,10 @@
     '* Designer: Ken Baker 4/20/2013. 
     '* Purpose:  Contains properties and validations
 
+    Private m_dUnitPrice As Decimal
     Private sName As String
+    Private _IsActive As Boolean
+    Private _dteInactiveDate As DateTime
 
     Public Property DesiredQty() As Integer
     Public Property StockQty() As Integer
@@ -23,7 +26,7 @@
         End Set
     End Property
 
-    Private m_dUnitPrice As Decimal
+
 
     '''<summary>
     '''Cost of single baked good
@@ -79,4 +82,29 @@
     Public Sub New()
 
     End Sub
+
+    ''' <summary>
+    ''' Is WBE currently producing the Baked Good?
+    ''' </summary>
+    Public Property IsActive() As Boolean
+        Get
+            Return _IsActive
+        End Get
+        Set(ByVal Value As Boolean)
+            _IsActive = Value
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' If the baked good is inactive,
+    ''' the date that WBE stopped producing the Baked Good
+    ''' </summary>
+    Public Property InactiveDate() As DateTime
+        Get
+            Return _dteInactiveDate
+        End Get
+        Set(ByVal Value As DateTime)
+            _dteInactiveDate = Value
+        End Set
+    End Property
 End Class

@@ -4,13 +4,11 @@ Public Class colBakedGoods
     Inherits List(Of BakedGood)
 
     ''' <summary>
-    ''' Fill Datatable with database table for a particular customer
+    ''' Fill Datatable with database table for a particular Baked Good
     ''' </summary>
     ''' <remarks></remarks>
     Public Function Fill(ByVal sError As String) As Boolean
-        If Me.Count > 0 Then
-            Clear()
-        End If
+
         Return BakedGoodDB.Fill(Me, sError)
 
     End Function

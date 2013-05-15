@@ -36,6 +36,10 @@ Public Class BakedGoodDB
                     .BakedGoodID = Convert.ToInt32(dr("BakedGoodID"))
                     .Name = dr("Name").ToString
                     .UnitPrice = Convert.ToDecimal(dr("Price"))
+                    .IsActive = Convert.ToBoolean(dr("IsActive"))
+                    If .IsActive = False Then
+                        .InactiveDate = Convert.ToDateTime(dr("InactiveDate"))
+                    End If
                     If _iTempLastID < .BakedGoodID Then
                         _iTempLastID = .BakedGoodID
                     End If
@@ -157,6 +161,8 @@ Public Class BakedGoodDB
             drBakedGood("BakedGoodID") = .BakedGoodID
             drBakedGood("Name") = .Name
             drBakedGood("Price") = .UnitPrice
+            drBakedGood("IsActive") = .IsActive
+            drBakedGood("InactiveDate") = .InactiveDate
         End With
     End Sub
 
@@ -180,31 +186,38 @@ Public Class BakedGoodDB
             .UpdateCommand = connWBE.CreateCommand
             .DeleteCommand = connWBE.CreateCommand
 
-            .SelectCommand.CommandText = "SELECT BakedGoodID, Name, Price FROM BAKEDGOOD"
+            .SelectCommand.CommandText = "SELECTBakedGoodID, Name, UnitPrice, IsActive, InactiveDate FROM BAKEDGOOD"
 
             With .InsertCommand
-                .CommandText = "INSERT INTO BakedGood(Name, Price) VALUES(@Name, @Price)"
+                .CommandText = "INSERT INTO BakedGood(Name, UnitPrice, IsActive, InactiveDate)" &
+                                "VALUES(@Name, @Price, @IsActive, @InactiveDate)"
 
                 With .Parameters
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
-                    .AddWithValue("@Price", SqlDbType.SmallMoney).SourceColumn = "Price"
+                    .AddWithValue("@Price", SqlDbType.Decimal).SourceColumn = "Price"
+                    .AddWithValue("@IsActive", SqlDbType.Bit).SourceColumn = "IsActive"
+                    .AddWithValue("@InactiveDate", SqlDbType.DateTime).SourceColumn = "InactiveDate"
                 End With
             End With
 
             With .UpdateCommand
-                .CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price WHERE BakedGoodID = @BakedGoodID"
+                .CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price, IsActive = @IsActive," &
+                                       "InactiveDate = @InactiveDate, BakedGoodID = @BakedGoodID " &
+                                "WHERE BakedGoodID = @BakedGoodID"
 
                 With .Parameters
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
-                    .AddWithValue("@Price", SqlDbType.SmallMoney).SourceColumn = "Price"
-                    .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
+                    .AddWithValue("@Price", SqlDbType.Decimal).SourceColumn = "Price"
+                    .AddWithValue("@IsActive", SqlDbType.Bit).SourceColumn = "IsActive"
+                    .AddWithValue("@InactiveDate", SqlDbType.DateTime).SourceColumn = "InactiveDate"
+                    .AddWithValue("", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
                 End With
             End With
 
             With .DeleteCommand
                 .CommandText = "Delete from BakedGood Where BakedGoodID = @BakedGoodID"
                 With .Parameters
-                    .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
+                    .AddWithValue("", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
                 End With
             End With
         End With

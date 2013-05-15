@@ -198,7 +198,7 @@ Public Class CustomerTab
     Private Sub LoadCustomerData()
         If ddlCustomer.Text <> "New Customer" Then
             Dim sError As String = ""
-            Dim objCustomer As Customer
+            Dim objCustomer As New Customer
 
             If _colCustomers.Count = 0 Then
                 If _colCustomers.Fill(sError) = False Then

@@ -4,17 +4,21 @@ Inherits="WBE_WebApplication.BakedGoodTab" %>
 <asp:Content ID="Content1" runat="server" contentplaceholderid="MainContent">
     <table class="style1">
         <tr>
-            <td class="style50" colspan="2">
+            <td class="style50" colspan="4">
             </td>
         </tr>
         <tr>
             <td class="style2" rowspan="2">
             </td>
-            <td class="style6">
+            <td class="auto-style1">
                 Product Information</td>
+            <td class="auto-style2">
+                &nbsp;</td>
+            <td class="style6">
+                &nbsp;</td>
         </tr>
         <tr>
-            <td class="style20">
+            <td class="style20" colspan="3">
                 <table class="style46">
                     <tr>
                         <td class="style44" rowspan="4">
@@ -27,6 +31,11 @@ Inherits="WBE_WebApplication.BakedGoodTab" %>
                         <td class="style45">
                 <asp:TextBox ID="txtBG_ID" runat="server"></asp:TextBox>
                         </td>
+                        <td class="style45">
+                            &nbsp;</td>
+                        <td class="auto-style3">
+                            <asp:Label ID="lblBG_ID_Error" runat="server" Text="Label"></asp:Label>
+                        </td>
                     </tr>
                     <tr>
                         <td class="style15">
@@ -35,6 +44,11 @@ Inherits="WBE_WebApplication.BakedGoodTab" %>
                         </td>
                         <td>
                             <asp:TextBox ID="txtBGName" runat="server"></asp:TextBox>
+                        </td>
+                        <td>
+                            &nbsp;</td>
+                        <td class="auto-style4">
+                            <asp:Label ID="lblBG_Name_Error" runat="server" Text="Label"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -45,13 +59,23 @@ Inherits="WBE_WebApplication.BakedGoodTab" %>
                         <td>
                             <asp:TextBox ID="txtBGPrice" runat="server"></asp:TextBox>
                         </td>
+                        <td>
+                            &nbsp;</td>
+                        <td class="auto-style4">
+                            <asp:Label ID="lblBG_Price_Error" runat="server"></asp:Label>
+                        </td>
                     </tr>
                     <tr>
                         <td class="style15">
                             &nbsp;
                             Discontinued</td>
                         <td>
-                            <asp:CheckBox ID="chkBG_Discontinued" runat="server" />
+                            <asp:CheckBox ID="chkActive" runat="server" />
+                        </td>
+                        <td>
+                            &nbsp;</td>
+                        <td class="auto-style4">
+                            <asp:TextBox ID="txtInactiveDate" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                 </table>
@@ -73,7 +97,8 @@ Inherits="WBE_WebApplication.BakedGoodTab" %>
                 <asp:Button ID="btnBG_Close" runat="server" Text="Close" Width="61px" />
             </td>
             <td>
-                &nbsp;</td>
+                <asp:Label ID="lblError" runat="server" Text="Label"></asp:Label>
+            </td>
         </tr>
     </table>
     <br />
@@ -116,7 +141,7 @@ Inherits="WBE_WebApplication.BakedGoodTab" %>
         }
         .style46
         {
-            width: 89%;
+            width: 151%;
             height: 121px;
         }
         .style47
@@ -141,6 +166,27 @@ Inherits="WBE_WebApplication.BakedGoodTab" %>
         .style51
         {
             width: 155px;
+        }
+        .auto-style1 {
+            font-family: Verdana;
+            font-size: x-large;
+            height: 10px;
+            text-align: left;
+            width: 247px;
+        }
+        .auto-style2 {
+            font-family: Verdana;
+            font-size: x-large;
+            height: 10px;
+            text-align: left;
+            width: 403px;
+        }
+        .auto-style3 {
+            height: 20px;
+            width: 317px;
+        }
+        .auto-style4 {
+            width: 317px;
         }
         </style>
 </asp:Content>
