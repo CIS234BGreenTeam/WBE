@@ -23,6 +23,8 @@ Public Class DesiredInv
     Inherits System.Web.UI.Page
     Dim txtDesired() As TextBox
     Dim lblItem() As Label
+    Dim lblCustID As Label
+    Dim lblActualID As Label
 
     Private _colCustomers As New colCustomers
     Private _colBakedGoods As New colBakedGoods
@@ -49,7 +51,7 @@ Public Class DesiredInv
         End If
 
         'Fill dynamically created controls
-        FillInventoryItems(Convert.ToInt32(ddlCustomer.SelectedItem.Value))
+        FillInventoryItems(Convert.ToInt32(Session("CustomerID")))
 
     End Sub
 
@@ -85,6 +87,8 @@ Public Class DesiredInv
             objListItem.Value = objCustomer.CustomerID.ToString
             ddlCustomer.Items.Add(objListItem)
         Next
+
+        Session("CustomerID") = Convert.ToInt32(ddlCustomer.SelectedItem.Value)
     End Sub
 
     ''' <summary>
@@ -134,6 +138,18 @@ Public Class DesiredInv
         'Clear any existing dynamic controls
         pnlInventory.Controls.Clear()
         pnlInventory.Controls.Add(New LiteralControl("<br />"))
+
+        lblCustID = New Label
+        lblCustID.Text = "Customer ID: "
+        pnlInventory.Controls.Add(lblCustID)
+
+        lblActualID = New Label
+        lblActualID.Text = CustomerID.ToString
+        pnlInventory.Controls.Add(lblActualID)
+        pnlInventory.Controls.Add(New LiteralControl("<br />"))
+        pnlInventory.Controls.Add(New LiteralControl("<br />"))
+
+        Session("CustomerID") = CustomerID
 
         'For each baked good, add a line
         For Each objBakedGood As BakedGood In _colBakedGoods
@@ -258,7 +274,7 @@ Public Class DesiredInv
         CustStock.BakedGoodID = Convert.ToInt32(lblItem(i).Attributes.Item("BakedGoodID"))
         CustStock.DesiredQty = Convert.ToInt32(txtDesired(i).Text)
         CustStock.StockID = Convert.ToInt32(txtDesired(i).Attributes.Item("StockID"))
-        CustStock.CustomerID = Convert.ToInt32(ddlCustomer.SelectedItem.Value)
+        CustStock.CustomerID = Convert.ToInt32(Session("CustomerID"))
         CustStock.StockQty = Convert.ToInt32(txtDesired(i).Attributes.Item("StockQty"))
 
         Return CustStock

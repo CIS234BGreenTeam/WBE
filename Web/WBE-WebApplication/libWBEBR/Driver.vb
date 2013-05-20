@@ -65,4 +65,11 @@ Public Class Driver
         End Get
     End Property
 
+    ''' <summary>
+    ''' How to display the object on the form
+    ''' </summary>
+    Public Overrides Function ToString() As String
+        'use the real deal
+        Return Name
+    End Function
 End Class

@@ -11,7 +11,7 @@ Public Class Customer
     ''' <value></value>
     ''' <returns>True if active</returns>
     ''' <remarks></remarks>
-    Public Property IsActive As Boolean
+    Public Property IsInactive As Boolean
 
     ''' <summary>
     ''' Identifier of the driver attached to the customer
@@ -509,7 +509,6 @@ Public Class Customer
     ''' How to display the object on the form
     ''' </summary>
     Public Overrides Function ToString() As String
-
         'use the real deal
         Return Name
     End Function

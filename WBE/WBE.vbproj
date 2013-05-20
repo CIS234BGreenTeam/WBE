@@ -88,9 +88,6 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BakedGood.vb" />
-    <Compile Include="Customer.vb" />
-    <Compile Include="Driver.vb" />
     <Compile Include="frmCustomer.Designer.vb">
       <DependentUpon>frmCustomer.vb</DependentUpon>
     </Compile>
@@ -112,9 +109,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Order.vb" />
-    <Compile Include="OrderItem.vb" />
-    <Compile Include="WBE.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmCustomer.resx">
@@ -165,6 +159,16 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Web\WBE-WebApplication\libWBEBR\libWBEBR.vbproj">
+      <Project>{056cc86c-b001-45fb-8ead-580d6b6ffd44}</Project>
+      <Name>libWBEBR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web\WBE-WebApplication\libWBEData\libWBEData.vbproj">
+      <Project>{dc152edf-55a9-4349-9c1e-d0b15d2ad841}</Project>
+      <Name>libWBEData</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

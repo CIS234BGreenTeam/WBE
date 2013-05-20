@@ -36,7 +36,7 @@ Public Class colCustStockTest
     <ClassInitialize()> _
     Public Shared Sub MyClassInitialize(ByVal testContext As TestContext)
         Dim target As New WBEData
-        CustStockDB.CustomerID = 1
+        CustStockDB.CustomerID = 13
         CustStockDB.SetupAdapter()
     End Sub
     
@@ -128,6 +128,61 @@ Public Class colCustStockTest
         Assert.IsTrue(bAreEqual)
     End Sub
 
+    '''<summary>
+    '''A test for Changing an existing CustStock object in the collection
+    '''</summary>
+    <TestMethod()> _
+    Public Sub colCustStock_Change_Second_Test()
+        Dim sError As String = ""
+        Dim colStock As New colCustStock
+        colStock.Fill(sError) 'Fill collection
+
+        'Make sure the collection isn't empty
+        If colStock.Count = 0 Then
+            Dim item As New CustStock(2, 1, 4)
+            colStock.Add(item)
+            CustStockDB.Update()
+            colStock.Fill(sError)
+        End If
+
+        'Get a custstock object
+        Dim expected As CustStock = colStock(0)
+        expected.StockQty += 1 'Change a property
+        colStock.Change(expected) 'Update the collection
+        CustStockDB.Update() 'Update the database
+
+        colStock.Fill(sError) 'Refill collection
+
+        CustStockDB.CustomerID = 19
+        CustStockDB.SetupAdapter()
+
+        colStock.Fill(sError) 'Refill collection
+
+        'Make sure the collection isn't empty
+        If colStock.Count = 0 Then
+            Dim item As New CustStock(2, 1, 4)
+            colStock.Add(item)
+            CustStockDB.Update()
+            colStock.Fill(sError)
+        End If
+
+        'Get a custstock object
+        expected = colStock(0)
+        expected.StockQty += 1 'Change a property
+        colStock.Change(expected) 'Update the collection
+        CustStockDB.Update() 'Update the database
+
+        colStock.Fill(sError) 'Refill collection
+
+        Dim actual As CustStock = colStock(0) 'Get the object
+
+        'Make sure the two objects are equal
+        Dim bAreEqual As Boolean = (actual.StockID = expected.StockID) And
+            (actual.BakedGoodID = expected.BakedGoodID) And
+            (actual.CustomerID = expected.CustomerID) And
+            (actual.StockQty = expected.StockQty)
+        Assert.IsTrue(bAreEqual)
+    End Sub
     '''<summary>
     '''A test for Finding a CustStock item by ID
     '''</summary>
