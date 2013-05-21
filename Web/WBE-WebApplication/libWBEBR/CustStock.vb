@@ -40,4 +40,13 @@
     Public Sub New()
 
     End Sub
+
+    ''' <summary>
+    ''' How to display the object on the form
+    ''' </summary>
+    Public Overrides Function ToString() As String
+
+        'use the real deal
+        Return String.Format("{0,-22} {1, 4}", Name, DesiredQty)
+    End Function
 End Class

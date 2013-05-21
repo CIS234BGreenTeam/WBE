@@ -13,13 +13,16 @@ Public Class frmCustomer
 
         'Fill the data collections
 
-        'todo: Add error checking
         If _colDrivers.Fill(sError) Then
             FillDriverSelection()
+        Else
+            MessageBox.Show(sError)
         End If
 
         If _colCustomers.Fill(sError) Then
             FillCustomerSelection()
+        Else
+            MessageBox.Show(sError)
         End If
 
         'Load the current selected customer data
@@ -30,8 +33,7 @@ Public Class frmCustomer
     Private Sub FillDriverSelection()
         cboDriver.Items.Clear()
 
-        'todo: Add sorting to colDrivers
-        '_colDrivers.Sort() 
+        _colDrivers.Sort()
 
         For Each objDriver As Driver In _colDrivers
             cboDriver.Items.Add(objDriver)
@@ -46,15 +48,8 @@ Public Class frmCustomer
         Dim sError As String = ""
 
         cboCustomer.Items.Clear()
-        If _colCustomers.Count = 0 Then
-            _colCustomers.Clear()
-            If _colCustomers.Fill(sError) = False Then
-                'todo: Add error checking
-            End If
-        End If
 
-        'todo: Add sorting to colCustomers
-        '_colCustomers.Sort() 
+        _colCustomers.Sort()
 
         For Each objCustomer As Customer In _colCustomers
             cboCustomer.Items.Add(objCustomer)
@@ -68,11 +63,8 @@ Public Class frmCustomer
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub LoadCustomerData()
-        If cboCustomer.Text <> "New Customer" Then
-            Dim sError As String = ""
+        If cboCustomer.SelectedIndex <> -1 Then
             Dim objCustomer As New Customer
-
-            'Get customer object from the ID stored in the ddl
             objCustomer = cboCustomer.SelectedItem
 
             With objCustomer
@@ -85,7 +77,7 @@ Public Class frmCustomer
                 txtPhone.Text = .Phone
                 txtFax.Text = .Fax
                 txtEmail.Text = .Email
-                chkInactive.Checked = .IsActive
+                chkInactive.Checked = .IsInactive
                 SelectDriver(.DriverID)
             End With
 
@@ -99,7 +91,6 @@ Public Class frmCustomer
             End If
         Next
     End Sub
-
 
     Private Sub cboCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCustomer.SelectedIndexChanged
         LoadCustomerData()
@@ -116,14 +107,16 @@ Public Class frmCustomer
 
         'Check that the data is valid
         If IsValidData(objCustomer) Then
-            objCustomer.IsActive = chkInactive.Checked
-            objCustomer.DriverID = DirectCast(cboDriver.SelectedItem, Driver).DriverID
-            objCustomer.CustomerID = DirectCast(cboCustomer.SelectedItem, Customer).CustomerID
+            objCustomer.IsInactive = chkInactive.Checked
+            If cboCustomer.SelectedIndex <> -1 Then
+                objCustomer.CustomerID = DirectCast(cboCustomer.SelectedItem, Customer).CustomerID
+            Else
+                objCustomer.CustomerID = 0
+            End If
 
             'If CustID not zero, then existing customer
             If objCustomer.CustomerID <> 0 Then
                 _colCustomers.Change(objCustomer)
-
             Else  'If CustID = 0, then new customer.
                 _colCustomers.Add(objCustomer)
             End If
@@ -133,8 +126,11 @@ Public Class frmCustomer
             'Need to refill dropdownlist to account for changes
             _colCustomers.Clear()
             If (_colCustomers.Fill(sError)) Then
+                _colCustomers.Sort()
                 FillCustomerSelection()
-                cboCustomer.SelectedItem = objCustomer
+                cboCustomer.SelectedItem = SetCustomerSelection(objCustomer)
+            Else
+                MessageBox.Show(sError)
             End If
         End If
     End Sub
@@ -338,6 +334,9 @@ Public Class frmCustomer
         Try
             If cboDriver.SelectedIndex <> -1 Then
                 objCustomer.DriverID = DirectCast(cboDriver.SelectedItem, Driver).DriverID
+            Else
+                epCustomer.SetError(cboDriver, "Driver must be selected.")
+                Return False
             End If
             Return True
         Catch ex As Exception
@@ -347,7 +346,53 @@ Public Class frmCustomer
         End Try
     End Function
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click, SaveCustomerToolStripMenuItem.Click
         SaveCustomer()
     End Sub
+
+    ''' <summary>
+    ''' Clears form
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub ClearForm()
+        txtName.Text = ""
+        txtAddress1.Text = ""
+        txtAddress2.Text = ""
+        txtCity.Text = ""
+        txtState.Text = ""
+        txtZip.Text = ""
+        txtPhone.Text = ""
+        txtFax.Text = ""
+        txtZip.Text = ""
+        txtEmail.Text = ""
+        cboCustomer.SelectedIndex = -1
+        cboDriver.SelectedIndex = -1
+        chkInactive.Checked = False
+    End Sub
+
+    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click, NewCustomerToolStripMenuItem.Click
+        ClearForm()
+    End Sub
+
+    Private Function SetCustomerSelection(ByVal objCustomer As Customer) As Customer
+        For i As Integer = 0 To cboCustomer.Items.Count - 1
+            Dim tempCustomer As Customer
+            tempCustomer = DirectCast(cboCustomer.Items(i), Customer)
+            If tempCustomer.Name <> objCustomer.Name Or
+                tempCustomer.Address1 <> objCustomer.Address1 Or
+                tempCustomer.Address2 <> objCustomer.Address2 Or
+                tempCustomer.City <> objCustomer.City Or
+                tempCustomer.State <> objCustomer.State Or
+                tempCustomer.Zip <> objCustomer.Zip Or
+                tempCustomer.Phone <> objCustomer.Phone Or
+                tempCustomer.Fax <> objCustomer.Fax Or
+                tempCustomer.Email <> objCustomer.Email Or
+                tempCustomer.Contact <> objCustomer.Contact Then
+                Continue For
+            Else
+                Return tempCustomer
+            End If
+        Next
+    End Function
+
 End Class

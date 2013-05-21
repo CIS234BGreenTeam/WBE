@@ -116,7 +116,7 @@ Public Class CustomerTab
                 txtPhone.Text = .Phone
                 txtFax.Text = .Fax
                 txtEmail.Text = .Email
-                chkActive.Checked = .IsActive
+                chkActive.Checked = .IsInactive
                 ddlDriver.SelectedIndex = ddlDriver.Items.IndexOf(ddlDriver.Items.FindByValue(.DriverID.ToString))
             End With
 
@@ -156,7 +156,7 @@ Public Class CustomerTab
 
         'Check that the data is valid
         If IsValidData(objCustomer) Then
-            objCustomer.IsActive = chkActive.Checked
+            objCustomer.IsInactive = chkActive.Checked
             objCustomer.DriverID = Convert.ToInt32(ddlDriver.SelectedItem.Value)
             objCustomer.CustomerID = Convert.ToInt32(ddlCustomer.SelectedItem.Value)
 

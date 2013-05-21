@@ -6,9 +6,9 @@
 
     Private m_dUnitPrice As Decimal
     Private sName As String
-    Private _IsActive As Boolean
     Private _dteInactiveDate As DateTime
 
+    Public Property IsInactive() As Boolean
     Public Property DesiredQty() As Integer
     Public Property StockQty() As Integer
     Public Property BakedGoodID() As Integer
@@ -25,8 +25,6 @@
             End If
         End Set
     End Property
-
-
 
     '''<summary>
     '''Cost of single baked good
@@ -82,18 +80,6 @@
     Public Sub New()
 
     End Sub
-
-    ''' <summary>
-    ''' Is WBE currently producing the Baked Good?
-    ''' </summary>
-    Public Property IsActive() As Boolean
-        Get
-            Return _IsActive
-        End Get
-        Set(ByVal Value As Boolean)
-            _IsActive = Value
-        End Set
-    End Property
 
     ''' <summary>
     ''' If the baked good is inactive,

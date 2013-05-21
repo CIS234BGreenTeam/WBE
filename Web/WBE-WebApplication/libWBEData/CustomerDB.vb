@@ -6,6 +6,12 @@ Public Class CustomerDB
     'This is used temporarily as the ID until the real one's found
     Private Shared _iTempLastID As Integer
 
+    Public Shared ReadOnly Property GetTempLastID
+        Get
+            Return _iTempLastID
+        End Get
+    End Property
+
     ''' <summary>
     ''' Fills the Customer collection
     ''' </summary>

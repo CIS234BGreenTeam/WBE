@@ -42,18 +42,10 @@ Partial Class frmCustomer
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtEmail = New System.Windows.Forms.TextBox()
         Me.chkInactive = New System.Windows.Forms.CheckBox()
-        Me.lstInventory = New System.Windows.Forms.ListBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
         Me.mnuCustomer = New System.Windows.Forms.MenuStrip()
         Me.tsFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsInventory = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AddItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ModifySelectedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DeleteSelectedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsCustomers = New System.Windows.Forms.ToolStrip()
         Me.btnNew = New System.Windows.Forms.ToolStripButton()
         Me.btnSave = New System.Windows.Forms.ToolStripButton()
@@ -214,47 +206,9 @@ Partial Class frmCustomer
         Me.chkInactive.Text = "Inactive"
         Me.chkInactive.UseVisualStyleBackColor = True
         '
-        'lstInventory
-        '
-        Me.lstInventory.FormattingEnabled = True
-        Me.lstInventory.Location = New System.Drawing.Point(36, 351)
-        Me.lstInventory.Name = "lstInventory"
-        Me.lstInventory.Size = New System.Drawing.Size(401, 95)
-        Me.lstInventory.TabIndex = 18
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(36, 333)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(77, 14)
-        Me.Label10.TabIndex = 20
-        Me.Label10.Text = "Baked Good"
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(381, 333)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(56, 14)
-        Me.Label11.TabIndex = 21
-        Me.Label11.Text = "Desired"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(176, 303)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(133, 20)
-        Me.Label16.TabIndex = 29
-        Me.Label16.Text = "Desired Inventory"
-        '
         'mnuCustomer
         '
-        Me.mnuCustomer.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsFile, Me.tsInventory})
+        Me.mnuCustomer.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsFile})
         Me.mnuCustomer.Location = New System.Drawing.Point(0, 0)
         Me.mnuCustomer.Name = "mnuCustomer"
         Me.mnuCustomer.Size = New System.Drawing.Size(488, 24)
@@ -280,31 +234,6 @@ Partial Class frmCustomer
         Me.SaveCustomerToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
         Me.SaveCustomerToolStripMenuItem.Text = "Save Customer"
         '
-        'tsInventory
-        '
-        Me.tsInventory.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddItemToolStripMenuItem, Me.ModifySelectedToolStripMenuItem, Me.DeleteSelectedToolStripMenuItem})
-        Me.tsInventory.Name = "tsInventory"
-        Me.tsInventory.Size = New System.Drawing.Size(69, 20)
-        Me.tsInventory.Text = "Inventory"
-        '
-        'AddItemToolStripMenuItem
-        '
-        Me.AddItemToolStripMenuItem.Name = "AddItemToolStripMenuItem"
-        Me.AddItemToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
-        Me.AddItemToolStripMenuItem.Text = "Add Item"
-        '
-        'ModifySelectedToolStripMenuItem
-        '
-        Me.ModifySelectedToolStripMenuItem.Name = "ModifySelectedToolStripMenuItem"
-        Me.ModifySelectedToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
-        Me.ModifySelectedToolStripMenuItem.Text = "Modify Selected"
-        '
-        'DeleteSelectedToolStripMenuItem
-        '
-        Me.DeleteSelectedToolStripMenuItem.Name = "DeleteSelectedToolStripMenuItem"
-        Me.DeleteSelectedToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
-        Me.DeleteSelectedToolStripMenuItem.Text = "Delete Selected"
-        '
         'tsCustomers
         '
         Me.tsCustomers.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnSave})
@@ -322,7 +251,7 @@ Partial Class frmCustomer
         Me.btnNew.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnNew.Name = "btnNew"
         Me.btnNew.Size = New System.Drawing.Size(36, 36)
-        Me.btnNew.Text = "ToolStripButton1"
+        Me.btnNew.Text = "New Customer"
         '
         'btnSave
         '
@@ -332,7 +261,7 @@ Partial Class frmCustomer
         Me.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(36, 36)
-        Me.btnSave.Text = "ToolStripButton1"
+        Me.btnSave.Text = "Save Customer"
         '
         'Label9
         '
@@ -356,7 +285,7 @@ Partial Class frmCustomer
         Me.cboCustomer.FormattingEnabled = True
         Me.cboCustomer.Location = New System.Drawing.Point(81, 79)
         Me.cboCustomer.Name = "cboCustomer"
-        Me.cboCustomer.Size = New System.Drawing.Size(121, 21)
+        Me.cboCustomer.Size = New System.Drawing.Size(142, 21)
         Me.cboCustomer.TabIndex = 34
         '
         'Label12
@@ -394,7 +323,7 @@ Partial Class frmCustomer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(488, 491)
+        Me.ClientSize = New System.Drawing.Size(488, 336)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.cboDriver)
         Me.Controls.Add(Me.Label12)
@@ -402,10 +331,6 @@ Partial Class frmCustomer
         Me.Controls.Add(Me.txtContact)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.tsCustomers)
-        Me.Controls.Add(Me.Label16)
-        Me.Controls.Add(Me.Label11)
-        Me.Controls.Add(Me.Label10)
-        Me.Controls.Add(Me.lstInventory)
         Me.Controls.Add(Me.chkInactive)
         Me.Controls.Add(Me.txtEmail)
         Me.Controls.Add(Me.Label8)
@@ -455,18 +380,10 @@ Partial Class frmCustomer
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents txtEmail As System.Windows.Forms.TextBox
     Friend WithEvents chkInactive As System.Windows.Forms.CheckBox
-    Friend WithEvents lstInventory As System.Windows.Forms.ListBox
-    Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents mnuCustomer As System.Windows.Forms.MenuStrip
     Friend WithEvents tsFile As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NewCustomerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SaveCustomerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsInventory As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents AddItemToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ModifySelectedToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents DeleteSelectedToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsCustomers As System.Windows.Forms.ToolStrip
     Friend WithEvents btnNew As System.Windows.Forms.ToolStripButton
     Friend WithEvents btnSave As System.Windows.Forms.ToolStripButton

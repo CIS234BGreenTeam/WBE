@@ -338,7 +338,7 @@ Public Class CustomerTest
     <TestMethod()> _
     Public Sub Customer_LastCountDateCorrect_Test()
         Dim target As Customer = New Customer()
-        target.IsActive = True
+        target.IsInactive = True
         Dim expected As Date = Now
         Dim actual As Date
         target.LastCountDate = expected
@@ -353,7 +353,7 @@ Public Class CustomerTest
     <ExpectedException(GetType(System.Exception), "Date should fail because it is after max date")>
     Public Sub Customer_LastCountDateMaxFail_Test()
         Dim target As Customer = New Customer()
-        target.IsActive = True
+        target.IsInactive = True
         Dim expected As Date = DateAdd(DateInterval.Day, 4, Now)
         target.LastCountDate = expected
     End Sub
@@ -365,7 +365,7 @@ Public Class CustomerTest
     <ExpectedException(GetType(System.Exception), "Date should fail because it is before min date.")>
     Public Sub Customer_LastCountDateMinFail_Test()
         Dim target As Customer = New Customer()
-        target.IsActive = True
+        target.IsInactive = True
         Dim expected As Date = DateAdd(DateInterval.Day, -8, Now)
         target.LastCountDate = expected
     End Sub
@@ -376,7 +376,7 @@ Public Class CustomerTest
     <TestMethod()> _
     Public Sub Customer_LastCountDateInactiveCustomer_Test()
         Dim target As Customer = New Customer()
-        target.IsActive = False
+        target.IsInactive = False
         Dim expected As Date = DateAdd(DateInterval.Day, 4, Now)
         Dim actual As Date
         target.LastCountDate = expected
@@ -390,7 +390,7 @@ Public Class CustomerTest
     <TestMethod()> _
     Public Sub Customer_LastOrderDateCorrect_Test()
         Dim target As Customer = New Customer()
-        target.IsActive = True
+        target.IsInactive = True
         Dim expected As Date = Now
         Dim actual As Date
         target.LastOrderDate = expected
@@ -405,7 +405,7 @@ Public Class CustomerTest
     <ExpectedException(GetType(System.Exception), "Date should fail because after max date")>
     Public Sub Customer_LastOrderDateMaxFail_Test()
         Dim target As Customer = New Customer()
-        target.IsActive = True
+        target.IsInactive = True
         Dim expected As Date = DateAdd(DateInterval.Day, 4, Now)
         target.LastOrderDate = expected
     End Sub
@@ -417,7 +417,7 @@ Public Class CustomerTest
     <ExpectedException(GetType(System.Exception), "Date should fail because before min date.")>
     Public Sub Customer_LastOrderDateMinFail_Test()
         Dim target As Customer = New Customer()
-        target.IsActive = True
+        target.IsInactive = True
         Dim expected As Date = DateAdd(DateInterval.Day, -8, Now)
         target.LastOrderDate = expected
     End Sub
@@ -428,7 +428,7 @@ Public Class CustomerTest
     <TestMethod()> _
     Public Sub Customer_LastOrderDateInactiveCustomer_Test()
         Dim target As Customer = New Customer()
-        target.IsActive = False
+        target.IsInactive = False
         Dim expected As Date = DateAdd(DateInterval.Day, 4, Now)
         Dim actual As Date
         target.LastOrderDate = expected

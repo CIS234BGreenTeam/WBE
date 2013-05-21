@@ -5,6 +5,7 @@
 'CIS 234B
 
 Public Class Customer
+    Implements IComparable(Of Customer)
     ''' <summary>
     ''' Shows whether the customer is active or not
     ''' </summary>
@@ -491,7 +492,7 @@ Public Class Customer
     ''' <remarks></remarks>
     Private Function CheckDateInterval(ByVal value As Date) As Boolean
         Dim IsSuccess As Boolean
-        If IsActive = True Then
+        If IsInactive = True Then
             Dim iDiff As Long
             iDiff = DateDiff(DateInterval.Day, Now, value)
             If iDiff < -c_MinDate Or iDiff > c_MaxDate Then
@@ -511,5 +512,9 @@ Public Class Customer
     Public Overrides Function ToString() As String
         'use the real deal
         Return Name
+    End Function
+
+    Public Function CompareTo(other As Customer) As Integer Implements IComparable(Of Customer).CompareTo
+        Return Me.Name.CompareTo(other.Name)
     End Function
 End Class

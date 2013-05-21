@@ -4,6 +4,7 @@
 'CIS 234B
 
 Public Class Driver
+    Implements IComparable(Of Driver)
     ''' <summary>
     ''' Unique identifier of Driver object
     ''' </summary>
@@ -71,5 +72,9 @@ Public Class Driver
     Public Overrides Function ToString() As String
         'use the real deal
         Return Name
+    End Function
+
+    Public Function CompareTo(other As Driver) As Integer Implements IComparable(Of Driver).CompareTo
+        Return Me.Name.CompareTo(other.Name)
     End Function
 End Class

@@ -86,7 +86,7 @@ Public Class BakedGoodTab
                 '.Add("Inactive Date" & txtInactiveDate.Text)
             End With
 
-            objBakedGood.IsActive = chkActive.Checked
+            objBakedGood.IsInactive = chkActive.Checked
 
             'The unit price, name, and bakedgoodID are currently being set by
             'your validation routines already. You don't need to re-convert them here

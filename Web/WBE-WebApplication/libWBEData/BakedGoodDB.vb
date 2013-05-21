@@ -36,10 +36,10 @@ Public Class BakedGoodDB
                     .BakedGoodID = Convert.ToInt32(dr("BakedGoodID"))
                     .Name = dr("Name").ToString
                     .UnitPrice = Convert.ToDecimal(dr("Price"))
-                    .IsActive = Convert.ToBoolean(dr("IsActive"))
-                    If .IsActive = False Then
-                        .InactiveDate = Convert.ToDateTime(dr("InactiveDate"))
-                    End If
+                    .IsInactive = Convert.ToBoolean(dr("IsInactive"))
+                    'If .IsInactive = False Then
+                    '    .InactiveDate = Convert.ToDateTime(dr("InactiveDate"))
+                    'End If
 
                     If _iTempLastID < .BakedGoodID Then
                         _iTempLastID = .BakedGoodID
@@ -162,7 +162,7 @@ Public Class BakedGoodDB
             drBakedGood("BakedGoodID") = .BakedGoodID
             drBakedGood("Name") = .Name
             drBakedGood("Price") = .UnitPrice
-            drBakedGood("IsActive") = .IsActive
+            drBakedGood("IsInactive") = .IsInactive
             drBakedGood("InactiveDate") = .InactiveDate
         End With
     End Sub
@@ -188,7 +188,7 @@ Public Class BakedGoodDB
             .DeleteCommand = connWBE.CreateCommand
 
             'Changed UnitPrice here to Price. There is no "UnitPrice" field in the database
-            .SelectCommand.CommandText = "SELECT BakedGoodID, Name, Price, IsActive, InactiveDate FROM BAKEDGOOD"
+            .SelectCommand.CommandText = "SELECT BakedGoodID, Name, Price, IsInactive, InactiveDate FROM BAKEDGOOD"
 
             With .InsertCommand
                 'Changed InactiveDate)" to InactiveDate) ". The lack of space will mess stuff up.
@@ -196,13 +196,13 @@ Public Class BakedGoodDB
                 'Removing InactiveDate for now because it's causing bugs... you need a nullable datetime
                 '.CommandText = "INSERT INTO BakedGood(Name, Price, IsActive, InactiveDate) " &
                 '                "VALUES(@Name, @Price, @IsActive, @InactiveDate)"
-                .CommandText = "INSERT INTO BakedGood(Name, Price, IsActive) " &
-                                "VALUES(@Name, @Price, @IsActive)"
+                .CommandText = "INSERT INTO BakedGood(Name, Price, IsInactive) " &
+                                "VALUES(@Name, @Price, @IsInactive)"
 
                 With .Parameters
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
                     .AddWithValue("@Price", SqlDbType.Decimal).SourceColumn = "Price"
-                    .AddWithValue("@IsActive", SqlDbType.Bit).SourceColumn = "IsActive"
+                    .AddWithValue("@IsInactive", SqlDbType.Bit).SourceColumn = "IsInactive"
 
                     'Dates can't be null normally in VB, so this is trying in insert a bad date
                     'into sql, and sql is getting mad. I resolve this in my table by 
@@ -215,15 +215,15 @@ Public Class BakedGoodDB
                 'When you update data, you don't update the ID. Removing BakedGoodID = @BakedGoodID
                 'from before the WHERE
                 'Commenting out the InactiveDate for now
-                '.CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price, IsActive = @IsActive," &
+                '.CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price, IsInactive = @IsInactive," &
                 '                       "InactiveDate = @InactiveDate " &
                 '                "WHERE BakedGoodID = @BakedGoodID"
-                .CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price, IsActive = @IsActive, " &
+                .CommandText = "UPDATE BakedGood SET Name = @Name, Price = @Price, IsInactive = @IsInactive, " &
                                 "WHERE BakedGoodID = @BakedGoodID"
                 With .Parameters
                     .AddWithValue("@Name", SqlDbType.VarChar).SourceColumn = "Name"
                     .AddWithValue("@Price", SqlDbType.Decimal).SourceColumn = "Price"
-                    .AddWithValue("@IsActive", SqlDbType.Bit).SourceColumn = "IsActive"
+                    .AddWithValue("@IsInactive", SqlDbType.Bit).SourceColumn = "IsInactive"
                     '.AddWithValue("@InactiveDate", SqlDbType.DateTime).SourceColumn = "InactiveDate"
                     .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
                 End With

@@ -94,7 +94,6 @@ Public Class colCustomers
         Return objCustomer.CustomerID = _iId
     End Function
 
-
 End Class
 
 

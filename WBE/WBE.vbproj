@@ -94,6 +94,24 @@
     <Compile Include="frmCustomer.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmMain.Designer.vb">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOrderLevels.Designer.vb">
+      <DependentUpon>frmOrderLevels.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmOrderLevels.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmQuantity.Designer.vb">
+      <DependentUpon>frmQuantity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmQuantity.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -113,6 +131,15 @@
   <ItemGroup>
     <EmbeddedResource Include="frmCustomer.resx">
       <DependentUpon>frmCustomer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOrderLevels.resx">
+      <DependentUpon>frmOrderLevels.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmQuantity.resx">
+      <DependentUpon>frmQuantity.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
