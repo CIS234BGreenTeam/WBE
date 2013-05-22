@@ -11,4 +11,9 @@
         Dim frmOrderLevels As New frmOrderLevels
         frmOrderLevels.Show()
     End Sub
+
+    Private Sub btnEditOrders_Click(sender As Object, e As EventArgs) Handles btnEditOrders.Click
+        Dim frmOrder As New frmOrder
+        frmOrder.Show()
+    End Sub
 End Class

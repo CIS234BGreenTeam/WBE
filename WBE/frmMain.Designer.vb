@@ -24,6 +24,7 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.btnCustomers = New System.Windows.Forms.Button()
         Me.btnOrderLevels = New System.Windows.Forms.Button()
+        Me.btnEditOrders = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnCustomers
@@ -44,11 +45,21 @@ Partial Class frmMain
         Me.btnOrderLevels.Text = "Order Levels"
         Me.btnOrderLevels.UseVisualStyleBackColor = True
         '
+        'btnEditOrders
+        '
+        Me.btnEditOrders.Location = New System.Drawing.Point(73, 167)
+        Me.btnEditOrders.Name = "btnEditOrders"
+        Me.btnEditOrders.Size = New System.Drawing.Size(75, 31)
+        Me.btnEditOrders.TabIndex = 2
+        Me.btnEditOrders.Text = "Edit Orders"
+        Me.btnEditOrders.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(222, 208)
+        Me.ClientSize = New System.Drawing.Size(222, 252)
+        Me.Controls.Add(Me.btnEditOrders)
         Me.Controls.Add(Me.btnOrderLevels)
         Me.Controls.Add(Me.btnCustomers)
         Me.Name = "frmMain"
@@ -58,4 +69,5 @@ Partial Class frmMain
     End Sub
     Friend WithEvents btnCustomers As System.Windows.Forms.Button
     Friend WithEvents btnOrderLevels As System.Windows.Forms.Button
+    Friend WithEvents btnEditOrders As System.Windows.Forms.Button
 End Class

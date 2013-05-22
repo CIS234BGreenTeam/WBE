@@ -24,7 +24,7 @@ Public Class frmOrder
     End Sub
 
     ''' <summary>
-    ''' Fills Customer dropdownmenu for selecting the customer
+    ''' Fills Customer cbo for selecting the customer
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub FillCustomerSelection()
@@ -64,7 +64,10 @@ Public Class frmOrder
             MessageBox.Show(sError)
         End If
 
+        'Make sure that there is an order for the customer
         If _colOrders.Count > 0 Then
+
+            'Get order items for the order
             OrderItemDB.OrderID = _colOrders.Item(0).OrderID
             OrderItemDB.SetupAdapter()
 
@@ -72,40 +75,60 @@ Public Class frmOrder
                 MessageBox.Show(sError)
             End If
 
-            With _colOrders.Item(0)
-                lblOrderNumber.Text = .OrderID
-                lblStatus.Text = .StatusDesc
-                dtDate.Text = .OrderDate
-            End With
+            'Fill out order details
+            SetOrderDetails(_colOrders.Item(0))
 
+            'Add order items to the listbox
             FillOrderItems()
         Else
+            'If no order exists, create one and update
             CreateNewOrder()
             ShowOrder(CustomerID)
         End If
     End Sub
 
+    ''' <summary>
+    ''' Add all existing order items to the listbox
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub FillOrderItems()
-
+        'Make sure there are order items
         If _colOrderItems.Count > 0 Then
             For Each OrderItem As OrderItem In _colOrderItems
                 lstOrderItems.Items.Add(OrderItem)
             Next
         Else
+            'If no items exist, add one automatically
             CallAddItemForm()
         End If
     End Sub
 
+    ''' <summary>
+    ''' Change the customer selection and update order/order items
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub cboCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCustomer.SelectedIndexChanged
         ShowOrder(DirectCast(cboCustomer.SelectedItem, Customer).CustomerID)
     End Sub
 
+    ''' <summary>
+    ''' Change the quantity of the order item selected or create a new item
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub lstOrderItems_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstOrderItems.SelectedIndexChanged
         Dim CustStock As New CustStock
         Dim OrderItem As OrderItem
         Dim frmQuantity As New frmQuantity
 
+        'Get selected orer item
         OrderItem = DirectCast(lstOrderItems.SelectedItem, OrderItem)
+
+        'Update quantity by calling form. We are using the Quantity form also used by
+        'frmOrderLevels and fudging the input so that it will work with OrderItem 
         If Not OrderItem Is Nothing Then
             CustStock.Name = OrderItem.Name
             CustStock.DesiredQty = OrderItem.Quantity
@@ -114,11 +137,16 @@ Public Class frmOrder
             frmQuantity.SetCustStock(CustStock)
             frmQuantity.ShowDialog()
         Else
+            'If clicking on blank part of listbox, create new item
             CallAddItemForm()
         End If
         
     End Sub
 
+    ''' <summary>
+    ''' Create new line item by calling frmAddItem
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub CallAddItemForm()
         Dim frmAddItem As New frmAddItem
         frmAddItem.SetOrderItem(_colOrderItems)
@@ -126,6 +154,10 @@ Public Class frmOrder
         frmAddItem.ShowDialog()
     End Sub
 
+    ''' <summary>
+    ''' Create new order and update database
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub CreateNewOrder()
         Dim Order As New Order
         Dim sError As String = ""
@@ -145,6 +177,11 @@ Public Class frmOrder
 
     End Sub
 
+    ''' <summary>
+    ''' Add new line item. This is called by frmAddItem
+    ''' </summary>
+    ''' <param name="objOrderItem"></param>
+    ''' <remarks></remarks>
     Public Sub AddNewItem(ByVal objOrderItem As OrderItem)
         objOrderItem.OrderID = Convert.ToInt32(lblOrderNumber.Text)
         _colOrderItems.Add(objOrderItem)
@@ -177,6 +214,11 @@ Public Class frmOrder
 
     End Sub
 
+    ''' <summary>
+    ''' Update order details in form
+    ''' </summary>
+    ''' <param name="Order"></param>
+    ''' <remarks></remarks>
     Private Sub SetOrderDetails(ByVal Order As Order)
         With Order
             lblOrderNumber.Text = .OrderID

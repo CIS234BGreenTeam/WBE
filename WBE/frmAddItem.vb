@@ -1,12 +1,21 @@
 ﻿Imports libWBEData
 Imports libWBEBR
-
+''' <summary>
+''' This form is used to add a line item to frmOrders
+''' </summary>
+''' <remarks></remarks>
 Public Class frmAddItem
 
     Private _colBakedGoods As New colBakedGoods
     Public frmOrder As frmOrder
     Private bCancel As Boolean = False
 
+    ''' <summary>
+    ''' Add data to frmOrders when this form closes. Cancel closing if data does not validate
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub frmAddItem_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Dim OrderItem As New OrderItem
         Dim BakedGood As BakedGood
@@ -28,6 +37,11 @@ Public Class frmAddItem
         End If
     End Sub
 
+    ''' <summary>
+    ''' Create list of baked goods eliminating any existing baked goods from the order
+    ''' </summary>
+    ''' <param name="colOrderItems"></param>
+    ''' <remarks></remarks>
     Public Sub SetOrderItem(ByVal colOrderItems As colOrderItems)
         Dim sError As String = ""
         BakedGoodDB.SetupAdapter()
@@ -47,13 +61,16 @@ Public Class frmAddItem
             Next
         End If
 
+        'Add items to cbo
         For Each BakedGood As BakedGood In _colBakedGoods
             cboBakedGood.Items.Add(BakedGood)
         Next
 
+        'Select first item in the index
         cboBakedGood.SelectedIndex = 0
     End Sub
 
+    'Allow user to cancel without adding an item
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         bCancel = True
         Me.Close()
