@@ -7,6 +7,7 @@ Public Class frmQuantity
 
     Dim CustStock As CustStock 'Store the CustStock item
     Public Property frmOrderLevels As frmOrderLevels 'Store the form to return the data to
+    Public Property frmOrder As frmOrder
 
     'This is called by frmOrderLevels to set beginning values
     Public Sub SetCustStock(ByVal objCustStock As CustStock)
@@ -22,7 +23,12 @@ Public Class frmQuantity
         epQuantity.Clear()
         Try
             CustStock.DesiredQty = txtQuantity.Text
-            frmOrderLevels.SetQuantityLevel(CustStock)
+            If Not frmOrderLevels Is Nothing Then
+                frmOrderLevels.SetQuantityLevel(CustStock)
+            ElseIf Not frmOrder Is Nothing Then
+                frmOrder.SetQuantityLevel(CustStock)
+            End If
+
         Catch ex As Exception
             epQuantity.SetError(txtQuantity, ex.Message)
             e.Cancel = True

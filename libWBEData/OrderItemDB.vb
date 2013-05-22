@@ -46,7 +46,8 @@ Public Class OrderItemDB
                     .Quantity = Convert.ToInt32(dr("Quantity"))
                     .BakedGoodID = Convert.ToInt32(dr("BakedGoodID"))
                     .OrderID = Convert.ToInt32(dr("OrderID"))
-
+                    .UnitPrice = Convert.ToDecimal(dr("Price"))
+                    .Name = dr("Name").ToString
 
                     If _iTempLastID < .OrderItemID Then
                         _iTempLastID = .OrderItemID
@@ -173,6 +174,7 @@ Public Class OrderItemDB
             drOrderItem("Quantity") = .Quantity
             drOrderItem("BakedGoodID") = .BakedGoodID
             drOrderItem("OrderID") = .OrderID
+            drOrderItem("Price") = .UnitPrice
         End With
     End Sub
 
@@ -196,42 +198,48 @@ Public Class OrderItemDB
             .UpdateCommand = connWBE.CreateCommand
             .DeleteCommand = connWBE.CreateCommand
 
-            .SelectCommand.CommandText = "SELECT OrderItemID, Quantity, OrderItem.BakedGoodID, OrderID, " +
-                                         "FROM OrderItems, BakedGood" +
-                                         "WHERE OrderID = @OrderID And" +
-                                               "OrderItems.BakedGoodID = BakedGood.BakedGoodID"
+            .SelectCommand.CommandText = "SELECT OrderItemID, Quantity, OrderID, OrderItems.Price, " +
+                                         "OrderItems.BakedGoodID, BakedGood.Name " +
+                                         "FROM OrderItems, BakedGood " +
+                                         "WHERE OrderID = @OrderID And " +
+                                         "OrderItems.BakedGoodID = BakedGood.BakedGoodID"
 
             With .SelectCommand.Parameters
                 .AddWithValue("@OrderID", SqlDbType.Int).Value = OrderID
             End With
 
             With .InsertCommand
-                .CommandText = "INSERT INTO OrderItem(Quantity, BakedGoodID,  OrderID) " +
-                                    "VALUES(@Quantity, @BakedGoodID, @OrderID)"
+                .CommandText = "INSERT INTO OrderItems(Quantity, OrderID, Price, BakedGoodID) " +
+                               "VALUES(@Quantity, @OrderID, @Price, @BakedGoodID)"
 
                 With .Parameters
                     .AddWithValue("@Quantity", SqlDbType.SmallInt).SourceColumn = "Quantity"
-                    .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
                     .AddWithValue("@OrderID", SqlDbType.Int).SourceColumn = "OrderID"
+                    .AddWithValue("@Price", SqlDbType.SmallMoney).SourceColumn = "Price"
+                    .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
+
                 End With
             End With
 
             With .UpdateCommand
-                .CommandText = "UPDATE OrderItem" +
-                                "SET Quantity = @Quantity," +
-                                    "BakedGoodID = @BakedGoodID," +
-                                    "OrderID = @OrderID" +
-                                "WHERE OrderItem = @OrderItem"
+                .CommandText = "UPDATE OrderItems " +
+                                "SET Quantity = @Quantity, " +
+                                "OrderID = @OrderID, " +
+                                "Price = @Price, " +
+                                "BakedGoodID = @BakedGoodID " +
+                                "WHERE OrderItemID = @OrderItemID"
 
                 With .Parameters
                     .AddWithValue("@Quantity", SqlDbType.SmallInt).SourceColumn = "Quantity"
-                    .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
                     .AddWithValue("@OrderID", SqlDbType.Int).SourceColumn = "OrderID"
+                    .AddWithValue("@Price", SqlDbType.SmallMoney).SourceColumn = "Price"
+                    .AddWithValue("@BakedGoodID", SqlDbType.SmallInt).SourceColumn = "BakedGoodID"
+                    .AddWithValue("@OrderItemID", SqlDbType.Int).SourceColumn = "OrderItemID"
                 End With
             End With
 
             With .DeleteCommand
-                .CommandText = "DELETE FROM OrderItem" +
+                .CommandText = "DELETE FROM OrderItems " +
                                "WHERE OrderItemID = @OrderItemID"
                 With .Parameters
                     .AddWithValue("@OrderItemID", SqlDbType.Int).SourceColumn = "OrderItemID"

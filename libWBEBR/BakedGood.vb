@@ -93,4 +93,8 @@
             _dteInactiveDate = Value
         End Set
     End Property
+
+    Public Overrides Function ToString() As String
+        Return Name
+    End Function
 End Class

@@ -20,11 +20,11 @@ Public Class OrdersDB
     ''' False if Error (in this case sError will have the error generated)
     ''' </returns>
     ''' <remarks></remarks>
-    Shared Function Fill(ByVal colOrders As List(Of Orders),
+    Shared Function Fill(ByVal colOrders As List(Of Order),
                         ByRef sError As String) As Boolean
         Try
 
-            Dim objOrders As Orders
+            Dim objOrder As Order
 
             'If filled a second time, clear the datatable first
             If Not dtOrders Is Nothing Then
@@ -35,12 +35,13 @@ Public Class OrdersDB
             dtOrders = dsWBE.Tables("Orders")
 
             For Each dr As DataRow In dtOrders.Rows
-                objOrders = New Orders
-                With objOrders
+                objOrder = New Order
+                With objOrder
                     .OrderID = Convert.ToInt32(dr("OrderID"))
                     .OrderDate = Convert.ToDateTime(dr("OrderDate"))
-                    .Status = Convert.ToString(dr("Status"))
+                    .Status = Convert.ToInt32(dr("Status"))
                     .CustomerID = Convert.ToInt32(dr("CustomerID"))
+                    .StatusDesc = dr("Description").ToString
 
                     If _iTempLastID < .OrderID Then
                         _iTempLastID = .OrderID
@@ -48,7 +49,7 @@ Public Class OrdersDB
 
                 End With
 
-                colOrders.Add(objOrders)
+                colOrders.Add(objOrder)
 
             Next
             Return True
@@ -73,7 +74,7 @@ Public Class OrdersDB
 
         If args.StatementType = StatementType.Insert Then
             newID = CInt(idCMD.ExecuteScalar())
-            args.Row("OrderItemID") = newID
+            args.Row("OrderID") = newID
             If _iTempLastID < newID Then
                 _iTempLastID = newID
             End If
@@ -81,33 +82,33 @@ Public Class OrdersDB
     End Sub
 
     ''' <summary>
-    ''' Adds a Orders to the DataTable
+    ''' Adds a Order to the DataTable
     ''' </summary>
-    ''' <param name="objOrders">Orders to add</param>
+    ''' <param name="objOrder">Order to add</param>
     ''' <remarks>
     ''' assigns a temporary ID at this time
     ''' </remarks>
-    Shared Sub Add(ByVal objOrders As Orders)
+    Shared Sub Add(ByVal objOrder As Order)
         '*************************************************************
-        '*  Add a Orders object to the datatable
+        '*  Add a Order object to the datatable
         '*************************************************************
         Dim drOrders As DataRow
 
         drOrders = dtOrders.NewRow
 
         _iTempLastID += 1
-        objOrders.OrderID = _iTempLastID
-        CopyToDataRow(objOrders, drOrders)
+        objOrder.OrderID = _iTempLastID
+        CopyToDataRow(objOrder, drOrders)
 
         dtOrders.Rows.Add(drOrders)
     End Sub
 
     ''' <summary>
-    ''' deletes a Orders from the datatable
+    ''' deletes a Order from the datatable
     ''' </summary>
-    ''' <param name="objOrders">Orders to delete</param>
+    ''' <param name="objOrder">Order to delete</param>
     ''' <remarks></remarks>
-    Shared Sub Delete(ByVal objOrders As Orders)
+    Shared Sub Delete(ByVal objOrder As Order)
         '*************************************************************
         '*  Delete from DataTable
         '*************************************************************
@@ -115,7 +116,7 @@ Public Class OrdersDB
         Const c_strManyRecordsToDeleteError As String = "More than one Record To Delete"
 
         Dim drOrdersRow() As DataRow
-        drOrdersRow = FindRow(objOrders.OrderID)
+        drOrdersRow = FindRow(objOrder.OrderID)
         Select Case drOrdersRow.Length
             Case 1
                 drOrdersRow(0).Delete()
@@ -130,21 +131,21 @@ Public Class OrdersDB
     ''' <summary>
     ''' Change a Orders in the DataTable
     ''' </summary>
-    ''' <param name="objOrders">Orders to change</param>
+    ''' <param name="objOrder">Order to change</param>
     ''' <remarks></remarks>
-    Shared Sub Change(ByVal objOrders As Orders)
+    Shared Sub Change(ByVal objOrder As Order)
 
         Const c_strNoRecordToChangeError As String = "No Record To Change"
         Const c_strManyRecordsToChangeError As String = "More than one Record To Change"
 
         Dim drOrdersRow() As DataRow
 
-        With objOrders
+        With objOrder
             drOrdersRow = FindRow(.OrderID)
 
             Select Case drOrdersRow.Length
                 Case 1
-                    CopyToDataRow(objOrders, drOrdersRow(0))
+                    CopyToDataRow(objOrder, drOrdersRow(0))
                 Case 0
                     Throw New Exception(c_strNoRecordToChangeError)
                 Case Else
@@ -154,12 +155,12 @@ Public Class OrdersDB
 
     End Sub
 
-    Shared Sub CopyToDataRow(ByVal objOrders As Orders,
+    Shared Sub CopyToDataRow(ByVal objOrder As Order,
                              ByVal drOrders As DataRow)
         '*************************************************************************
         '   Copies Orders to datarow
         '*************************************************************************
-        With objOrders
+        With objOrder
             drOrders("OrderID") = .OrderID
             drOrders("OrderDate") = .OrderDate
             drOrders("Status") = .Status
@@ -169,13 +170,13 @@ Public Class OrdersDB
 
     Shared Function FindRow(ByVal iID As Integer) As DataRow()
         '*************************************************************************
-        '*  returns a row from the data table whose OrdersID matches the parameter strID
+        '*  returns a row from the data table whose OrderID matches the parameter strID
         '*************************************************************************
         Return dtOrders.Select("OrderID  = '" & iID & "'")
     End Function
 
     ''' <summary>
-    ''' Sets up the DataAdapter for the Orders Table
+    ''' Sets up the DataAdapter for the Order Table
     ''' </summary>
     ''' <remarks>
     ''' Establishes the SelectCommand, InsertCommand, UpdateCommand, DeleteCommand properties
@@ -187,51 +188,49 @@ Public Class OrdersDB
             .UpdateCommand = connWBE.CreateCommand
             .DeleteCommand = connWBE.CreateCommand
 
-            .SelectCommand.CommandText = "SELECT OrderID, OrderDate, Status, CustomerID " +
-                                         "FROM Customer,Orders" +
-                                         "WHERE CustomerID = @CustomerID"
+            .SelectCommand.CommandText = "SELECT TOP 1 OrderID, OrderDate, Status, CustomerID, Status.Description " +
+                                         "FROM Orders, Status " +
+                                         "WHERE CustomerID = @CustomerID AND Orders.Status = Status.ID " +
+                                         "ORDER BY OrderDate DESC"
 
             With .SelectCommand.Parameters
                 .AddWithValue("@CustomerID", SqlDbType.SmallInt).Value = CustomerID
             End With
 
             With .InsertCommand
-                .CommandText = "INSERT INTO Orders(OrderID, OrderDate, Status, CustomerID) " +
-                                "VALUES(@OrderID, @OrderDate, @Status, @CustomerID)"
+                .CommandText = "INSERT INTO Orders(OrderDate, Status, CustomerID) " +
+                                "VALUES(@OrderDate, @Status, @CustomerID)"
 
                 With .Parameters
-                    .AddWithValue("@OrderID", SqlDbType.Int).SourceColumn = "OrderID"
-                    .AddWithValue("@OrderDate", SqlDbType.DateTime).SourceColumn = "OrderDate"
-                    .AddWithValue("@Status", SqlDbType.VarChar).SourceColumn = "Status"
+                    .AddWithValue("@OrderDate", SqlDbType.Date).SourceColumn = "OrderDate"
+                    .AddWithValue("@Status", SqlDbType.TinyInt).SourceColumn = "Status"
                     .AddWithValue("@CustomerID", SqlDbType.SmallInt).SourceColumn = "CustomerID"
                 End With
             End With
 
             With .UpdateCommand
-                .CommandText = "UPDATE Orders" +
-                               "SET OrderDate = @OrderDate, Status = @Status, CustomerID = @CustomerID" +
+                .CommandText = "UPDATE Orders " +
+                               "SET OrderDate = @OrderDate, Status = @Status, CustomerID = @CustomerID " +
                                "WHERE OrderID = @OrderID"
 
                 With .Parameters
-                    .AddWithValue("@OrderID", SqlDbType.SmallInt).SourceColumn = "OrderID"
-                    .AddWithValue("@OrderDate", SqlDbType.DateTime).SourceColumn = "OrderDate"
-                    .AddWithValue("@Status", SqlDbType.VarChar).SourceColumn = "Status"
+                    .AddWithValue("@OrderDate", SqlDbType.Date).SourceColumn = "OrderDate"
+                    .AddWithValue("@Status", SqlDbType.TinyInt).SourceColumn = "Status"
                     .AddWithValue("@CustomerID", SqlDbType.SmallInt).SourceColumn = "CustomerID"
+                    .AddWithValue("@OrderID", SqlDbType.Int).SourceColumn = "OrderID"
 
                 End With
             End With
 
             With .DeleteCommand
-                .CommandText = "Delete from Orders" +
-                               "Where OrderItemID = @OrderItemID"
+                .CommandText = "Delete from Orders " +
+                               "Where OrderID = @OrderID"
                 With .Parameters
-                    .AddWithValue("@OrderID", SqlDbType.SmallInt).SourceColumn = "OrderID"
+                    .AddWithValue("@OrderID", SqlDbType.Int).SourceColumn = "OrderID"
                 End With
             End With
         End With
     End Sub
-
-
 End Class
 
 

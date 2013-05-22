@@ -83,7 +83,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Orders.vb" />
+    <Compile Include="Order.vb" />
     <Compile Include="OrderItem.vb" />
     <Compile Include="TestFriends.vb" />
     <Compile Include="WBE.vb" />

@@ -20,7 +20,7 @@ Public Class OrderItem
     Public Property OrderItemID() As Integer
 
     '''<summary>
-    '''ID number that identifies the Orders Object
+    '''ID number that identifies the Order Object
     ''' that this OrderItem Object belongs to
     '''</summary>
     ''' <remarks></remarks>
@@ -88,7 +88,7 @@ Public Class OrderItem
     '''Returns the calculated product of UnitPrice and Quantity
     '''</summary>
     Public Function GetExtendedPrice() As Decimal
-        Return UnitPrice * GetOrderQty()
+        Return UnitPrice * Quantity
     End Function
 
     ''' <summary>
@@ -117,4 +117,14 @@ Public Class OrderItem
     Public Sub New()
 
     End Sub
+
+    ''' <summary>
+    ''' How to display the object on the form
+    ''' </summary>
+    Public Overrides Function ToString() As String
+
+        'use the real deal
+        Return String.Format("{0,-19} {1, 4} {2, 8:c} {3, 8:c}",
+                             Name, Quantity, UnitPrice, GetExtendedPrice)
+    End Function
 End Class

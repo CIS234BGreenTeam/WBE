@@ -44,14 +44,14 @@ Public Class colOrdersTest
     '''</summary>
     <TestMethod()> _
     Public Sub colOrders_Add_Test()
-        Dim target As colOrders = New colOrders()
+        Dim target As colOrders = New colOrders
         Dim sError As String = ""
         target.Fill(sError) 'Fill the collection
         'Create new Orders object
-        Dim expected As New Orders(1, Today, 0)
+        Dim expected As New Order(1, Today, 0)
         target.Add(expected) 'Add object to collection
         OrdersDB.Update() 'Update database
-        Dim actual As Orders
+        Dim actual As Order
         actual = target(target.Count - 1) 'Get last record (most recently added)
         'Need to do the following instead of a normal "=" because "expected" does not have a real CustomerID
         Dim bAreEqual As Boolean =
@@ -67,8 +67,8 @@ Public Class colOrdersTest
     <TestMethod()> _
     Public Sub ChangeTest()
         Dim target As colOrders = New colOrders() ' TODO: Initialize to an appropriate value
-        Dim objOrders As Orders = Nothing ' TODO: Initialize to an appropriate value
-        target.Change(objOrders)
+        Dim objOrder As Order = Nothing ' TODO: Initialize to an appropriate value
+        target.Change(objOrder)
         Assert.Inconclusive("A method that does not return a value cannot be verified.")
     End Sub
 
@@ -93,8 +93,8 @@ Public Class colOrdersTest
     Public Sub FindTest()
         Dim target As colOrders = New colOrders() ' TODO: Initialize to an appropriate value
         Dim iID As Integer = 0 ' TODO: Initialize to an appropriate value
-        Dim expected As Orders = Nothing ' TODO: Initialize to an appropriate value
-        Dim actual As Orders
+        Dim expected As Order = Nothing ' TODO: Initialize to an appropriate value
+        Dim actual As Order
         actual = target.Find(iID)
         Assert.AreEqual(expected, actual)
         Assert.Inconclusive("Verify the correctness of this test method.")
@@ -106,8 +106,8 @@ Public Class colOrdersTest
     <TestMethod()> _
     Public Sub RemoveTest()
         Dim target As colOrders = New colOrders() ' TODO: Initialize to an appropriate value
-        Dim objOrders As Orders = Nothing ' TODO: Initialize to an appropriate value
-        target.Remove(objOrders)
+        Dim objOrder As Order = Nothing ' TODO: Initialize to an appropriate value
+        target.Remove(objOrder)
         Assert.Inconclusive("A method that does not return a value cannot be verified.")
     End Sub
 End Class

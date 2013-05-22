@@ -7,7 +7,7 @@ Public Class colBakedGoods
     ''' Fill Datatable with database table for a particular Baked Good
     ''' </summary>
     ''' <remarks></remarks>
-    Public Function Fill(ByVal sError As String) As Boolean
+    Public Function Fill(ByRef sError As String) As Boolean
 
         Return BakedGoodDB.Fill(Me, sError)
 

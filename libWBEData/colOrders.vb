@@ -14,13 +14,13 @@
 ''' </summary>
 ''' <remarks></remarks>
 Public Class colOrders
-    Inherits List(Of Orders)
+    Inherits List(Of Order)
 
     ''' <summary>
     ''' Fill Datatable with database table for a particular order
     ''' </summary>
     ''' <remarks></remarks>
-    Public Function Fill(ByVal sError As String) As Boolean
+    Public Function Fill(ByRef sError As String) As Boolean
         If Me.Count < 1 Then
             Clear()
         End If
@@ -29,68 +29,68 @@ Public Class colOrders
     End Function
 
     ''' <summary>
-    ''' Add a Orders object to the collection
+    ''' Add a Order object to the collection
     ''' and to the datatable
     ''' </summary>
-    ''' <param name="objOrders">
-    ''' Orders to add
+    ''' <param name="objOrder">
+    ''' Order to add
     ''' </param>
     ''' <remarks>
     ''' Must be Shadows since Add in List is not overridable
     ''' </remarks>
-    Public Shadows Sub Add(ByVal objOrders As Orders)
+    Public Shadows Sub Add(ByVal objOrder As Order)
 
-        MyBase.Add(objOrders)
-        OrdersDB.Add(objOrders)
+        MyBase.Add(objOrder)
+        OrdersDB.Add(objOrder)
 
     End Sub
 
     ''' <summary>
-    ''' remove a Orders object from the collection
+    ''' remove a Order object from the collection
     ''' and from the datatable
     ''' </summary>
-    ''' <param name="objOrders">
-    ''' Orders to add
+    ''' <param name="objOrder">
+    ''' Order to add
     ''' </param>
     ''' <remarks>
     ''' Must be Shadows since Remove in List is not overridable
     ''' </remarks>
 
-    Public Shadows Sub Remove(ByVal objOrders As Orders)
-        MyBase.Remove(objOrders)
-        OrdersDB.Delete(objOrders)
+    Public Shadows Sub Remove(ByVal objOrder As Order)
+        MyBase.Remove(objOrder)
+        OrdersDB.Delete(objOrder)
     End Sub
 
     ''' <summary>
     ''' Change DataTable
     ''' </summary>
-    ''' <param name="objOrders">
-    ''' Orders to change
+    ''' <param name="objOrder">
+    ''' Order to change
     ''' </param>
     ''' <remarks>
     ''' no need to Shadow since no Change in the List collection
     ''' </remarks>
-    Public Sub Change(ByVal objOrders As Orders)
-        OrdersDB.Change(objOrders)
+    Public Sub Change(ByVal objOrder As Order)
+        OrdersDB.Change(objOrder)
     End Sub
 
     Private _iId As Integer
     ''' <summary>
-    ''' Locates a Orders with a certain ID in the collection
+    ''' Locates a Order with a certain ID in the collection
     ''' </summary>
     ''' <param name="iID">ID to find</param>
-    ''' <returns>Orders with said ID</returns>
+    ''' <returns>Order with said ID</returns>
     ''' <remarks>Must be overloads because Find is already defined in the base class</remarks>
-    Public Overloads Function Find(iID As Integer) As Orders
-        Dim objOrders As Orders
+    Public Overloads Function Find(iID As Integer) As Order
+        Dim objOrder As Order
         _iId = iID
-        objOrders = Me.Find(AddressOf FindID)
-        Return objOrders
+        objOrder = Me.Find(AddressOf FindID)
+        Return objOrder
     End Function
 
-    Private Function FindID(ByVal objOrders As Orders) As Boolean
+    Private Function FindID(ByVal objOrder As Order) As Boolean
         'necessary for base class's Find
-        Return objOrders.OrderID = _iId
+        Return objOrder.OrderID = _iId
     End Function
 
 End Class

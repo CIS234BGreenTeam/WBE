@@ -20,7 +20,7 @@ Public Class colDrivers
     ''' Fill Datatable with entire database table
     ''' </summary>
     ''' <remarks></remarks>
-    Public Function Fill(ByVal sError As String) As Boolean
+    Public Function Fill(ByRef sError As String) As Boolean
         If Count < 1 Then
             Clear()
         End If

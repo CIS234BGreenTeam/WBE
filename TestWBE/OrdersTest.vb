@@ -6,7 +6,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 Imports libWBEBR
 
-'* Class Name: OrdersTest. 
+'* Class Name: OrderTest. 
 '* Designer: Ken Baker 4/20/2013. 
 '* Purpose:  Test clas properties and constructors
 
@@ -16,7 +16,7 @@ Imports libWBEBR
 '''to contain all OrderTest Unit Tests
 '''</summary>
 <TestClass()> _
-Public Class OrdersTest
+Public Class OrderTest
 
 
     Private testContextInstance As TestContext
@@ -62,11 +62,11 @@ Public Class OrdersTest
 
 
     '''<summary>
-    '''A test for Orders Constructor
+    '''A test for Order Constructor
     '''</summary>
     <TestMethod()> _
     Public Sub OrderConstructorTest()
-        Dim target As Orders = New Orders()
+        Dim target As Order = New Order()
         'Assert.Inconclusive("TODO: Implement code to verify target")
     End Sub
 
@@ -75,7 +75,7 @@ Public Class OrdersTest
     '''</summary>
     <TestMethod()> _
     Public Sub CustomerIDTest()
-        Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
+        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
         Dim expected As Integer = 0 ' TODO: Initialize to an appropriate value
         Dim actual As Integer
         target.CustomerID = expected
@@ -89,7 +89,7 @@ Public Class OrdersTest
     '''</summary>
     <TestMethod()> _
     Public Sub DriverTest()
-        Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
+        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
         Dim expected As Driver = New Driver ' TODO: Initialize to an appropriate value
         Dim actual As Driver
         target.Driver = expected
@@ -103,7 +103,7 @@ Public Class OrdersTest
     '''</summary>
     <TestMethod()> _
     Public Sub OrderItemTest()
-        Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
+        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
         Dim expected As List(Of OrderItem) = Nothing ' TODO: Initialize to an appropriate value
         Dim actual As List(Of OrderItem)
         target.Item = expected
@@ -117,7 +117,7 @@ Public Class OrdersTest
     ' '''</summary>
     '<TestMethod()> _
     'Public Sub OrderDateTest()
-    '    Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
+    '    Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
     '    Dim expected As DateTime = New DateTime() ' TODO: Initialize to an appropriate value
     '    Dim actual As DateTime
     '    target.OrderDate = expected
@@ -131,8 +131,8 @@ Public Class OrdersTest
     '''</summary>
     <TestMethod()> _
         <ExpectedException(GetType(System.Exception), "This OrderID should be invalid at 1 below the Minimum allowed value of 1.")>
-    Public Sub Orders_BelowMinOrderID_Test()
-        Dim target As Orders = New Orders()
+    Public Sub Order_BelowMinOrderID_Test()
+        Dim target As Order = New Order()
         Dim expected As Integer = 0
         Dim actual As Integer
         target.OrderID = expected
@@ -146,8 +146,8 @@ Public Class OrdersTest
     '''</summary>
     <TestMethod()> _
         <ExpectedException(GetType(System.Exception), "This OrderID should be invalid at 1 above the maximum allowed value of 999999.")>
-    Public Sub Orders_OverMinOrderID_Test()
-        Dim target As Orders = New Orders()
+    Public Sub Order_OverMinOrderID_Test()
+        Dim target As Order = New Order()
         Dim expected As Integer = 1000000
         Dim actual As Integer
         target.OrderID = expected
@@ -160,8 +160,8 @@ Public Class OrdersTest
     '''A test for valid OrderID at minimum value
     '''</summary>
     <TestMethod()>
-    Public Sub Orders_MinOrderID_Test()
-        Dim target As Orders = New Orders()
+    Public Sub Order_MinOrderID_Test()
+        Dim target As Order = New Order()
         Dim expected As Integer = 1
         Dim actual As Integer
         target.OrderID = expected
@@ -174,8 +174,8 @@ Public Class OrdersTest
     '''A test for valid OrderID at maximum value
     '''</summary>
     <TestMethod()>
-    Public Sub Orders_MaxOrderID_Test()
-        Dim target As Orders = New Orders()
+    Public Sub Order_MaxOrderID_Test()
+        Dim target As Order = New Order()
         Dim expected As Integer = 999999
         Dim actual As Integer
         target.OrderID = expected
@@ -190,9 +190,9 @@ Public Class OrdersTest
     '''</summary>
     <TestMethod()> _
     Public Sub Status_Baking_Test()
-        Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
-        Dim expected As Orders.eStatus = Orders.eStatus.Baking ' TODO: Initialize to an appropriate value
-        Dim actual As Orders.eStatus
+        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
+        Dim expected As Order.eStatus = Order.eStatus.Baking ' TODO: Initialize to an appropriate value
+        Dim actual As Order.eStatus
         target.Status = expected
         actual = target.Status
         Assert.AreEqual(expected, actual)
@@ -204,9 +204,9 @@ Public Class OrdersTest
     '''</summary>
     <TestMethod()> _
     Public Sub Status_NewOrder_Test()
-        Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
-        Dim expected As Orders.eStatus = Orders.eStatus.NewOrder ' TODO: Initialize to an appropriate value
-        Dim actual As Orders.eStatus
+        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
+        Dim expected As Order.eStatus = Order.eStatus.NewOrder ' TODO: Initialize to an appropriate value
+        Dim actual As Order.eStatus
         target.Status = expected
         actual = target.Status
         Assert.AreEqual(expected, actual)
@@ -218,9 +218,9 @@ Public Class OrdersTest
     '''</summary>
     <TestMethod()> _
     Public Sub Status_Invoiced_Test()
-        Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
-        Dim expected As Orders.eStatus = Orders.eStatus.Invoiced ' TODO: Initialize to an appropriate value
-        Dim actual As Orders.eStatus
+        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
+        Dim expected As Order.eStatus = Order.eStatus.Invoiced ' TODO: Initialize to an appropriate value
+        Dim actual As Order.eStatus
         target.Status = expected
         actual = target.Status
         Assert.AreEqual(expected, actual)
@@ -232,7 +232,7 @@ Public Class OrdersTest
     '''</summary>
     <TestMethod()> _
     Public Sub OrderDate_Today_Test()
-        Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
+        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
         Dim expected As DateTime = Today
         Dim actual As DateTime
         target.OrderDate = expected
@@ -246,7 +246,7 @@ Public Class OrdersTest
     '''</summary>
     <TestMethod()> _
     Public Sub OrderDate_MinDate_Test()
-        Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
+        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
         Dim expected As DateTime = Today.AddDays(-7)
         Dim actual As DateTime
         target.OrderDate = expected
@@ -260,7 +260,7 @@ Public Class OrdersTest
     '''</summary>
     <TestMethod()> _
     Public Sub OrderDate_MaxDate_Test()
-        Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
+        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
         Dim expected As DateTime = Today.AddDays(3)
         Dim actual As DateTime
         target.OrderDate = expected
@@ -275,7 +275,7 @@ Public Class OrdersTest
     <TestMethod()> _
         <ExpectedException(GetType(System.Exception), "This OrderID should be invalid at 1 above the maximum allowed value of Today + 3.")>
     Public Sub OrderDate_OverMaxDate_Test()
-        Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
+        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
         Dim expected As DateTime = Today.AddDays(4)
         Dim actual As DateTime
         target.OrderDate = expected
@@ -290,7 +290,7 @@ Public Class OrdersTest
     <TestMethod()> _
         <ExpectedException(GetType(System.Exception), "This OrderDate should be invalid at 1 day below the maximum allowed value of Today - 7.")>
     Public Sub OrderDate_UnderMinDate_Test()
-        Dim target As Orders = New Orders() ' TODO: Initialize to an appropriate value
+        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
         Dim expected As DateTime = Today.AddDays(-8)
         Dim actual As DateTime
         target.OrderDate = expected

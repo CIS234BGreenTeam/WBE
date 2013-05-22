@@ -20,7 +20,7 @@ Public Class colOrderItems
     ''' Fill Datatable with database table for a particular customer
     ''' </summary>
     ''' <remarks></remarks>
-    Public Function Fill(ByVal sError As String) As Boolean
+    Public Function Fill(ByRef sError As String) As Boolean
         If Me.Count > 0 Then
             Clear()
         End If
