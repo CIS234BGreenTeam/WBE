@@ -27,6 +27,7 @@ Partial Class frmOrderLevels
         Me.lstOrderLevels = New System.Windows.Forms.ListBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.lblDescription = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'cboCustomer
@@ -76,11 +77,21 @@ Partial Class frmOrderLevels
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "Quantity"
         '
+        'lblDescription
+        '
+        Me.lblDescription.AutoSize = True
+        Me.lblDescription.Location = New System.Drawing.Point(62, 181)
+        Me.lblDescription.Name = "lblDescription"
+        Me.lblDescription.Size = New System.Drawing.Size(178, 13)
+        Me.lblDescription.TabIndex = 5
+        Me.lblDescription.Text = "Inventory levels desired by customer"
+        '
         'frmOrderLevels
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 220)
+        Me.Controls.Add(Me.lblDescription)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.lstOrderLevels)
@@ -97,4 +108,5 @@ Partial Class frmOrderLevels
     Friend WithEvents lstOrderLevels As System.Windows.Forms.ListBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents lblDescription As System.Windows.Forms.Label
 End Class

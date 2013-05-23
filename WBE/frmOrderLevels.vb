@@ -6,6 +6,16 @@ Public Class frmOrderLevels
     Private _colBakedGoods As New colBakedGoods
     Private _colCustStock As New colCustStock
 
+    Private Property InvCount As Boolean
+
+    Public Sub SetFormType(ByVal bCount As Boolean)
+        InvCount = bCount
+        If bCount = True Then
+            Me.Text = "Inventory Count"
+            lblDescription.Text = "Counted Inventory Levels of Customer"
+        End If
+    End Sub
+
     Private Sub frmOrderLevels_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sError As String = ""
 
@@ -78,6 +88,7 @@ Public Class frmOrderLevels
             If objCustStock Is Nothing Then
                 objCustStock = CreateDummyStock(objBakedGood)
             End If
+            objCustStock.InvCount = Me.InvCount
             lstOrderLevels.Items.Add(objCustStock)
         Next
     End Sub
@@ -152,6 +163,7 @@ Public Class frmOrderLevels
 
         CustStock = lstOrderLevels.SelectedItem
         frmQuantity.frmOrderLevels = Me
+        frmQuantity.InvCount = Me.InvCount
         frmQuantity.SetCustStock(CustStock)
         frmQuantity.ShowDialog()
     End Sub

@@ -1,5 +1,5 @@
 ﻿Public Class BakedGood
-
+    Implements IComparable(Of BakedGood)
     '* Class Name: BakedGood.vb. 
     '* Designer: Ken Baker 4/20/2013. 
     '* Purpose:  Contains properties and validations
@@ -12,6 +12,7 @@
     Public Property DesiredQty() As Integer
     Public Property StockQty() As Integer
     Public Property BakedGoodID() As Integer
+    Public Property DisplayAll() As Boolean
 
     Public Property Name() As String
         Get
@@ -95,6 +96,25 @@
     End Property
 
     Public Overrides Function ToString() As String
-        Return Name
+        Dim sDisplay As String
+        Dim sStatus As String
+
+        If IsInactive = True Then
+            sStatus = "I"
+        Else
+            sStatus = "A"
+        End If
+
+        If DisplayAll = True Then
+            sDisplay = String.Format("{0,-19} {1, 6:c} {2, 4}", Name, UnitPrice, sStatus)
+        Else
+            sDisplay = Name
+        End If
+
+        Return sDisplay
+    End Function
+
+    Public Function CompareTo(other As BakedGood) As Integer Implements IComparable(Of BakedGood).CompareTo
+        Return Me.Name.CompareTo(other.Name)
     End Function
 End Class

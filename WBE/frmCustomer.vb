@@ -123,7 +123,7 @@ Public Class frmCustomer
 
             CustomerDB.Update()
 
-            'Need to refill dropdownlist to account for changes
+            'Need to refill cbo to account for changes
             _colCustomers.Clear()
             If (_colCustomers.Fill(sError)) Then
                 _colCustomers.Sort()

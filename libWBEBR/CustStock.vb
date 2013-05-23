@@ -17,6 +17,8 @@
     ''' <remarks></remarks>
     Public Property CustomerID As Integer
 
+    Public Property InvCount As Boolean
+
     ''' <summary>
     ''' Constructor with data
     ''' </summary>
@@ -45,8 +47,15 @@
     ''' How to display the object on the form
     ''' </summary>
     Public Overrides Function ToString() As String
+        Dim sDisplay As String
 
         'use the real deal
-        Return String.Format("{0,-22} {1, 4}", Name, DesiredQty)
+        If InvCount = True Then
+            sDisplay = String.Format("{0,-22} {1, 4}", Name, StockQty)
+        Else
+            sDisplay = String.Format("{0,-22} {1, 4}", Name, DesiredQty)
+        End If
+
+        Return sDisplay
     End Function
 End Class

@@ -94,6 +94,12 @@
     <Compile Include="frmAddItem.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmBakedGood.Designer.vb">
+      <DependentUpon>frmBakedGood.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBakedGood.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmCustomer.Designer.vb">
       <DependentUpon>frmCustomer.vb</DependentUpon>
     </Compile>
@@ -143,6 +149,9 @@
   <ItemGroup>
     <EmbeddedResource Include="frmAddItem.resx">
       <DependentUpon>frmAddItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBakedGood.resx">
+      <DependentUpon>frmBakedGood.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCustomer.resx">
       <DependentUpon>frmCustomer.vb</DependentUpon>
