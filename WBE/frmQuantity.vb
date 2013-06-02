@@ -37,7 +37,7 @@ Public Class frmQuantity
 
             'Call the form that has been set (is not nothing)
             If Not frmOrderLevels Is Nothing Then
-                frmOrderLevels.SetQuantityLevel(CustStock)
+                'frmOrderLevels.SetQuantityLevel(CustStock)
             ElseIf Not frmOrder Is Nothing Then
                 frmOrder.SetQuantityLevel(CustStock)
             End If

@@ -7,6 +7,7 @@ Public Class frmOrderLevels
     Private _colCustStock As New colCustStock
 
     Private Property InvCount As Boolean
+    Private _IsChanged As Boolean = False
 
     Public Sub SetFormType(ByVal bCount As Boolean)
         InvCount = bCount
@@ -38,6 +39,8 @@ Public Class frmOrderLevels
 
         'Load the desired order levels for the selected customer
         FillInventoryItems(DirectCast(cboCustomer.SelectedItem, Customer).CustomerID)
+
+        lstOrderLevels.SelectedIndex = 0
     End Sub
 
     ''' <summary>
@@ -59,7 +62,7 @@ Public Class frmOrderLevels
     End Sub
 
     ''' <summary>
-    ''' Create dynamic list of desired inventory items for the customer
+    ''' Fill listbox with items desired by customer or inventory count
     ''' </summary>
     ''' <param name="CustomerID"></param>
     ''' <remarks></remarks>
@@ -123,6 +126,16 @@ Public Class frmOrderLevels
     'Change list of custstock items when customer changes
     Private Sub cboCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCustomer.SelectedIndexChanged
         FillInventoryItems(DirectCast(cboCustomer.SelectedItem, Customer).CustomerID)
+
+        If InvCount = True And _IsChanged = True Then
+            Dim objCustomer As Customer = DirectCast(cboCustomer.SelectedItem, Customer)
+            If Not objCustomer Is Nothing Then
+                objCustomer.LastCountDate = Today
+                _colCustomers.Change(objCustomer)
+                CustomerDB.Update()
+            End If
+        End If
+
     End Sub
 
     'Get cust stock item for each baked good, if possible
@@ -151,40 +164,85 @@ Public Class frmOrderLevels
     End Function
 
     ''' <summary>
-    ''' Adjust quantity for each item in listbox by calling frmQuantity. When frmQuantity
-    ''' closes, the CustStock item will be automatically updated
+    ''' Updates the quantity shown in the textbox
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub lstOrderLevels_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstOrderLevels.SelectedIndexChanged
-        Dim CustStock As CustStock
-        Dim frmQuantity As New frmQuantity
+        Dim objOrderItem As CustStock
+        objOrderItem = DirectCast(lstOrderLevels.SelectedItem, CustStock)
 
-        CustStock = lstOrderLevels.SelectedItem
-        frmQuantity.frmOrderLevels = Me
-        frmQuantity.InvCount = Me.InvCount
-        frmQuantity.SetCustStock(CustStock)
-        frmQuantity.ShowDialog()
+        If Not objOrderItem Is Nothing Then
+            If InvCount = True Then
+                txtQuantity.Text = objOrderItem.StockQty
+            Else
+                txtQuantity.Text = objOrderItem.DesiredQty
+            End If
+        End If
     End Sub
 
-    ''' <summary>
-    ''' This is called by frmQuantity to set new CustStock quantity level
-    ''' </summary>
-    ''' <param name="objCustStock"></param>
-    ''' <remarks></remarks>
-    Public Sub SetQuantityLevel(ByVal objCustStock As CustStock)
-        'If StockID not zero, then existing custstock item
-        If objCustStock.StockID <> 0 Then
-            _colCustStock.Change(objCustStock)
-        Else  'If StockID = 0, then new custstock item.
-            _colCustStock.Add(objCustStock)
+    Private Sub Save()
+        Dim objCustStock As CustStock
+
+        objCustStock = DirectCast(lstOrderLevels.SelectedItem, CustStock)
+
+        If Not objCustStock Is Nothing Then
+
+            If IsValid(objCustStock) = True Then
+                Dim iCount As Integer = lstOrderLevels.SelectedIndex
+
+                If InvCount = True Then
+                    _IsChanged = True
+                End If
+                'If StockID not zero, then existing custstock item
+                If objCustStock.StockID <> 0 Then
+                    _colCustStock.Change(objCustStock)
+                Else  'If StockID = 0, then new custstock item.
+                    _colCustStock.Add(objCustStock)
+                End If
+
+                'To update data in listbox, we need to save and refresh data
+                CustStockDB.Update()
+                lstOrderLevels.Items.Clear()
+                FillInventoryItems(objCustStock.CustomerID)
+                lstOrderLevels.SelectedIndex = iCount
+            End If
+
+        Else
+            MessageBox.Show("An item must be selected.")
         End If
 
-        'To update data in listbox, we need to save and refresh data
-        CustStockDB.Update()
-        lstOrderLevels.Items.Clear()
-        FillInventoryItems(objCustStock.CustomerID)
+    End Sub
 
+    Private Function IsValid(ByVal objCustStock As CustStock) As Boolean
+        epCustStock.Clear()
+        Try
+            If InvCount = True Then
+                objCustStock.StockQty = txtQuantity.Text
+            Else
+                objCustStock.DesiredQty = txtQuantity.Text
+            End If
+            Return True
+
+        Catch ex As InvalidCastException
+            If InvCount = True Then
+                epCustStock.SetError(txtQuantity, objCustStock.StockQtyError)
+            Else
+                epCustStock.SetError(txtQuantity, objCustStock.DesiredQtyError)
+            End If
+
+            Return False
+
+        Catch ex As Exception
+            epCustStock.SetError(txtQuantity, ex.Message)
+            Return False
+
+        End Try
+
+    End Function
+
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        Save()
     End Sub
 End Class

@@ -5,11 +5,13 @@ Public Class frmOrder
     Private _colCustomers As New colCustomers
     Private _colOrders As New colOrders
     Private _colOrderItems As New colOrderItems
+    Private _colBakedGoods As New colBakedGoods
 
     Private Sub frmOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sError As String = ""
 
         CustomerDB.SetupAdapter()
+        BakedGoodDB.SetupAdapter()
 
         'Fill the data collections
 
@@ -19,8 +21,6 @@ Public Class frmOrder
             MessageBox.Show(sError)
         End If
 
-        'Load the current selected customer data
-        ShowOrder(DirectCast(cboCustomer.SelectedItem, Customer).CustomerID)
     End Sub
 
     ''' <summary>
@@ -79,7 +79,9 @@ Public Class frmOrder
             SetOrderDetails(_colOrders.Item(0))
 
             'Add order items to the listbox
+            RemoveInactiveOrderItems()
             FillOrderItems()
+            FillItemSelection()
         Else
             'If no order exists, create one and update
             CreateNewOrder()
@@ -122,24 +124,16 @@ Public Class frmOrder
     Private Sub lstOrderItems_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstOrderItems.SelectedIndexChanged
         Dim CustStock As New CustStock
         Dim OrderItem As OrderItem
-        Dim frmQuantity As New frmQuantity
 
         'Get selected orer item
+        cboItem.Items.Clear()
+        FillItemList()
+        RemoveUsedBakedGoods()
+
         OrderItem = DirectCast(lstOrderItems.SelectedItem, OrderItem)
-
-        'Update quantity by calling form. We are using the Quantity form also used by
-        'frmOrderLevels and fudging the input so that it will work with OrderItem 
-        If Not OrderItem Is Nothing Then
-            CustStock.Name = OrderItem.Name
-            CustStock.DesiredQty = OrderItem.Quantity
-
-            frmQuantity.frmOrder = Me
-            frmQuantity.SetCustStock(CustStock)
-            frmQuantity.ShowDialog()
-        Else
-            'If clicking on blank part of listbox, create new item
-            CallAddItemForm()
-        End If
+        SetItemSelection(OrderItem)
+        txtPrice.Text = OrderItem.UnitPrice.ToString("f")
+        txtQuantity.Text = OrderItem.Quantity.ToString
         
     End Sub
 
@@ -148,12 +142,15 @@ Public Class frmOrder
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub CallAddItemForm()
-        Dim frmAddItem As New frmAddItem
-        frmAddItem.SetOrderItem(_colOrderItems)
-        frmAddItem.frmOrder = Me
-        frmAddItem.ShowDialog()
+        ClearForm()
     End Sub
 
+    Private Sub ClearForm()
+        'FillItemSelection()
+        txtPrice.Text = ""
+        txtQuantity.Text = ""
+        lstOrderItems.SelectedIndex = -1
+    End Sub
     ''' <summary>
     ''' Create new order and update database
     ''' </summary>
@@ -226,4 +223,95 @@ Public Class frmOrder
             dtDate.Text = .OrderDate
         End With
     End Sub
+
+    Private Sub FillItemSelection()
+        Dim sError As String = ""
+
+        _colBakedGoods.Clear()
+        If _colBakedGoods.Fill(sError) Then
+            RemoveInactiveBakedGoods()
+            _colBakedGoods.Sort()
+
+            If lstOrderItems.Items.Count > 0 Then
+                lstOrderItems.SelectedIndex = 0
+            End If
+
+            cboItem.Items.Clear()
+
+            FillItemList()
+            RemoveUsedBakedGoods()
+        End If
+    End Sub
+    Private Sub FillItemList()
+        For Each BakedGood As BakedGood In _colBakedGoods
+            cboItem.Items.Add(BakedGood)
+        Next
+    End Sub
+    ''' <summary>
+    ''' Removes baked good items that are already listed in order (except current selected baked good item)
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub RemoveUsedBakedGoods()
+        For i As Integer = cboItem.Items.Count - 1 To 0 Step -1
+            Dim objBakedGood As BakedGood = DirectCast(cboItem.Items(i), BakedGood)
+            If IsBakedGoodInOrder(objBakedGood) Then
+                If lstOrderItems.SelectedIndex <> -1 Then
+                    If objBakedGood.BakedGoodID <> DirectCast(lstOrderItems.SelectedItem, OrderItem).BakedGoodID Then
+                        cboItem.Items.Remove(objBakedGood)
+                    End If
+                Else
+                    cboItem.Items.Remove(objBakedGood)
+                End If
+            End If
+        Next
+    End Sub
+
+    Private Function IsBakedGoodInOrder(ByVal objBakedGood As BakedGood) As Boolean
+        For Each objOrderItem As OrderItem In _colOrderItems
+            If objOrderItem.BakedGoodID = objBakedGood.BakedGoodID Then
+                Return True
+            End If
+        Next
+
+        Return False
+    End Function
+    ''' <summary>
+    ''' Remove baked good items that are inactive from the collection
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub RemoveInactiveBakedGoods()
+        For i As Integer = _colBakedGoods.Count - 1 To 0 Step -1
+            If _colBakedGoods(i).IsInactive = True Then
+                _colBakedGoods.RemoveAt(i)
+            End If
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Removes order items that correspond to inactive baked goods
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub RemoveInactiveOrderItems()
+        For i As Integer = _colOrderItems.Count - 1 To 0 Step -1
+            Dim objBakedGood As BakedGood
+            objBakedGood = _colBakedGoods.Find(_colOrderItems(i).BakedGoodID)
+
+            If objBakedGood Is Nothing Then
+                _colOrderItems.Remove(_colOrderItems(i))
+            End If
+        Next
+    End Sub
+    ''' <summary>
+    ''' Set the cboItem equal to the Baked Good with ID matching the order item
+    ''' </summary>
+    ''' <param name="OrderItem"></param>
+    ''' <remarks></remarks>
+    Private Sub SetItemSelection(ByVal OrderItem As OrderItem)
+        For i As Integer = 0 To cboItem.Items.Count - 1
+            If DirectCast(cboItem.Items(i), BakedGood).BakedGoodID = OrderItem.BakedGoodID Then
+                cboItem.SelectedIndex = i
+            End If
+        Next
+    End Sub
+
 End Class

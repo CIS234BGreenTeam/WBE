@@ -52,7 +52,7 @@ Partial Class frmBakedGood
         Me.txtPrice.Location = New System.Drawing.Point(93, 40)
         Me.txtPrice.Name = "txtPrice"
         Me.txtPrice.Size = New System.Drawing.Size(53, 20)
-        Me.txtPrice.TabIndex = 3
+        Me.txtPrice.TabIndex = 1
         '
         'chkInactive
         '
@@ -60,7 +60,7 @@ Partial Class frmBakedGood
         Me.chkInactive.Location = New System.Drawing.Point(162, 42)
         Me.chkInactive.Name = "chkInactive"
         Me.chkInactive.Size = New System.Drawing.Size(64, 17)
-        Me.chkInactive.TabIndex = 4
+        Me.chkInactive.TabIndex = 2
         Me.chkInactive.Text = "Inactive"
         Me.chkInactive.UseVisualStyleBackColor = True
         '
@@ -72,7 +72,7 @@ Partial Class frmBakedGood
         Me.lstBakedGoods.Location = New System.Drawing.Point(25, 97)
         Me.lstBakedGoods.Name = "lstBakedGoods"
         Me.lstBakedGoods.Size = New System.Drawing.Size(243, 130)
-        Me.lstBakedGoods.TabIndex = 5
+        Me.lstBakedGoods.TabIndex = 3
         '
         'Label1
         '
@@ -88,7 +88,7 @@ Partial Class frmBakedGood
         Me.txtName.Location = New System.Drawing.Point(93, 12)
         Me.txtName.Name = "txtName"
         Me.txtName.Size = New System.Drawing.Size(132, 20)
-        Me.txtName.TabIndex = 7
+        Me.txtName.TabIndex = 0
         '
         'Label3
         '
@@ -125,8 +125,8 @@ Partial Class frmBakedGood
         Me.btnAdd.Location = New System.Drawing.Point(162, 247)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(75, 23)
-        Me.btnAdd.TabIndex = 11
-        Me.btnAdd.Text = "Add"
+        Me.btnAdd.TabIndex = 5
+        Me.btnAdd.Text = "&Add"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
         'btnUpdate
@@ -134,8 +134,8 @@ Partial Class frmBakedGood
         Me.btnUpdate.Location = New System.Drawing.Point(51, 247)
         Me.btnUpdate.Name = "btnUpdate"
         Me.btnUpdate.Size = New System.Drawing.Size(75, 23)
-        Me.btnUpdate.TabIndex = 12
-        Me.btnUpdate.Text = "Update"
+        Me.btnUpdate.TabIndex = 4
+        Me.btnUpdate.Text = "&Update"
         Me.btnUpdate.UseVisualStyleBackColor = True
         '
         'epBakedGood

@@ -35,6 +35,16 @@ Partial Class frmOrder
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.lblOrderNumber = New System.Windows.Forms.Label()
+        Me.grpOrderItem = New System.Windows.Forms.GroupBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtQuantity = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtPrice = New System.Windows.Forms.TextBox()
+        Me.btnSave = New System.Windows.Forms.Button()
+        Me.btnNew = New System.Windows.Forms.Button()
+        Me.cboItem = New System.Windows.Forms.ComboBox()
+        Me.grpOrderItem.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -52,7 +62,7 @@ Partial Class frmOrder
         Me.cboCustomer.Location = New System.Drawing.Point(76, 19)
         Me.cboCustomer.Name = "cboCustomer"
         Me.cboCustomer.Size = New System.Drawing.Size(170, 21)
-        Me.cboCustomer.TabIndex = 1
+        Me.cboCustomer.TabIndex = 0
         '
         'Label2
         '
@@ -69,7 +79,7 @@ Partial Class frmOrder
         Me.dtDate.Location = New System.Drawing.Point(249, 50)
         Me.dtDate.Name = "dtDate"
         Me.dtDate.Size = New System.Drawing.Size(86, 20)
-        Me.dtDate.TabIndex = 3
+        Me.dtDate.TabIndex = 1
         '
         'lstOrderItems
         '
@@ -79,7 +89,7 @@ Partial Class frmOrder
         Me.lstOrderItems.Location = New System.Drawing.Point(22, 108)
         Me.lstOrderItems.Name = "lstOrderItems"
         Me.lstOrderItems.Size = New System.Drawing.Size(313, 88)
-        Me.lstOrderItems.TabIndex = 4
+        Me.lstOrderItems.TabIndex = 2
         '
         'Label3
         '
@@ -157,11 +167,96 @@ Partial Class frmOrder
         Me.lblOrderNumber.TabIndex = 12
         Me.lblOrderNumber.Text = "###"
         '
+        'grpOrderItem
+        '
+        Me.grpOrderItem.Controls.Add(Me.cboItem)
+        Me.grpOrderItem.Controls.Add(Me.txtPrice)
+        Me.grpOrderItem.Controls.Add(Me.Label11)
+        Me.grpOrderItem.Controls.Add(Me.txtQuantity)
+        Me.grpOrderItem.Controls.Add(Me.Label10)
+        Me.grpOrderItem.Controls.Add(Me.Label9)
+        Me.grpOrderItem.Location = New System.Drawing.Point(22, 215)
+        Me.grpOrderItem.Name = "grpOrderItem"
+        Me.grpOrderItem.Size = New System.Drawing.Size(309, 88)
+        Me.grpOrderItem.TabIndex = 13
+        Me.grpOrderItem.TabStop = False
+        Me.grpOrderItem.Text = "Order Item"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(61, 25)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(27, 13)
+        Me.Label9.TabIndex = 1
+        Me.Label9.Text = "Item"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(42, 53)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(46, 13)
+        Me.Label10.TabIndex = 2
+        Me.Label10.Text = "Quantity"
+        '
+        'txtQuantity
+        '
+        Me.txtQuantity.Location = New System.Drawing.Point(94, 49)
+        Me.txtQuantity.Name = "txtQuantity"
+        Me.txtQuantity.Size = New System.Drawing.Size(45, 20)
+        Me.txtQuantity.TabIndex = 1
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(155, 53)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(31, 13)
+        Me.Label11.TabIndex = 4
+        Me.Label11.Text = "Price"
+        '
+        'txtPrice
+        '
+        Me.txtPrice.Location = New System.Drawing.Point(192, 49)
+        Me.txtPrice.Name = "txtPrice"
+        Me.txtPrice.Size = New System.Drawing.Size(63, 20)
+        Me.txtPrice.TabIndex = 2
+        '
+        'btnSave
+        '
+        Me.btnSave.Location = New System.Drawing.Point(89, 324)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(72, 23)
+        Me.btnSave.TabIndex = 3
+        Me.btnSave.Text = "&Save"
+        Me.btnSave.UseVisualStyleBackColor = True
+        '
+        'btnNew
+        '
+        Me.btnNew.Location = New System.Drawing.Point(188, 324)
+        Me.btnNew.Name = "btnNew"
+        Me.btnNew.Size = New System.Drawing.Size(75, 23)
+        Me.btnNew.TabIndex = 4
+        Me.btnNew.Text = "&New"
+        Me.btnNew.UseVisualStyleBackColor = True
+        '
+        'cboItem
+        '
+        Me.cboItem.FormattingEnabled = True
+        Me.cboItem.Location = New System.Drawing.Point(95, 20)
+        Me.cboItem.Name = "cboItem"
+        Me.cboItem.Size = New System.Drawing.Size(160, 21)
+        Me.cboItem.TabIndex = 5
+        '
         'frmOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(355, 224)
+        Me.ClientSize = New System.Drawing.Size(369, 368)
+        Me.Controls.Add(Me.btnNew)
+        Me.Controls.Add(Me.btnSave)
+        Me.Controls.Add(Me.grpOrderItem)
         Me.Controls.Add(Me.lblOrderNumber)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
@@ -177,6 +272,8 @@ Partial Class frmOrder
         Me.Controls.Add(Me.Label1)
         Me.Name = "frmOrder"
         Me.Text = "WBE Order Form"
+        Me.grpOrderItem.ResumeLayout(False)
+        Me.grpOrderItem.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -194,4 +291,13 @@ Partial Class frmOrder
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents lblOrderNumber As System.Windows.Forms.Label
+    Friend WithEvents grpOrderItem As System.Windows.Forms.GroupBox
+    Friend WithEvents txtPrice As System.Windows.Forms.TextBox
+    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents txtQuantity As System.Windows.Forms.TextBox
+    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents btnSave As System.Windows.Forms.Button
+    Friend WithEvents btnNew As System.Windows.Forms.Button
+    Friend WithEvents cboItem As System.Windows.Forms.ComboBox
 End Class

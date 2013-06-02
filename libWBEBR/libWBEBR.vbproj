@@ -86,7 +86,6 @@
     <Compile Include="Order.vb" />
     <Compile Include="OrderItem.vb" />
     <Compile Include="TestFriends.vb" />
-    <Compile Include="WBE.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

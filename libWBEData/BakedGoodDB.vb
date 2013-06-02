@@ -37,9 +37,6 @@ Public Class BakedGoodDB
                     .Name = dr("Name").ToString
                     .UnitPrice = Convert.ToDecimal(dr("Price"))
                     .IsInactive = Convert.ToBoolean(dr("IsInactive"))
-                    'If .IsInactive = False Then
-                    '    .InactiveDate = Convert.ToDateTime(dr("InactiveDate"))
-                    'End If
 
                     If _iTempLastID < .BakedGoodID Then
                         _iTempLastID = .BakedGoodID

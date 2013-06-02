@@ -15,6 +15,7 @@ Public Class frmBakedGood
         BakedGoodDB.SetupAdapter()
 
         If _colBakedGoods.Fill(sError) Then
+            _colBakedGoods.Sort()
             FillBakedGoodsList()
         Else
             MessageBox.Show(sError)
@@ -47,6 +48,10 @@ Public Class frmBakedGood
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
         'Save data
         Save()
+        If btnUpdate.Text = "&Save" Then
+            btnUpdate.Text = "&Update"
+            btnAdd.Text = "&Add"
+        End If
     End Sub
 
     ''' <summary>
@@ -88,9 +93,6 @@ Public Class frmBakedGood
                 MessageBox.Show(sError)
             End If
 
-            'Change the buttons
-            btnAdd.Enabled = True
-            btnUpdate.Text = "Update"
         End If
     End Sub
 
@@ -149,6 +151,11 @@ Public Class frmBakedGood
         Try
             BakedGood.UnitPrice = Convert.ToDecimal(txtPrice.Text)
             Return True
+
+        Catch ex As FormatException
+            epBakedGood.SetError(txtPrice, BakedGood.UnitPriceError)
+            Return False
+
         Catch ex As Exception
             epBakedGood.SetError(txtPrice, ex.Message)
             Return False
@@ -162,9 +169,16 @@ Public Class frmBakedGood
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        ClearForm()
-        btnAdd.Enabled = False
-        btnUpdate.Text = "Save"
+        If btnAdd.Text = "&Add" Then
+            ClearForm()
+            btnAdd.Text = "&Cancel"
+            btnUpdate.Text = "&Save"
+        Else
+            btnAdd.Text = "&Add"
+            btnUpdate.Text = "&Update"
+            lstBakedGoods.SelectedIndex = 0
+        End If
+
     End Sub
 
     ''' <summary>
@@ -174,6 +188,7 @@ Public Class frmBakedGood
     Private Sub ClearForm()
         txtName.Clear()
         txtPrice.Clear()
+        chkInactive.Checked = False
         lstBakedGoods.SelectedIndex = -1
     End Sub
 

@@ -2,8 +2,11 @@
 Imports libWBEBR
 
 Public Class frmCustomer
+    Private _aStates() As String = {"OR", "WA"}
+
     Private _colCustomers As New colCustomers
     Private _colDrivers As New colDrivers
+
 
     Private Sub frmCustomer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sError As String = ""
@@ -19,6 +22,8 @@ Public Class frmCustomer
             MessageBox.Show(sError)
         End If
 
+        loadStates()
+
         If _colCustomers.Fill(sError) Then
             FillCustomerSelection()
         Else
@@ -28,6 +33,16 @@ Public Class frmCustomer
         'Load the current selected customer data
         LoadCustomerData()
 
+    End Sub
+
+    ''' <summary>
+    ''' Load the array of states into the dropdown box
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub loadStates()
+        For Each strState As String In _aStates
+            cboState.Items.Add(strState)
+        Next
     End Sub
 
     Private Sub FillDriverSelection()
@@ -72,18 +87,28 @@ Public Class frmCustomer
                 txtAddress1.Text = .Address1
                 txtAddress2.Text = .Address2
                 txtCity.Text = .City
-                txtState.Text = .State
                 txtZip.Text = .Zip
                 txtPhone.Text = .Phone
                 txtFax.Text = .Fax
                 txtEmail.Text = .Email
                 chkInactive.Checked = .IsInactive
+                txtContact.Text = .Contact
                 SelectDriver(.DriverID)
+                If .State <> "" Then
+                    cboState.SelectedItem = .State
+                Else
+                    cboState.SelectedIndex = -1
+                End If
             End With
 
         End If
     End Sub
 
+    ''' <summary>
+    ''' Set the driver
+    ''' </summary>
+    ''' <param name="ID"></param>
+    ''' <remarks></remarks>
     Private Sub SelectDriver(ByVal ID As Integer)
         For Each objDriver As Driver In _colDrivers
             If objDriver.DriverID = ID Then
@@ -92,6 +117,12 @@ Public Class frmCustomer
         Next
     End Sub
 
+    ''' <summary>
+    ''' Change the customer selection
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub cboCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCustomer.SelectedIndexChanged
         LoadCustomerData()
     End Sub
@@ -118,6 +149,8 @@ Public Class frmCustomer
             If objCustomer.CustomerID <> 0 Then
                 _colCustomers.Change(objCustomer)
             Else  'If CustID = 0, then new customer.
+                objCustomer.LastCountDate = Today
+                objCustomer.LastOrderDate = Today.AddDays(-1)
                 _colCustomers.Add(objCustomer)
             End If
 
@@ -230,11 +263,11 @@ Public Class frmCustomer
     ''' <remarks></remarks>
     Private Function IsValidState(ByVal objCustomer As Customer) As Boolean
         Try
-            objCustomer.State = txtState.Text
+            objCustomer.State = cboState.Text
             Return True
         Catch ex As Exception
-            txtState.Focus()
-            epCustomer.SetError(txtState, ex.Message)
+            cboState.Focus()
+            epCustomer.SetError(cboState, ex.Message)
             Return False
         End Try
     End Function
@@ -346,8 +379,15 @@ Public Class frmCustomer
         End Try
     End Function
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click, SaveCustomerToolStripMenuItem.Click
+    ''' <summary>
+    ''' Save the customer record
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         SaveCustomer()
+        btnNew.Text = "&New"
     End Sub
 
     ''' <summary>
@@ -359,7 +399,7 @@ Public Class frmCustomer
         txtAddress1.Text = ""
         txtAddress2.Text = ""
         txtCity.Text = ""
-        txtState.Text = ""
+        cboState.SelectedIndex = -1
         txtZip.Text = ""
         txtPhone.Text = ""
         txtFax.Text = ""
@@ -368,12 +408,32 @@ Public Class frmCustomer
         cboCustomer.SelectedIndex = -1
         cboDriver.SelectedIndex = -1
         chkInactive.Checked = False
+        txtContact.Text = ""
     End Sub
 
-    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click, NewCustomerToolStripMenuItem.Click
-        ClearForm()
+    ''' <summary>
+    ''' Clear the form to allow new record
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
+        If btnNew.Text = "&New" Then
+            ClearForm()
+            btnNew.Text = "&Cancel"
+        Else
+            btnNew.Text = "&New"
+            cboCustomer.SelectedIndex = 0
+        End If
+        
     End Sub
 
+    ''' <summary>
+    ''' Gets a customer object without the needing ID
+    ''' </summary>
+    ''' <param name="objCustomer"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Private Function SetCustomerSelection(ByVal objCustomer As Customer) As Customer
         For i As Integer = 0 To cboCustomer.Items.Count - 1
             Dim tempCustomer As Customer

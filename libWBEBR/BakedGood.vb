@@ -3,40 +3,55 @@
     '* Class Name: BakedGood.vb. 
     '* Designer: Ken Baker 4/20/2013. 
     '* Purpose:  Contains properties and validations
+    '
+    '* Updated: May 28, 2013 by Kristina Frye
+    '* Added validation for Desired/Stock Qty fields
+    '* Changed hard coded validation values and error messages to defined constants
 
     Private m_dUnitPrice As Decimal
     Private sName As String
-    Private _dteInactiveDate As DateTime
 
     Public Property IsInactive() As Boolean
-    Public Property DesiredQty() As Integer
-    Public Property StockQty() As Integer
     Public Property BakedGoodID() As Integer
     Public Property DisplayAll() As Boolean
+
+    Private c_MinName = 2
+    Private c_MaxName = 30
 
     Public Property Name() As String
         Get
             Return sName
         End Get
         Set(ByVal value As String)
-            If value.Length >= 2 And value.Length <= 30 Then
+            If value.Length >= c_MinName And value.Length <= c_MaxName Then
                 sName = value
             Else
-                Throw New Exception("Name must contain between 2 and 30 characters")
+                Throw New Exception(NameError)
             End If
         End Set
     End Property
 
+    Private _NameError As String = String.Format("Name must contain between {0} and {1} characters", c_MinName, c_MaxName)
+
+    Public ReadOnly Property NameError As String
+        Get
+            Return _NameError
+        End Get
+    End Property
+
+    Private c_MinPrice = 0.5D
+    Private c_MaxPrice = 250D
+
     '''<summary>
     '''Cost of single baked good
     '''</summary>
-    ''' <remarks>If invald, throws UnitPriceError()</remarks>
+    ''' <remarks>If invalid, throws UnitPriceError()</remarks>
     Public Overridable Property UnitPrice() As Decimal
         Get
             Return m_dUnitPrice
         End Get
         Set(ByVal value As Decimal)
-            If value >= 0.5D And value <= 250D Then
+            If value >= c_MinPrice And value <= c_MaxPrice Then
                 m_dUnitPrice = value
             Else
                 Throw New Exception(UnitPriceError)
@@ -44,15 +59,92 @@
 
         End Set
     End Property
-
+    Private _PriceError As String = String.Format("Price must be between {0:c} and {1:c}.", c_MinPrice, c_MaxPrice)
     '''<summary>
     '''Returns error message if called by UnitPrice()
     '''</summary>
     Public ReadOnly Property UnitPriceError() As String
         Get
-            Return "UnitPrice Price must be between $0.50 and $250.00. "
+            Return _PriceError
         End Get
 
+    End Property
+    Const c_MinDesiredQty = 0
+    Const c_MaxDesiredQty = 300
+
+    Private _iDesiredQty As Integer
+
+    ''' <summary>
+    ''' Quantity of baked good the customer desires to keep in their inventory
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Property DesiredQty As Integer
+        Get
+            Return _iDesiredQty
+        End Get
+        Set(value As Integer)
+            If value < c_MinDesiredQty Or value > c_MaxDesiredQty Then
+                Throw New Exception(DesiredQtyError)
+            Else
+                _iDesiredQty = value
+            End If
+        End Set
+    End Property
+
+    Private _DesiredQtyError As String = String.Format("Desired quantity must be between {0} and {1}.",
+                                                 c_MinDesiredQty, c_MaxDesiredQty)
+
+    ''' <summary>
+    ''' Error message for desired quantity
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public ReadOnly Property DesiredQtyError As String
+        Get
+            Return _DesiredQtyError
+        End Get
+    End Property
+
+    Const c_MinStockQty = 0
+    Const c_MaxStockQty = 300
+
+    Private _iStockQty As Integer
+
+    ''' <summary>
+    ''' Quantity of actual stock on hand counted by driver.
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Property StockQty As Integer
+        Get
+            Return _iStockQty
+        End Get
+        Set(value As Integer)
+            If value < c_MinStockQty Or value > c_MaxStockQty Then
+                Throw New Exception(StockQtyError)
+            Else
+                _iStockQty = value
+            End If
+        End Set
+    End Property
+
+    Private _StockQtyError As String = String.Format("Stock quantity must be between {0} and {1}.",
+                                                 c_MinStockQty, c_MaxStockQty)
+
+    ''' <summary>
+    ''' Error message for stock quantity
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public ReadOnly Property StockQtyError As String
+        Get
+            Return _StockQtyError
+        End Get
     End Property
 
     Public Function GetOrderQty() As Integer
@@ -81,19 +173,6 @@
     Public Sub New()
 
     End Sub
-
-    ''' <summary>
-    ''' If the baked good is inactive,
-    ''' the date that WBE stopped producing the Baked Good
-    ''' </summary>
-    Public Property InactiveDate() As DateTime
-        Get
-            Return _dteInactiveDate
-        End Get
-        Set(ByVal Value As DateTime)
-            _dteInactiveDate = Value
-        End Set
-    End Property
 
     Public Overrides Function ToString() As String
         Dim sDisplay As String

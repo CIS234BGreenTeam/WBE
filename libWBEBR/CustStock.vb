@@ -51,9 +51,9 @@
 
         'use the real deal
         If InvCount = True Then
-            sDisplay = String.Format("{0,-22} {1, 4}", Name, StockQty)
+            sDisplay = String.Format("{0,-21} {1, 4}", Name, StockQty)
         Else
-            sDisplay = String.Format("{0,-22} {1, 4}", Name, DesiredQty)
+            sDisplay = String.Format("{0,-21} {1, 4}", Name, DesiredQty)
         End If
 
         Return sDisplay
