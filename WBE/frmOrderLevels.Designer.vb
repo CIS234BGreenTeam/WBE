@@ -33,7 +33,12 @@ Partial Class frmOrderLevels
         Me.Label4 = New System.Windows.Forms.Label()
         Me.epCustStock = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.btnSave = New System.Windows.Forms.Button()
+        Me.grpItem = New System.Windows.Forms.GroupBox()
+        Me.cboItem = New System.Windows.Forms.ComboBox()
+        Me.btnAdd = New System.Windows.Forms.Button()
+        Me.btnDelete = New System.Windows.Forms.Button()
         CType(Me.epCustStock, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grpItem.SuspendLayout()
         Me.SuspendLayout()
         '
         'cboCustomer
@@ -58,16 +63,16 @@ Partial Class frmOrderLevels
         Me.lstOrderLevels.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lstOrderLevels.FormattingEnabled = True
         Me.lstOrderLevels.ItemHeight = 14
-        Me.lstOrderLevels.Location = New System.Drawing.Point(30, 105)
+        Me.lstOrderLevels.Location = New System.Drawing.Point(30, 75)
         Me.lstOrderLevels.Name = "lstOrderLevels"
         Me.lstOrderLevels.Size = New System.Drawing.Size(222, 88)
-        Me.lstOrderLevels.TabIndex = 2
+        Me.lstOrderLevels.TabIndex = 1
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(30, 86)
+        Me.Label2.Location = New System.Drawing.Point(30, 56)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(35, 14)
         Me.Label2.TabIndex = 3
@@ -77,7 +82,7 @@ Partial Class frmOrderLevels
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(177, 86)
+        Me.Label3.Location = New System.Drawing.Point(177, 56)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(63, 14)
         Me.Label3.TabIndex = 4
@@ -86,7 +91,7 @@ Partial Class frmOrderLevels
         'lblDescription
         '
         Me.lblDescription.AutoSize = True
-        Me.lblDescription.Location = New System.Drawing.Point(46, 196)
+        Me.lblDescription.Location = New System.Drawing.Point(46, 166)
         Me.lblDescription.Name = "lblDescription"
         Me.lblDescription.Size = New System.Drawing.Size(178, 13)
         Me.lblDescription.TabIndex = 5
@@ -94,7 +99,7 @@ Partial Class frmOrderLevels
         '
         'txtQuantity
         '
-        Me.txtQuantity.Location = New System.Drawing.Point(84, 53)
+        Me.txtQuantity.Location = New System.Drawing.Point(88, 49)
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(45, 20)
         Me.txtQuantity.TabIndex = 1
@@ -102,7 +107,7 @@ Partial Class frmOrderLevels
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(27, 56)
+        Me.Label4.Location = New System.Drawing.Point(31, 52)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(46, 13)
         Me.Label4.TabIndex = 9
@@ -115,21 +120,61 @@ Partial Class frmOrderLevels
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(111, 234)
+        Me.btnSave.Location = New System.Drawing.Point(30, 289)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.Size = New System.Drawing.Size(55, 23)
         Me.btnSave.TabIndex = 3
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
+        '
+        'grpItem
+        '
+        Me.grpItem.Controls.Add(Me.cboItem)
+        Me.grpItem.Controls.Add(Me.Label4)
+        Me.grpItem.Controls.Add(Me.txtQuantity)
+        Me.grpItem.Location = New System.Drawing.Point(30, 194)
+        Me.grpItem.Name = "grpItem"
+        Me.grpItem.Size = New System.Drawing.Size(222, 78)
+        Me.grpItem.TabIndex = 2
+        Me.grpItem.TabStop = False
+        Me.grpItem.Text = "Item"
+        '
+        'cboItem
+        '
+        Me.cboItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboItem.FormattingEnabled = True
+        Me.cboItem.Location = New System.Drawing.Point(34, 19)
+        Me.cboItem.Name = "cboItem"
+        Me.cboItem.Size = New System.Drawing.Size(140, 21)
+        Me.cboItem.TabIndex = 0
+        '
+        'btnAdd
+        '
+        Me.btnAdd.Location = New System.Drawing.Point(113, 289)
+        Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(55, 23)
+        Me.btnAdd.TabIndex = 4
+        Me.btnAdd.Text = "&Add Item"
+        Me.btnAdd.UseVisualStyleBackColor = True
+        '
+        'btnDelete
+        '
+        Me.btnDelete.Location = New System.Drawing.Point(196, 289)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(55, 23)
+        Me.btnDelete.TabIndex = 5
+        Me.btnDelete.Text = "&Delete"
+        Me.btnDelete.UseVisualStyleBackColor = True
         '
         'frmOrderLevels
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 278)
+        Me.ClientSize = New System.Drawing.Size(284, 342)
+        Me.Controls.Add(Me.btnDelete)
+        Me.Controls.Add(Me.btnAdd)
+        Me.Controls.Add(Me.grpItem)
         Me.Controls.Add(Me.btnSave)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.txtQuantity)
         Me.Controls.Add(Me.lblDescription)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
@@ -139,6 +184,8 @@ Partial Class frmOrderLevels
         Me.Name = "frmOrderLevels"
         Me.Text = "Order Levels"
         CType(Me.epCustStock, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grpItem.ResumeLayout(False)
+        Me.grpItem.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -153,4 +200,8 @@ Partial Class frmOrderLevels
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents epCustStock As System.Windows.Forms.ErrorProvider
     Friend WithEvents btnSave As System.Windows.Forms.Button
+    Friend WithEvents grpItem As System.Windows.Forms.GroupBox
+    Friend WithEvents btnAdd As System.Windows.Forms.Button
+    Friend WithEvents cboItem As System.Windows.Forms.ComboBox
+    Friend WithEvents btnDelete As System.Windows.Forms.Button
 End Class

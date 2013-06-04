@@ -13,6 +13,17 @@ Public Class frmOrder
         CustomerDB.SetupAdapter()
         BakedGoodDB.SetupAdapter()
 
+        If _colBakedGoods.Fill(sError) Then
+
+            'Remove any baked goods that are inactive
+            RemoveInactiveBakedGoods()
+
+            'sort the baked good list
+            _colBakedGoods.Sort()
+        Else
+            MessageBox.Show(sError)
+        End If
+
         'Fill the data collections
 
         If _colCustomers.Fill(sError) Then
@@ -81,7 +92,11 @@ Public Class frmOrder
             'Add order items to the listbox
             RemoveInactiveOrderItems()
             FillOrderItems()
-            FillItemSelection()
+
+            If lstOrderItems.Items.Count > 0 Then
+                lstOrderItems.SelectedIndex = 0
+            End If
+
         Else
             'If no order exists, create one and update
             CreateNewOrder()
@@ -125,16 +140,17 @@ Public Class frmOrder
         Dim CustStock As New CustStock
         Dim OrderItem As OrderItem
 
-        'Get selected orer item
+        'Get selected order item
         cboItem.Items.Clear()
         FillItemList()
         RemoveUsedBakedGoods()
 
-        OrderItem = DirectCast(lstOrderItems.SelectedItem, OrderItem)
-        SetItemSelection(OrderItem)
-        txtPrice.Text = OrderItem.UnitPrice.ToString("f")
-        txtQuantity.Text = OrderItem.Quantity.ToString
-        
+        If lstOrderItems.SelectedIndex <> -1 Then
+            OrderItem = DirectCast(lstOrderItems.SelectedItem, OrderItem)
+            SetItemSelection(OrderItem)
+            txtPrice.Text = OrderItem.UnitPrice.ToString("f")
+            txtQuantity.Text = OrderItem.Quantity.ToString
+        End If
     End Sub
 
     ''' <summary>
@@ -145,8 +161,11 @@ Public Class frmOrder
         ClearForm()
     End Sub
 
+    ''' <summary>
+    ''' Clear the form and deselect listbox
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub ClearForm()
-        'FillItemSelection()
         txtPrice.Text = ""
         txtQuantity.Text = ""
         lstOrderItems.SelectedIndex = -1
@@ -175,43 +194,6 @@ Public Class frmOrder
     End Sub
 
     ''' <summary>
-    ''' Add new line item. This is called by frmAddItem
-    ''' </summary>
-    ''' <param name="objOrderItem"></param>
-    ''' <remarks></remarks>
-    Public Sub AddNewItem(ByVal objOrderItem As OrderItem)
-        objOrderItem.OrderID = Convert.ToInt32(lblOrderNumber.Text)
-        _colOrderItems.Add(objOrderItem)
-        lstOrderItems.Items.Add(objOrderItem)
-        OrderItemDB.Update()
-    End Sub
-
-    ''' <summary>
-    ''' This is called by frmQuantity to set new OrderItem quantity level
-    ''' </summary>
-    ''' <param name="objCustStock"></param>
-    ''' <remarks></remarks>
-    Public Sub SetQuantityLevel(ByVal objCustStock As CustStock)
-        Dim OrderItem As OrderItem
-        OrderItem = DirectCast(lstOrderItems.SelectedItem, OrderItem)
-
-        OrderItem.Quantity = objCustStock.DesiredQty
-
-        'If OrderItemID not zero, then existing orderitem
-        If OrderItem.OrderItemID <> 0 Then
-            _colOrderItems.Change(OrderItem)
-        Else  'If OrderItemID = 0, then new orderitem.
-            _colOrderItems.Add(OrderItem)
-        End If
-
-        'To update data in listbox, we need to save and refresh data
-        OrderItemDB.Update()
-        lstOrderItems.Items.Clear()
-        ShowOrder(DirectCast(cboCustomer.SelectedItem, Customer).CustomerID)
-
-    End Sub
-
-    ''' <summary>
     ''' Update order details in form
     ''' </summary>
     ''' <param name="Order"></param>
@@ -224,24 +206,10 @@ Public Class frmOrder
         End With
     End Sub
 
-    Private Sub FillItemSelection()
-        Dim sError As String = ""
-
-        _colBakedGoods.Clear()
-        If _colBakedGoods.Fill(sError) Then
-            RemoveInactiveBakedGoods()
-            _colBakedGoods.Sort()
-
-            If lstOrderItems.Items.Count > 0 Then
-                lstOrderItems.SelectedIndex = 0
-            End If
-
-            cboItem.Items.Clear()
-
-            FillItemList()
-            RemoveUsedBakedGoods()
-        End If
-    End Sub
+    ''' <summary>
+    ''' Adds all available baked goods to the combobox
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub FillItemList()
         For Each BakedGood As BakedGood In _colBakedGoods
             cboItem.Items.Add(BakedGood)
@@ -266,13 +234,17 @@ Public Class frmOrder
         Next
     End Sub
 
+    ''' Determines whether or not a type of baked good is in an order
+    ''' </summary>
+    ''' <param name="objBakedGood"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Private Function IsBakedGoodInOrder(ByVal objBakedGood As BakedGood) As Boolean
         For Each objOrderItem As OrderItem In _colOrderItems
             If objOrderItem.BakedGoodID = objBakedGood.BakedGoodID Then
                 Return True
             End If
         Next
-
         Return False
     End Function
     ''' <summary>
@@ -314,4 +286,124 @@ Public Class frmOrder
         Next
     End Sub
 
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        Dim objOrderItem As OrderItem
+
+        'Get orderitem from list box or create a new one
+        If lstOrderItems.SelectedIndex <> -1 Then
+            objOrderItem = DirectCast(lstOrderItems.SelectedItem, OrderItem)
+        Else
+            objOrderItem = New OrderItem
+        End If
+
+        'Check user input is valid
+        If IsValid(objOrderItem) Then
+
+            'Get IDs
+            objOrderItem.BakedGoodID = DirectCast(cboItem.SelectedItem, BakedGood).BakedGoodID
+            objOrderItem.OrderID = Convert.ToInt32(lblOrderNumber.Text)
+
+            'If OrderItemID not zero, then existing orderitem
+            If objOrderItem.OrderItemID <> 0 Then
+                _colOrderItems.Change(objOrderItem)
+            Else  'If OrderItemID = 0, then new orderitem.
+                _colOrderItems.Add(objOrderItem)
+            End If
+
+            'To update data in listbox, we need to save and refresh data
+            OrderItemDB.Update()
+
+            'Reset listbox
+            lstOrderItems.Items.Clear()
+            ShowOrder(DirectCast(cboCustomer.SelectedItem, Customer).CustomerID)
+            btnAdd.Text = "&Add Item"
+        End If
+        
+    End Sub
+
+    ''' <summary>
+    ''' Check that user input is valid
+    ''' </summary>
+    ''' <param name="objOrderItem"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function IsValid(ByVal objOrderItem As OrderItem) As Boolean
+        If IsValidPrice(objOrderItem) And
+            IsValidQuantity(objOrderItem) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    ''' <summary>
+    ''' Check that user input of quantity is valid
+    ''' </summary>
+    ''' <param name="objOrderItem"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function IsValidQuantity(ByVal objOrderItem As OrderItem) As Boolean
+        Try
+            objOrderItem.Quantity = Convert.ToInt32(txtQuantity.Text)
+            Return True
+
+        Catch ex As FormatException
+            epOrder.SetError(txtQuantity, objOrderItem.QuantityError)
+            Return False
+
+        Catch ex As Exception
+            epOrder.SetError(txtQuantity, ex.Message)
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Check that user input of price is valid
+    ''' </summary>
+    ''' <param name="objOrderItem"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function IsValidPrice(ByVal objOrderItem As OrderItem) As Boolean
+        Try
+            objOrderItem.UnitPrice = Convert.ToDecimal(txtPrice.Text)
+            Return True
+
+        Catch ex As FormatException
+            epOrder.SetError(txtPrice, objOrderItem.UnitPriceError)
+            Return False
+
+        Catch ex As Exception
+            epOrder.SetError(txtPrice, ex.Message)
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Allow user to add new line item
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        If btnAdd.Text = "&Add Item" Then
+            ClearForm()
+            btnAdd.Text = "&Cancel"
+        Else
+            btnAdd.Text = "&Add Item"
+            lstOrderItems.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' When you change the item selection, input the default price for the selected baked good
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub cboItem_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboItem.SelectedIndexChanged
+        If lstOrderItems.SelectedIndex = -1 Then
+            txtPrice.Text = DirectCast(cboItem.SelectedItem, BakedGood).UnitPrice.ToString("f")
+        End If
+    End Sub
 End Class

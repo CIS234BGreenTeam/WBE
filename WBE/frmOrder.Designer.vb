@@ -22,6 +22,7 @@ Partial Class frmOrder
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cboCustomer = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -42,9 +43,11 @@ Partial Class frmOrder
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtPrice = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
-        Me.btnNew = New System.Windows.Forms.Button()
+        Me.btnAdd = New System.Windows.Forms.Button()
         Me.cboItem = New System.Windows.Forms.ComboBox()
+        Me.epOrder = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.grpOrderItem.SuspendLayout()
+        CType(Me.epOrder, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -232,29 +235,35 @@ Partial Class frmOrder
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
-        'btnNew
+        'btnAdd
         '
-        Me.btnNew.Location = New System.Drawing.Point(188, 324)
-        Me.btnNew.Name = "btnNew"
-        Me.btnNew.Size = New System.Drawing.Size(75, 23)
-        Me.btnNew.TabIndex = 4
-        Me.btnNew.Text = "&New"
-        Me.btnNew.UseVisualStyleBackColor = True
+        Me.btnAdd.Location = New System.Drawing.Point(188, 324)
+        Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(75, 23)
+        Me.btnAdd.TabIndex = 4
+        Me.btnAdd.Text = "&Add Item"
+        Me.btnAdd.UseVisualStyleBackColor = True
         '
         'cboItem
         '
+        Me.cboItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItem.FormattingEnabled = True
         Me.cboItem.Location = New System.Drawing.Point(95, 20)
         Me.cboItem.Name = "cboItem"
         Me.cboItem.Size = New System.Drawing.Size(160, 21)
         Me.cboItem.TabIndex = 5
         '
+        'epOrder
+        '
+        Me.epOrder.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
+        Me.epOrder.ContainerControl = Me
+        '
         'frmOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(369, 368)
-        Me.Controls.Add(Me.btnNew)
+        Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.grpOrderItem)
         Me.Controls.Add(Me.lblOrderNumber)
@@ -274,6 +283,7 @@ Partial Class frmOrder
         Me.Text = "WBE Order Form"
         Me.grpOrderItem.ResumeLayout(False)
         Me.grpOrderItem.PerformLayout()
+        CType(Me.epOrder, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -298,6 +308,7 @@ Partial Class frmOrder
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents btnSave As System.Windows.Forms.Button
-    Friend WithEvents btnNew As System.Windows.Forms.Button
+    Friend WithEvents btnAdd As System.Windows.Forms.Button
     Friend WithEvents cboItem As System.Windows.Forms.ComboBox
+    Friend WithEvents epOrder As System.Windows.Forms.ErrorProvider
 End Class

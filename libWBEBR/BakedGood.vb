@@ -85,7 +85,7 @@
             Return _iDesiredQty
         End Get
         Set(value As Integer)
-            If value < c_MinDesiredQty Or value > c_MaxDesiredQty Then
+            If (value < c_MinDesiredQty Or value > c_MaxDesiredQty) Then
                 Throw New Exception(DesiredQtyError)
             Else
                 _iDesiredQty = value
@@ -93,8 +93,9 @@
         End Set
     End Property
 
+    'Although the actual minimum quantity is zero, I'm adding 1 for the error message seen by users.
     Private _DesiredQtyError As String = String.Format("Desired quantity must be between {0} and {1}.",
-                                                 c_MinDesiredQty, c_MaxDesiredQty)
+                                                 c_MinDesiredQty + 1, c_MaxDesiredQty)
 
     ''' <summary>
     ''' Error message for desired quantity
@@ -124,7 +125,7 @@
             Return _iStockQty
         End Get
         Set(value As Integer)
-            If value < c_MinStockQty Or value > c_MaxStockQty Then
+            If (value < c_MinStockQty Or value > c_MaxStockQty) Then
                 Throw New Exception(StockQtyError)
             Else
                 _iStockQty = value

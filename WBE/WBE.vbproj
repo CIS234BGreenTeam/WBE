@@ -88,12 +88,6 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmAddItem.Designer.vb">
-      <DependentUpon>frmAddItem.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmAddItem.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmBakedGood.Designer.vb">
       <DependentUpon>frmBakedGood.vb</DependentUpon>
     </Compile>
@@ -124,12 +118,6 @@
     <Compile Include="frmOrderLevels.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmQuantity.Designer.vb">
-      <DependentUpon>frmQuantity.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmQuantity.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -147,9 +135,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="frmAddItem.resx">
-      <DependentUpon>frmAddItem.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmBakedGood.resx">
       <DependentUpon>frmBakedGood.vb</DependentUpon>
     </EmbeddedResource>
@@ -164,9 +149,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmOrderLevels.resx">
       <DependentUpon>frmOrderLevels.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmQuantity.resx">
-      <DependentUpon>frmQuantity.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
