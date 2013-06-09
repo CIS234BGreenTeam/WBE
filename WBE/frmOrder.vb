@@ -64,6 +64,7 @@ Public Class frmOrder
         lstOrderItems.Items.Clear()
         _colOrders.Clear()
         _colOrderItems.Clear()
+        ClearForm()
         lblOrderNumber.Text = "No Order"
         lblStatus.Text = "No Orders"
 
@@ -97,10 +98,13 @@ Public Class frmOrder
                 lstOrderItems.SelectedIndex = 0
             End If
 
+            'Else
+            '    'If no order exists, create fake one
+            '    CreateNewOrder()
+            '    ShowOrder(CustomerID)
         Else
-            'If no order exists, create one and update
-            CreateNewOrder()
-            ShowOrder(CustomerID)
+            cboItem.Items.Clear()
+            FillItemList()
         End If
     End Sub
 
@@ -169,6 +173,7 @@ Public Class frmOrder
         txtPrice.Text = ""
         txtQuantity.Text = ""
         lstOrderItems.SelectedIndex = -1
+        cboItem.SelectedIndex = -1
     End Sub
     ''' <summary>
     ''' Create new order and update database
@@ -185,6 +190,7 @@ Public Class frmOrder
         _colOrders.Add(Order)
         OrdersDB.Update()
 
+        _colOrders.Clear()
         If _colOrders.Fill(sError) = False Then
             MessageBox.Show(sError)
         End If
@@ -288,6 +294,10 @@ Public Class frmOrder
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Dim objOrderItem As OrderItem
+
+        If lblStatus.Text = "No Orders" Then
+            CreateNewOrder()
+        End If
 
         'Get orderitem from list box or create a new one
         If lstOrderItems.SelectedIndex <> -1 Then
@@ -402,8 +412,43 @@ Public Class frmOrder
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub cboItem_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboItem.SelectedIndexChanged
-        If lstOrderItems.SelectedIndex = -1 Then
+        If lstOrderItems.SelectedIndex = -1 And cboItem.SelectedIndex <> -1 Then
             txtPrice.Text = DirectCast(cboItem.SelectedItem, BakedGood).UnitPrice.ToString("f")
         End If
+    End Sub
+
+    Private Sub btnDeleteItem_Click(sender As Object, e As EventArgs) Handles btnDeleteItem.Click
+        If lstOrderItems.SelectedIndex = -1 Then
+            MessageBox.Show("You must select an item to delete in the listbox.")
+        Else
+            Dim objOrderItem As OrderItem
+
+            objOrderItem = DirectCast(lstOrderItems.SelectedItem, OrderItem)
+            _colOrderItems.Remove(objOrderItem)
+            OrderItemDB.Update()
+
+            'Reset listbox
+            lstOrderItems.Items.Clear()
+            ShowOrder(DirectCast(cboCustomer.SelectedItem, Customer).CustomerID)
+            btnAdd.Text = "&Add Item"
+        End If
+    End Sub
+
+
+    Private Sub btnDeleteOrder_Click(sender As Object, e As EventArgs) Handles btnDeleteOrder.Click
+        Dim iOrderID As Integer
+        Dim objOrder As Order
+
+        Try
+            iOrderID = lblOrderNumber.Text
+            objOrder = _colOrders.Find(iOrderID)
+            _colOrders.Remove(objOrder)
+            OrdersDB.Update()
+            ShowOrder(DirectCast(cboCustomer.SelectedItem, Customer).CustomerID)
+            ClearForm()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
     End Sub
 End Class

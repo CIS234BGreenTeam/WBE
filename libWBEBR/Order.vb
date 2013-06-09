@@ -23,6 +23,7 @@
         NewOrder
         Baking
         Invoiced
+        NoOrder
     End Enum
 
     '===========================================================================
@@ -62,11 +63,12 @@
         Set(ByVal value As eStatus)
             If value = eStatus.Baking Or
                value = eStatus.Invoiced Or
-               value = eStatus.NewOrder Then
+               value = eStatus.NewOrder Or
+               value = eStatus.NoOrder Then
 
                 m_eStatus = value
             Else
-                Throw New Exception("Status must be NewOrder, Baking, Or Invoiced")
+                Throw New Exception("Status must be NewOrder, Baking, Invoiced, or NoOrder")
             End If
 
         End Set

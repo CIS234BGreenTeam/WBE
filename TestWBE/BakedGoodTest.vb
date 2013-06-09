@@ -74,13 +74,13 @@ Public Class BakedGoodTest
     '''</summary>
     <TestMethod()>
     Public Sub Name_NameMin_Test()
-        Dim target As BakedGood = New BakedGood() ' TODO: Initialize to an appropriate value
+        Dim target As BakedGood = New BakedGood()
         Dim expected As String = "12"
         Dim actual As String
         target.Name = expected
         actual = target.Name
         Assert.AreEqual(expected, actual)
-        'Assert.Inconclusive("Verify the correctness of this test method.")
+
 
     End Sub
     '''<summary>
@@ -88,13 +88,13 @@ Public Class BakedGoodTest
     '''</summary>
     <TestMethod()>
     Public Sub Name_NameMax_Test()
-        Dim target As BakedGood = New BakedGood() ' TODO: Initialize to an appropriate value
+        Dim target As BakedGood = New BakedGood()
         Dim expected As String = "123456789012345678901234567890"
         Dim actual As String
         target.Name = expected
         actual = target.Name
         Assert.AreEqual(expected, actual)
-        'Assert.Inconclusive("Verify the correctness of this test method.")
+
     End Sub
 
     '''<summary>
@@ -103,13 +103,12 @@ Public Class BakedGoodTest
     <TestMethod()> _
      <ExpectedException(GetType(System.Exception), "This Name should be invalid at 1 below the lower limit of 2 chars.")>
     Public Sub Name_NameUnderMin_Test()
-        Dim target As BakedGood = New BakedGood() ' TODO: Initialize to an appropriate value
+        Dim target As BakedGood = New BakedGood()
         Dim expected As String = "1"
         Dim actual As String
         target.Name = expected
         actual = target.Name
         Assert.AreEqual(expected, actual)
-        'Assert.Inconclusive("Verify the correctness of this test method.")
     End Sub
 
     '''<summary>
@@ -118,13 +117,12 @@ Public Class BakedGoodTest
     <TestMethod()> _
      <ExpectedException(GetType(System.Exception), "This Name should be invalid at 1 above the Upper limit of 30 chars.")>
     Public Sub Name_NameOverMax_Test()
-        Dim target As BakedGood = New BakedGood() ' TODO: Initialize to an appropriate value
+        Dim target As BakedGood = New BakedGood()
         Dim expected As String = "1234567890123456789012345678901"
         Dim actual As String
         target.Name = expected
         actual = target.Name
         Assert.AreEqual(expected, actual)
-        'Assert.Inconclusive("Verify the correctness of this test method.")
     End Sub
 
     '''<summary>
@@ -139,7 +137,6 @@ Public Class BakedGoodTest
         target.Name = expected
         actual = target.Name
         Assert.AreEqual(expected, actual)
-        'Assert.Inconclusive("Verify the correctness of this test method.")
     End Sub
     '''<summary>
     '''A test for UnitPrice at the minimum good value of 0.50
@@ -152,7 +149,6 @@ Public Class BakedGoodTest
         target.UnitPrice = expected
         actual = target.UnitPrice
         Assert.AreEqual(expected, actual)
-        'Assert.Inconclusive("Verify the correctness of this test method.")
     End Sub
     '''<summary>
     '''A test for UnitPrice at the maximum good value of 250.00
@@ -165,7 +161,6 @@ Public Class BakedGoodTest
         target.UnitPrice = expected
         actual = target.UnitPrice
         Assert.AreEqual(expected, actual)
-        'Assert.Inconclusive("Verify the correctness of this test method.")
     End Sub
 
     '''<summary>
@@ -180,7 +175,6 @@ Public Class BakedGoodTest
         target.UnitPrice = expected
         actual = target.UnitPrice
         Assert.AreEqual(expected, actual)
-        'Assert.Inconclusive("Verify the correctness of this test method.")
     End Sub
     '''<summary>
     '''A test for UnitPrice above the maximum good value of 250.00
@@ -194,7 +188,6 @@ Public Class BakedGoodTest
         target.UnitPrice = expected
         actual = target.UnitPrice
         Assert.AreEqual(expected, actual)
-        'Assert.Inconclusive("Verify the correctness of this test method.")
     End Sub
 
     '''<summary>
@@ -209,7 +202,6 @@ Public Class BakedGoodTest
         target.UnitPrice = expected
         actual = target.UnitPrice
         Assert.AreEqual(expected, actual)
-        'Assert.Inconclusive("Verify the correctness of this test method.")
     End Sub
 
 End Class

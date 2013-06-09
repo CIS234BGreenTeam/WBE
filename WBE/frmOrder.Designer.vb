@@ -37,15 +37,17 @@ Partial Class frmOrder
         Me.Label8 = New System.Windows.Forms.Label()
         Me.lblOrderNumber = New System.Windows.Forms.Label()
         Me.grpOrderItem = New System.Windows.Forms.GroupBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.txtQuantity = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
+        Me.cboItem = New System.Windows.Forms.ComboBox()
         Me.txtPrice = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtQuantity = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
-        Me.cboItem = New System.Windows.Forms.ComboBox()
         Me.epOrder = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.btnDeleteItem = New System.Windows.Forms.Button()
+        Me.btnDeleteOrder = New System.Windows.Forms.Button()
         Me.grpOrderItem.SuspendLayout()
         CType(Me.epOrder, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -181,34 +183,25 @@ Partial Class frmOrder
         Me.grpOrderItem.Location = New System.Drawing.Point(22, 215)
         Me.grpOrderItem.Name = "grpOrderItem"
         Me.grpOrderItem.Size = New System.Drawing.Size(309, 88)
-        Me.grpOrderItem.TabIndex = 13
+        Me.grpOrderItem.TabIndex = 3
         Me.grpOrderItem.TabStop = False
         Me.grpOrderItem.Text = "Order Item"
         '
-        'Label9
+        'cboItem
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(61, 25)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(27, 13)
-        Me.Label9.TabIndex = 1
-        Me.Label9.Text = "Item"
+        Me.cboItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboItem.FormattingEnabled = True
+        Me.cboItem.Location = New System.Drawing.Point(95, 20)
+        Me.cboItem.Name = "cboItem"
+        Me.cboItem.Size = New System.Drawing.Size(160, 21)
+        Me.cboItem.TabIndex = 0
         '
-        'Label10
+        'txtPrice
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(42, 53)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(46, 13)
-        Me.Label10.TabIndex = 2
-        Me.Label10.Text = "Quantity"
-        '
-        'txtQuantity
-        '
-        Me.txtQuantity.Location = New System.Drawing.Point(94, 49)
-        Me.txtQuantity.Name = "txtQuantity"
-        Me.txtQuantity.Size = New System.Drawing.Size(45, 20)
-        Me.txtQuantity.TabIndex = 1
+        Me.txtPrice.Location = New System.Drawing.Point(192, 49)
+        Me.txtPrice.Name = "txtPrice"
+        Me.txtPrice.Size = New System.Drawing.Size(63, 20)
+        Me.txtPrice.TabIndex = 2
         '
         'Label11
         '
@@ -219,50 +212,79 @@ Partial Class frmOrder
         Me.Label11.TabIndex = 4
         Me.Label11.Text = "Price"
         '
-        'txtPrice
+        'txtQuantity
         '
-        Me.txtPrice.Location = New System.Drawing.Point(192, 49)
-        Me.txtPrice.Name = "txtPrice"
-        Me.txtPrice.Size = New System.Drawing.Size(63, 20)
-        Me.txtPrice.TabIndex = 2
+        Me.txtQuantity.Location = New System.Drawing.Point(94, 49)
+        Me.txtQuantity.Name = "txtQuantity"
+        Me.txtQuantity.Size = New System.Drawing.Size(45, 20)
+        Me.txtQuantity.TabIndex = 1
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(42, 53)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(46, 13)
+        Me.Label10.TabIndex = 2
+        Me.Label10.Text = "Quantity"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(61, 25)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(27, 13)
+        Me.Label9.TabIndex = 1
+        Me.Label9.Text = "Item"
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(89, 324)
+        Me.btnSave.Location = New System.Drawing.Point(354, 108)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(72, 23)
-        Me.btnSave.TabIndex = 3
+        Me.btnSave.Size = New System.Drawing.Size(82, 30)
+        Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(188, 324)
+        Me.btnAdd.Location = New System.Drawing.Point(354, 158)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(75, 23)
-        Me.btnAdd.TabIndex = 4
+        Me.btnAdd.Size = New System.Drawing.Size(82, 30)
+        Me.btnAdd.TabIndex = 5
         Me.btnAdd.Text = "&Add Item"
         Me.btnAdd.UseVisualStyleBackColor = True
-        '
-        'cboItem
-        '
-        Me.cboItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboItem.FormattingEnabled = True
-        Me.cboItem.Location = New System.Drawing.Point(95, 20)
-        Me.cboItem.Name = "cboItem"
-        Me.cboItem.Size = New System.Drawing.Size(160, 21)
-        Me.cboItem.TabIndex = 5
         '
         'epOrder
         '
         Me.epOrder.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         Me.epOrder.ContainerControl = Me
         '
+        'btnDeleteItem
+        '
+        Me.btnDeleteItem.Location = New System.Drawing.Point(354, 208)
+        Me.btnDeleteItem.Name = "btnDeleteItem"
+        Me.btnDeleteItem.Size = New System.Drawing.Size(82, 30)
+        Me.btnDeleteItem.TabIndex = 6
+        Me.btnDeleteItem.Text = "&Delete Item"
+        Me.btnDeleteItem.UseVisualStyleBackColor = True
+        '
+        'btnDeleteOrder
+        '
+        Me.btnDeleteOrder.Location = New System.Drawing.Point(354, 258)
+        Me.btnDeleteOrder.Name = "btnDeleteOrder"
+        Me.btnDeleteOrder.Size = New System.Drawing.Size(80, 30)
+        Me.btnDeleteOrder.TabIndex = 7
+        Me.btnDeleteOrder.Text = "Delete &Order"
+        Me.btnDeleteOrder.UseVisualStyleBackColor = True
+        '
         'frmOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(369, 368)
+        Me.ClientSize = New System.Drawing.Size(458, 335)
+        Me.Controls.Add(Me.btnDeleteOrder)
+        Me.Controls.Add(Me.btnDeleteItem)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.grpOrderItem)
@@ -311,4 +333,6 @@ Partial Class frmOrder
     Friend WithEvents btnAdd As System.Windows.Forms.Button
     Friend WithEvents cboItem As System.Windows.Forms.ComboBox
     Friend WithEvents epOrder As System.Windows.Forms.ErrorProvider
+    Friend WithEvents btnDeleteOrder As System.Windows.Forms.Button
+    Friend WithEvents btnDeleteItem As System.Windows.Forms.Button
 End Class
