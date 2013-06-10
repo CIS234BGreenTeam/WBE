@@ -27,11 +27,12 @@ Partial Class frmMain
         Me.btnEditOrders = New System.Windows.Forms.Button()
         Me.btnCount = New System.Windows.Forms.Button()
         Me.btnBakedGoods = New System.Windows.Forms.Button()
+        Me.btnGenerateOrders = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnCustomers
         '
-        Me.btnCustomers.Location = New System.Drawing.Point(73, 23)
+        Me.btnCustomers.Location = New System.Drawing.Point(40, 29)
         Me.btnCustomers.Name = "btnCustomers"
         Me.btnCustomers.Size = New System.Drawing.Size(75, 41)
         Me.btnCustomers.TabIndex = 0
@@ -40,45 +41,55 @@ Partial Class frmMain
         '
         'btnOrderLevels
         '
-        Me.btnOrderLevels.Location = New System.Drawing.Point(73, 82)
+        Me.btnOrderLevels.Location = New System.Drawing.Point(159, 94)
         Me.btnOrderLevels.Name = "btnOrderLevels"
         Me.btnOrderLevels.Size = New System.Drawing.Size(75, 41)
-        Me.btnOrderLevels.TabIndex = 1
+        Me.btnOrderLevels.TabIndex = 3
         Me.btnOrderLevels.Text = "Order Levels"
         Me.btnOrderLevels.UseVisualStyleBackColor = True
         '
         'btnEditOrders
         '
-        Me.btnEditOrders.Location = New System.Drawing.Point(73, 200)
+        Me.btnEditOrders.Location = New System.Drawing.Point(40, 171)
         Me.btnEditOrders.Name = "btnEditOrders"
         Me.btnEditOrders.Size = New System.Drawing.Size(75, 41)
-        Me.btnEditOrders.TabIndex = 2
+        Me.btnEditOrders.TabIndex = 4
         Me.btnEditOrders.Text = "Edit Orders"
         Me.btnEditOrders.UseVisualStyleBackColor = True
         '
         'btnCount
         '
-        Me.btnCount.Location = New System.Drawing.Point(73, 141)
+        Me.btnCount.Location = New System.Drawing.Point(40, 94)
         Me.btnCount.Name = "btnCount"
         Me.btnCount.Size = New System.Drawing.Size(75, 41)
-        Me.btnCount.TabIndex = 3
+        Me.btnCount.TabIndex = 2
         Me.btnCount.Text = "Count Inventory"
         Me.btnCount.UseVisualStyleBackColor = True
         '
         'btnBakedGoods
         '
-        Me.btnBakedGoods.Location = New System.Drawing.Point(73, 259)
+        Me.btnBakedGoods.Location = New System.Drawing.Point(159, 29)
         Me.btnBakedGoods.Name = "btnBakedGoods"
         Me.btnBakedGoods.Size = New System.Drawing.Size(75, 41)
-        Me.btnBakedGoods.TabIndex = 4
+        Me.btnBakedGoods.TabIndex = 1
         Me.btnBakedGoods.Text = "Baked Goods"
         Me.btnBakedGoods.UseVisualStyleBackColor = True
+        '
+        'btnGenerateOrders
+        '
+        Me.btnGenerateOrders.Location = New System.Drawing.Point(159, 171)
+        Me.btnGenerateOrders.Name = "btnGenerateOrders"
+        Me.btnGenerateOrders.Size = New System.Drawing.Size(75, 41)
+        Me.btnGenerateOrders.TabIndex = 5
+        Me.btnGenerateOrders.Text = "&Generate Orders"
+        Me.btnGenerateOrders.UseVisualStyleBackColor = True
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(222, 329)
+        Me.ClientSize = New System.Drawing.Size(287, 256)
+        Me.Controls.Add(Me.btnGenerateOrders)
         Me.Controls.Add(Me.btnBakedGoods)
         Me.Controls.Add(Me.btnCount)
         Me.Controls.Add(Me.btnEditOrders)
@@ -94,4 +105,5 @@ Partial Class frmMain
     Friend WithEvents btnEditOrders As System.Windows.Forms.Button
     Friend WithEvents btnCount As System.Windows.Forms.Button
     Friend WithEvents btnBakedGoods As System.Windows.Forms.Button
+    Friend WithEvents btnGenerateOrders As System.Windows.Forms.Button
 End Class

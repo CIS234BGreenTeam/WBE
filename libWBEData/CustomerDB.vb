@@ -58,11 +58,23 @@ Public Class CustomerDB
                     End If
 
                     If Not dr("LastCountDate") Is DBNull.Value Then
-                        .LastCountDate = Convert.ToDateTime(dr("LastCountDate"))
+                        Dim tempDate As DateTime
+                        tempDate = Convert.ToDateTime(dr("LastCountDate"))
+                        If objCustomer.CheckDateInterval(tempDate) Then
+                            .LastCountDate = tempDate
+                        Else
+                            .IsInactive = True
+                        End If
                     End If
 
                     If Not dr("LastOrderDate") Is DBNull.Value Then
-                        .LastOrderDate = Convert.ToDateTime(dr("LastOrderDate"))
+                        Dim tempDate As DateTime
+                        tempDate = Convert.ToDateTime(dr("LastOrderDate"))
+                        If objCustomer.CheckDateInterval(tempDate) Then
+                            .LastOrderDate = tempDate
+                        Else
+                            .IsInactive = True
+                        End If
                     End If
                 End With
 

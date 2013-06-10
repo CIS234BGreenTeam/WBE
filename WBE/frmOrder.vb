@@ -240,6 +240,7 @@ Public Class frmOrder
         Next
     End Sub
 
+    ''' <summary>
     ''' Determines whether or not a type of baked good is in an order
     ''' </summary>
     ''' <param name="objBakedGood"></param>

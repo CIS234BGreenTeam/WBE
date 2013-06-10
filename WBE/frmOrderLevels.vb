@@ -40,7 +40,7 @@ Public Class frmOrderLevels
 
         'Fill the baked good collection but remove inactive baked goods
         If _colBakedGoods.Fill(sError) Then
-            RemoveInactiveBakedGoods()
+            modFillCollections.RemoveInactiveBakedGoods(_colBakedGoods)
             _colBakedGoods.Sort()
         Else
             MessageBox.Show(sError)
@@ -91,7 +91,7 @@ Public Class frmOrderLevels
         End If
 
         'Remove any items that correspond to baked goods that are inactive
-        RemoveInactiveCustStock()
+        modFillCollections.RemoveInactiveCustStock(_colCustStock, _colBakedGoods)
 
         'Add all custstock items to the listbox
         For Each CustStock As CustStock In _colCustStock
@@ -133,7 +133,7 @@ Public Class frmOrderLevels
     Private Sub RemoveUsedBakedGoods()
         For i As Integer = cboItem.Items.Count - 1 To 0 Step -1
             Dim objBakedGood As BakedGood = DirectCast(cboItem.Items(i), BakedGood)
-            If IsBakedGoodInOrder(objBakedGood) Then
+            If modFillCollections.IsBakedGoodInOrder(objBakedGood, _colCustStock) Then
 
                 'if there is an item selected in the list box, we want to make sure to include it in cboItem
                 If lstOrderLevels.SelectedIndex <> -1 Then
@@ -146,47 +146,6 @@ Public Class frmOrderLevels
                 Else
                     cboItem.Items.Remove(objBakedGood)
                 End If
-            End If
-        Next
-    End Sub
-
-    ''' Determines whether or not a type of baked good is in a cust stock item
-    ''' </summary>
-    ''' <param name="objBakedGood"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function IsBakedGoodInOrder(ByVal objBakedGood As BakedGood) As Boolean
-        For Each objCustStock As CustStock In _colCustStock
-            If objCustStock.BakedGoodID = objBakedGood.BakedGoodID Then
-                Return True
-            End If
-        Next
-        Return False
-    End Function
-
-    ''' <summary>
-    ''' Remove baked good items that are inactive from the collection
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub RemoveInactiveBakedGoods()
-        For i As Integer = _colBakedGoods.Count - 1 To 0 Step -1
-            If _colBakedGoods(i).IsInactive = True Then
-                _colBakedGoods.RemoveAt(i)
-            End If
-        Next
-    End Sub
-
-    ''' <summary>
-    ''' Removes customer inventory items that correspond to inactive baked goods
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub RemoveInactiveCustStock()
-        For i As Integer = _colCustStock.Count - 1 To 0 Step -1
-            Dim objBakedGood As BakedGood
-            objBakedGood = _colBakedGoods.Find(_colCustStock(i).BakedGoodID)
-
-            If objBakedGood Is Nothing Then
-                _colCustStock.RemoveAt(i)
             End If
         Next
     End Sub
@@ -205,15 +164,6 @@ Public Class frmOrderLevels
             End If
         End If
     End Sub
-
-    'Get cust stock item for each baked good, if possible
-    Private Function GetCustStockItem(ByVal BakedGoodID As Integer) As CustStock
-        For Each CustStock As CustStock In _colCustStock
-            If CustStock.BakedGoodID = BakedGoodID Then
-                Return CustStock
-            End If
-        Next
-    End Function
 
     ''' <summary>
     ''' Updates the quantity shown in the textbox

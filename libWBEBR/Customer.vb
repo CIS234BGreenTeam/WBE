@@ -490,7 +490,7 @@ Public Class Customer
     ''' <param name="value"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function CheckDateInterval(ByVal value As Date) As Boolean
+    Public Function CheckDateInterval(ByVal value As Date) As Boolean
         Dim IsSuccess As Boolean
         If IsInactive = True Then
             Dim iDiff As Long

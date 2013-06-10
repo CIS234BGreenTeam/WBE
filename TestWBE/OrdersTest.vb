@@ -85,20 +85,6 @@ Public Class OrderTest
     End Sub
 
     '''<summary>
-    '''A test for Driver
-    '''</summary>
-    <TestMethod()> _
-    Public Sub DriverTest()
-        Dim target As Order = New Order() ' TODO: Initialize to an appropriate value
-        Dim expected As Driver = New Driver ' TODO: Initialize to an appropriate value
-        Dim actual As Driver
-        target.Driver = expected
-        actual = target.Driver
-        Assert.AreEqual(expected, actual)
-        'Assert.Inconclusive("Verify the correctness of this test method.")
-    End Sub
-
-    '''<summary>
     '''A test for Item
     '''</summary>
     <TestMethod()> _

@@ -54,17 +54,19 @@ Public Class OrderItem
 
     End Property
 
+    Public Const iMinQuantity = 1
+    Public Const iMaxQuantity = 500
 
     '''<summary>
     '''Number of baked good wanted
     '''</summary>
-    ''' <remarks>If invald, throws QuantityError()</remarks>
+    ''' <remarks>If invalid, throws QuantityError()</remarks>
     Public Property Quantity() As Integer
         Get
             Return m_iQuantity
         End Get
         Set(ByVal value As Integer)
-            If value >= 1 And value <= 500 Then
+            If value >= iMinQuantity And value <= iMaxQuantity Then
                 m_iQuantity = value
             Else
                 Throw New Exception(QuantityError)

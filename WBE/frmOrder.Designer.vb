@@ -93,7 +93,7 @@ Partial Class frmOrder
         Me.lstOrderItems.ItemHeight = 14
         Me.lstOrderItems.Location = New System.Drawing.Point(22, 108)
         Me.lstOrderItems.Name = "lstOrderItems"
-        Me.lstOrderItems.Size = New System.Drawing.Size(313, 88)
+        Me.lstOrderItems.Size = New System.Drawing.Size(326, 88)
         Me.lstOrderItems.TabIndex = 2
         '
         'Label3
@@ -182,7 +182,7 @@ Partial Class frmOrder
         Me.grpOrderItem.Controls.Add(Me.Label9)
         Me.grpOrderItem.Location = New System.Drawing.Point(22, 215)
         Me.grpOrderItem.Name = "grpOrderItem"
-        Me.grpOrderItem.Size = New System.Drawing.Size(309, 88)
+        Me.grpOrderItem.Size = New System.Drawing.Size(326, 88)
         Me.grpOrderItem.TabIndex = 3
         Me.grpOrderItem.TabStop = False
         Me.grpOrderItem.Text = "Order Item"
@@ -191,14 +191,14 @@ Partial Class frmOrder
         '
         Me.cboItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboItem.FormattingEnabled = True
-        Me.cboItem.Location = New System.Drawing.Point(95, 20)
+        Me.cboItem.Location = New System.Drawing.Point(106, 19)
         Me.cboItem.Name = "cboItem"
         Me.cboItem.Size = New System.Drawing.Size(160, 21)
         Me.cboItem.TabIndex = 0
         '
         'txtPrice
         '
-        Me.txtPrice.Location = New System.Drawing.Point(192, 49)
+        Me.txtPrice.Location = New System.Drawing.Point(203, 48)
         Me.txtPrice.Name = "txtPrice"
         Me.txtPrice.Size = New System.Drawing.Size(63, 20)
         Me.txtPrice.TabIndex = 2
@@ -206,7 +206,7 @@ Partial Class frmOrder
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(155, 53)
+        Me.Label11.Location = New System.Drawing.Point(166, 52)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(31, 13)
         Me.Label11.TabIndex = 4
@@ -214,7 +214,7 @@ Partial Class frmOrder
         '
         'txtQuantity
         '
-        Me.txtQuantity.Location = New System.Drawing.Point(94, 49)
+        Me.txtQuantity.Location = New System.Drawing.Point(105, 48)
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(45, 20)
         Me.txtQuantity.TabIndex = 1
@@ -222,7 +222,7 @@ Partial Class frmOrder
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(42, 53)
+        Me.Label10.Location = New System.Drawing.Point(53, 52)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(46, 13)
         Me.Label10.TabIndex = 2
@@ -231,7 +231,7 @@ Partial Class frmOrder
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(61, 25)
+        Me.Label9.Location = New System.Drawing.Point(72, 24)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(27, 13)
         Me.Label9.TabIndex = 1
@@ -239,7 +239,7 @@ Partial Class frmOrder
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(354, 108)
+        Me.btnSave.Location = New System.Drawing.Point(368, 108)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(82, 30)
         Me.btnSave.TabIndex = 4
@@ -248,7 +248,7 @@ Partial Class frmOrder
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(354, 158)
+        Me.btnAdd.Location = New System.Drawing.Point(368, 158)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(82, 30)
         Me.btnAdd.TabIndex = 5
@@ -262,7 +262,7 @@ Partial Class frmOrder
         '
         'btnDeleteItem
         '
-        Me.btnDeleteItem.Location = New System.Drawing.Point(354, 208)
+        Me.btnDeleteItem.Location = New System.Drawing.Point(368, 208)
         Me.btnDeleteItem.Name = "btnDeleteItem"
         Me.btnDeleteItem.Size = New System.Drawing.Size(82, 30)
         Me.btnDeleteItem.TabIndex = 6
@@ -271,7 +271,7 @@ Partial Class frmOrder
         '
         'btnDeleteOrder
         '
-        Me.btnDeleteOrder.Location = New System.Drawing.Point(354, 258)
+        Me.btnDeleteOrder.Location = New System.Drawing.Point(368, 258)
         Me.btnDeleteOrder.Name = "btnDeleteOrder"
         Me.btnDeleteOrder.Size = New System.Drawing.Size(80, 30)
         Me.btnDeleteOrder.TabIndex = 7
@@ -282,7 +282,7 @@ Partial Class frmOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(458, 335)
+        Me.ClientSize = New System.Drawing.Size(477, 335)
         Me.Controls.Add(Me.btnDeleteOrder)
         Me.Controls.Add(Me.btnDeleteItem)
         Me.Controls.Add(Me.btnAdd)

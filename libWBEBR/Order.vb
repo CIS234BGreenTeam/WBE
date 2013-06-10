@@ -13,9 +13,7 @@
                                          & dtMinDate.ToShortDateString _
                                          & " and " & dtMaxDate.ToShortDateString
 
-
     Public Property CustomerID As Integer
-    Public Property Driver As Driver
     Public Property Item As List(Of OrderItem)
     Public Property StatusDesc As String
 
