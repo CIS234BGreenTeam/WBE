@@ -76,17 +76,17 @@
     '''<summary>
     '''Order Date
     '''</summary>
-    ''' <remarks>If invald, throws OrderDateError()</remarks>
+    ''' <remarks>If invalid, throws OrderDateError()</remarks>
     Public Property OrderDate() As DateTime
         Get
             Return m_dtOrderDate
         End Get
         Set(ByVal value As DateTime)
             If Status.Equals(eStatus.NewOrder) Or Status.Equals(eStatus.Baking) Then
-                If value >= dtMinDate And value <= dtMaxDate Then
-                    m_dtOrderDate = value
-                Else
+                If CheckDateInterval(value) = False Then
                     Throw New Exception(OrderDateError)
+                Else
+                    m_dtOrderDate = value
                 End If
             Else
                 m_dtOrderDate = value
@@ -131,7 +131,23 @@
 
     End Property
 
+    ''' <summary>
+    ''' Validation test for date
+    ''' </summary>
+    ''' <param name="value"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function CheckDateInterval(ByVal value As Date) As Boolean
+        Dim IsSuccess As Boolean
 
+        If value < dtMinDate Or value > dtMaxDate Then
+            IsSuccess = False
+        Else
+            IsSuccess = True
+        End If
+        
+        Return IsSuccess
+    End Function
 
 
 

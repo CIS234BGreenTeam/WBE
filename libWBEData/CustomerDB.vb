@@ -62,8 +62,6 @@ Public Class CustomerDB
                         tempDate = Convert.ToDateTime(dr("LastCountDate"))
                         If objCustomer.CheckDateInterval(tempDate) Then
                             .LastCountDate = tempDate
-                        Else
-                            .IsInactive = True
                         End If
                     End If
 
@@ -72,8 +70,6 @@ Public Class CustomerDB
                         tempDate = Convert.ToDateTime(dr("LastOrderDate"))
                         If objCustomer.CheckDateInterval(tempDate) Then
                             .LastOrderDate = tempDate
-                        Else
-                            .IsInactive = True
                         End If
                     End If
                 End With

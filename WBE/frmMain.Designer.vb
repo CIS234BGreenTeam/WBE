@@ -41,7 +41,7 @@ Partial Class frmMain
         '
         'btnOrderLevels
         '
-        Me.btnOrderLevels.Location = New System.Drawing.Point(159, 94)
+        Me.btnOrderLevels.Location = New System.Drawing.Point(159, 100)
         Me.btnOrderLevels.Name = "btnOrderLevels"
         Me.btnOrderLevels.Size = New System.Drawing.Size(75, 41)
         Me.btnOrderLevels.TabIndex = 3
@@ -59,7 +59,7 @@ Partial Class frmMain
         '
         'btnCount
         '
-        Me.btnCount.Location = New System.Drawing.Point(40, 94)
+        Me.btnCount.Location = New System.Drawing.Point(40, 100)
         Me.btnCount.Name = "btnCount"
         Me.btnCount.Size = New System.Drawing.Size(75, 41)
         Me.btnCount.TabIndex = 2
@@ -88,7 +88,7 @@ Partial Class frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(287, 256)
+        Me.ClientSize = New System.Drawing.Size(270, 256)
         Me.Controls.Add(Me.btnGenerateOrders)
         Me.Controls.Add(Me.btnBakedGoods)
         Me.Controls.Add(Me.btnCount)

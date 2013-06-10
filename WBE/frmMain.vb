@@ -54,6 +54,7 @@ Public Class frmMain
             End If
         Next
         CustomerDB.Update()
+        MessageBox.Show("Orders generated for today.")
     End Sub
 
     Private Sub FillCustomers(ByVal colCustomers As colCustomers)

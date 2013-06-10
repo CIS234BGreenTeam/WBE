@@ -16,7 +16,7 @@ Public Class frmOrder
         If _colBakedGoods.Fill(sError) Then
 
             'Remove any baked goods that are inactive
-            RemoveInactiveBakedGoods()
+            modFillCollections.RemoveInactiveBakedGoods(_colBakedGoods)
 
             'sort the baked good list
             _colBakedGoods.Sort()
@@ -67,6 +67,7 @@ Public Class frmOrder
         ClearForm()
         lblOrderNumber.Text = "No Order"
         lblStatus.Text = "No Orders"
+        lblDate.Text = "No Date"
 
         'load cust stock items for selected customer only
         OrdersDB.CustomerID = CustomerID
@@ -91,17 +92,13 @@ Public Class frmOrder
             SetOrderDetails(_colOrders.Item(0))
 
             'Add order items to the listbox
-            RemoveInactiveOrderItems()
+            modFillCollections.RemoveInactiveOrderItems(_colOrderItems, _colBakedGoods)
             FillOrderItems()
 
             If lstOrderItems.Items.Count > 0 Then
                 lstOrderItems.SelectedIndex = 0
             End If
 
-            'Else
-            '    'If no order exists, create fake one
-            '    CreateNewOrder()
-            '    ShowOrder(CustomerID)
         Else
             cboItem.Items.Clear()
             FillItemList()
@@ -208,7 +205,7 @@ Public Class frmOrder
         With Order
             lblOrderNumber.Text = .OrderID
             lblStatus.Text = .StatusDesc
-            dtDate.Text = .OrderDate
+            lblDate.Text = .OrderDate.ToString("d")
         End With
     End Sub
 
@@ -254,32 +251,7 @@ Public Class frmOrder
         Next
         Return False
     End Function
-    ''' <summary>
-    ''' Remove baked good items that are inactive from the collection
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub RemoveInactiveBakedGoods()
-        For i As Integer = _colBakedGoods.Count - 1 To 0 Step -1
-            If _colBakedGoods(i).IsInactive = True Then
-                _colBakedGoods.RemoveAt(i)
-            End If
-        Next
-    End Sub
 
-    ''' <summary>
-    ''' Removes order items that correspond to inactive baked goods
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub RemoveInactiveOrderItems()
-        For i As Integer = _colOrderItems.Count - 1 To 0 Step -1
-            Dim objBakedGood As BakedGood
-            objBakedGood = _colBakedGoods.Find(_colOrderItems(i).BakedGoodID)
-
-            If objBakedGood Is Nothing Then
-                _colOrderItems.Remove(_colOrderItems(i))
-            End If
-        Next
-    End Sub
     ''' <summary>
     ''' Set the cboItem equal to the Baked Good with ID matching the order item
     ''' </summary>
@@ -311,7 +283,6 @@ Public Class frmOrder
         If IsValid(objOrderItem) Then
 
             'Get IDs
-            objOrderItem.BakedGoodID = DirectCast(cboItem.SelectedItem, BakedGood).BakedGoodID
             objOrderItem.OrderID = Convert.ToInt32(lblOrderNumber.Text)
 
             'If OrderItemID not zero, then existing orderitem
@@ -339,8 +310,11 @@ Public Class frmOrder
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Function IsValid(ByVal objOrderItem As OrderItem) As Boolean
+        epOrder.Clear()
+
         If IsValidPrice(objOrderItem) And
-            IsValidQuantity(objOrderItem) Then
+            IsValidQuantity(objOrderItem) And
+            IsValidItem(objOrderItem) Then
             Return True
         Else
             Return False
@@ -390,6 +364,23 @@ Public Class frmOrder
     End Function
 
     ''' <summary>
+    ''' This function makes sure an item is selected in the listbox
+    ''' </summary>
+    ''' <param name="objOrderItem"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function IsValidItem(ByVal objOrderItem As OrderItem) As Boolean
+        Try
+            objOrderItem.BakedGoodID = DirectCast(cboItem.SelectedItem, BakedGood).BakedGoodID
+            Return True
+
+        Catch ex As Exception
+            epOrder.SetError(cboItem, "An item must be selected.")
+            Return False
+
+        End Try
+    End Function
+    ''' <summary>
     ''' Allow user to add new line item
     ''' </summary>
     ''' <param name="sender"></param>
@@ -418,6 +409,12 @@ Public Class frmOrder
         End If
     End Sub
 
+    ''' <summary>
+    ''' Delete a line item in an order
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub btnDeleteItem_Click(sender As Object, e As EventArgs) Handles btnDeleteItem.Click
         If lstOrderItems.SelectedIndex = -1 Then
             MessageBox.Show("You must select an item to delete in the listbox.")
@@ -435,7 +432,12 @@ Public Class frmOrder
         End If
     End Sub
 
-
+    ''' <summary>
+    ''' Deletes the entire order
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub btnDeleteOrder_Click(sender As Object, e As EventArgs) Handles btnDeleteOrder.Click
         Dim iOrderID As Integer
         Dim objOrder As Order

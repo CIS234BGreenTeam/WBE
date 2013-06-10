@@ -26,7 +26,6 @@ Partial Class frmOrder
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cboCustomer = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.dtDate = New System.Windows.Forms.DateTimePicker()
         Me.lstOrderItems = New System.Windows.Forms.ListBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblStatus = New System.Windows.Forms.Label()
@@ -48,6 +47,7 @@ Partial Class frmOrder
         Me.epOrder = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.btnDeleteItem = New System.Windows.Forms.Button()
         Me.btnDeleteOrder = New System.Windows.Forms.Button()
+        Me.lblDate = New System.Windows.Forms.Label()
         Me.grpOrderItem.SuspendLayout()
         CType(Me.epOrder, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -72,19 +72,11 @@ Partial Class frmOrder
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(213, 54)
+        Me.Label2.Location = New System.Drawing.Point(252, 54)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(33, 13)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Date:"
-        '
-        'dtDate
-        '
-        Me.dtDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtDate.Location = New System.Drawing.Point(249, 50)
-        Me.dtDate.Name = "dtDate"
-        Me.dtDate.Size = New System.Drawing.Size(86, 20)
-        Me.dtDate.TabIndex = 1
         '
         'lstOrderItems
         '
@@ -157,7 +149,7 @@ Partial Class frmOrder
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(257, 22)
+        Me.Label8.Location = New System.Drawing.Point(252, 22)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(43, 13)
         Me.Label8.TabIndex = 11
@@ -278,11 +270,21 @@ Partial Class frmOrder
         Me.btnDeleteOrder.Text = "Delete &Order"
         Me.btnDeleteOrder.UseVisualStyleBackColor = True
         '
+        'lblDate
+        '
+        Me.lblDate.AutoSize = True
+        Me.lblDate.Location = New System.Drawing.Point(291, 54)
+        Me.lblDate.Name = "lblDate"
+        Me.lblDate.Size = New System.Drawing.Size(43, 13)
+        Me.lblDate.TabIndex = 13
+        Me.lblDate.Text = "no date"
+        '
         'frmOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(477, 335)
+        Me.Controls.Add(Me.lblDate)
         Me.Controls.Add(Me.btnDeleteOrder)
         Me.Controls.Add(Me.btnDeleteItem)
         Me.Controls.Add(Me.btnAdd)
@@ -297,7 +299,6 @@ Partial Class frmOrder
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.lstOrderItems)
-        Me.Controls.Add(Me.dtDate)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.cboCustomer)
         Me.Controls.Add(Me.Label1)
@@ -313,7 +314,6 @@ Partial Class frmOrder
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents cboCustomer As System.Windows.Forms.ComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents dtDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents lstOrderItems As System.Windows.Forms.ListBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents lblStatus As System.Windows.Forms.Label
@@ -335,4 +335,5 @@ Partial Class frmOrder
     Friend WithEvents epOrder As System.Windows.Forms.ErrorProvider
     Friend WithEvents btnDeleteOrder As System.Windows.Forms.Button
     Friend WithEvents btnDeleteItem As System.Windows.Forms.Button
+    Friend WithEvents lblDate As System.Windows.Forms.Label
 End Class

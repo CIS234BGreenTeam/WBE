@@ -20,6 +20,21 @@ Module modFillCollections
     End Sub
 
     ''' <summary>
+    ''' Removes order items that correspond to inactive baked goods
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub RemoveInactiveOrderItems(ByVal _colOrderItems As colOrderItems, _colBakedGoods As colBakedGoods)
+        For i As Integer = _colOrderItems.Count - 1 To 0 Step -1
+            Dim objBakedGood As BakedGood
+            objBakedGood = _colBakedGoods.Find(_colOrderItems(i).BakedGoodID)
+
+            If objBakedGood Is Nothing Then
+                _colOrderItems.Remove(_colOrderItems(i))
+            End If
+        Next
+    End Sub
+
+    ''' <summary>
     ''' Remove baked good items that are inactive from the collection
     ''' </summary>
     ''' <remarks></remarks>
@@ -30,6 +45,7 @@ Module modFillCollections
             End If
         Next
     End Sub
+
 
     ''' <summary>
     ''' Add baked good prices to custstock collection
@@ -61,5 +77,6 @@ Module modFillCollections
         Next
         Return False
     End Function
+
 
 End Module

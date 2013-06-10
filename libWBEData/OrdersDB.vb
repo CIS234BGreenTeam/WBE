@@ -37,8 +37,16 @@ Public Class OrdersDB
             For Each dr As DataRow In dtOrders.Rows
                 objOrder = New Order
                 With objOrder
+                    Dim tempDate As DateTime
+                    tempDate = Convert.ToDateTime(dr("OrderDate"))
+
+                    'Don't add orders to the collection with an invalid date
+                    If .CheckDateInterval(tempDate) = False Then
+                        Continue For
+                    End If
+
                     .OrderID = Convert.ToInt32(dr("OrderID"))
-                    .OrderDate = Convert.ToDateTime(dr("OrderDate"))
+                    .OrderDate = tempDate
                     .Status = Convert.ToInt32(dr("Status"))
                     .CustomerID = Convert.ToInt32(dr("CustomerID"))
                     .StatusDesc = dr("Description").ToString
